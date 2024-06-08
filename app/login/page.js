@@ -1,5 +1,6 @@
 import React from "react";
-import { Button } from "primereact/button";
+import GoogleLoginButton from '../../components/GoogleLoginButton';
+import '../../styles/pages/login.css';
 
 const LoginPage = () => {
   return (
@@ -7,11 +8,7 @@ const LoginPage = () => {
       <div className="login-box">
         <img src="/logo.png" alt="Logo" className="login-logo" />
         <h2 className="login-title">Login</h2>
-        <Button
-          label="Login with Google"
-          icon="pi pi-google"
-          className="login-button"
-        />
+        <GoogleLoginButton />
       </div>
     </div>
   );
