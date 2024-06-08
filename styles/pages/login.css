@@ -5,8 +5,8 @@
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-color: transparent; /* Transparente para que se vea el fondo global */
-  padding: 1rem; /* Añadir padding para dispositivos móviles */
+  background-color: transparent; /* Transparent to show the global background */
+  padding: 1rem; /* Add padding for mobile devices */
 }
 
 .login-box {
@@ -16,17 +16,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 100%;
-  max-width: 400px; /* Limitar el ancho máximo para pantallas grandes */
+  max-width: 400px; /* Limit max width for larger screens */
 }
 
 .login-logo {
-  width: 80px; /* Reducir el tamaño del logo para móviles */
+  width: 80px; /* Reduce logo size for mobile */
   margin-bottom: 1rem;
 }
 
 .login-title {
   margin-bottom: 1rem;
-  font-size: 1.5rem; /* Ajustar tamaño de fuente para móviles */
+  font-size: 1.5rem; /* Adjust font size for mobile */
 }
 
 .login-input {
@@ -40,5 +40,5 @@
   border: none;
   color: white;
   padding: 0.75rem;
-  font-size: 1rem; /* Ajustar tamaño de fuente para móviles */
+  font-size: 1rem; /* Adjust font size for mobile */
 }
