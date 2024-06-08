@@ -1,0 +1,44 @@
+/* Login page styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-color: transparent; /* Transparente para que se vea el fondo global */
+  padding: 1rem; /* Añadir padding para dispositivos móviles */
+}
+
+.login-box {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* Limitar el ancho máximo para pantallas grandes */
+}
+
+.login-logo {
+  width: 80px; /* Reducir el tamaño del logo para móviles */
+  margin-bottom: 1rem;
+}
+
+.login-title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Ajustar tamaño de fuente para móviles */
+}
+
+.login-input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-button {
+  width: 100%;
+  background-color: #db4437;
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  font-size: 1rem; /* Ajustar tamaño de fuente para móviles */
+}
