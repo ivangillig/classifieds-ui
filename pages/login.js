@@ -1,6 +1,6 @@
+// pages/login.js
 import React from "react";
-import GoogleLoginButton from '../../components/GoogleLoginButton';
-import '../../styles/pages/login.css';
+import GoogleLoginButton from '../components/GoogleLoginButton';
 
 const LoginPage = () => {
   return (
