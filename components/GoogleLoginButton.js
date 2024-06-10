@@ -10,8 +10,8 @@ const GoogleLoginButton = () => {
   const dispatch = useDispatch();
 
   const handleLogin = () => {
+    // dispatch(loginRequest());
     window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
-    dispatch(loginRequest());
   };
 
   return (

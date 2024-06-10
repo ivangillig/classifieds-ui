@@ -6,7 +6,10 @@ import { fetchUserApi } from "../api/auth";
 function* loginSaga() {
   try {
     const user = yield call(fetchUserApi);
+    localStorage.setItem('user', JSON.stringify(user));
+
     yield put(loginSuccess(user));
+    window.location.href = '/';
   } catch (error) {
     yield put(loginFailure(error.message));
   }
