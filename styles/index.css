@@ -4,5 +4,7 @@
 
 /* Import page-specific styles */
 @import './globals.css';
+@import './layout/footer.css';
+@import './layout/navBar.css';
 @import './pages/login.css';
 /* @import './pages/main.css'; */

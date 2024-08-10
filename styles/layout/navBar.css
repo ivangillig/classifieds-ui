@@ -1,0 +1,36 @@
+/* components/NavBar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    color: #152129;
+}
+
+.navbar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-center {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-end {
+    display: flex;
+    gap: 1rem;
+}
+
+.navbar button {
+    margin-left: 1rem;
+}
