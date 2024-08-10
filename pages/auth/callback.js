@@ -3,23 +3,34 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../actions/auth';
 import { useRouter } from 'next/router';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 const AuthCallback = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    const { id, name, email, photo } = router.query;
+    const { token, user } = router.query;
 
-    if (id && name && email && photo) {
-      const user = { id, name, email, photo };
-      localStorage.setItem('user', JSON.stringify(user));
-      dispatch(loginSuccess(user));
-      router.push('/');
+    if (user) {
+      // Decode the 'user' string
+      const parsedUser = JSON.parse(decodeURIComponent(user));
+      const { email } = parsedUser;
+
+      if (email) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(parsedUser));
+        dispatch(loginSuccess(parsedUser, token));
+        router.push('/');
+      }
     }
-  }, [router.query]);
+  }, [router.query, dispatch, router]);
 
-  return <div>Loading...</div>;
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <ProgressSpinner />
+    </div>
+  );
 };
 
 export default AuthCallback;
