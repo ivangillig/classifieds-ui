@@ -1,13 +1,11 @@
 // app/sagas/index.js
 import { all } from 'redux-saga/effects';
-import watchAuthSaga from './auth';
-import { watchLocationSagas } from './locationSagas';
+import authSagas from './authSagas';
+import locationSagas from './locationSagas';
 
-function* rootSaga() {
+export default function* rootSaga(getState) {
   yield all([
-    watchAuthSaga(),
-    watchLocationSagas(),
+    authSagas(),
+    locationSagas(),
   ]);
 }
-
-export default rootSaga;

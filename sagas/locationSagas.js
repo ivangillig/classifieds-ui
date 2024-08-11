@@ -1,5 +1,5 @@
 // store/sagas/locationSagas.js
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
 import {
     FETCH_PROVINCES_REQUEST,
     fetchProvincesSuccess,
@@ -30,10 +30,9 @@ const mockCities = {
     ],
 };
 
-// Sagas para obtener provincias
 function* fetchProvincesSaga() {
     try {
-        // Simular un delay
+        // Simulate a delay
         const provinces = yield call(() => new Promise(res => setTimeout(() => res(mockProvinces), 1000)));
         yield put(fetchProvincesSuccess(provinces));
     } catch (error) {
@@ -41,7 +40,7 @@ function* fetchProvincesSaga() {
     }
 }
 
-// Sagas para obtener ciudades
+// Saga to fetch cities based on the selected province
 function* fetchCitiesSaga(action) {
     try {
         const cities = yield call(() => new Promise(res => setTimeout(() => res(mockCities[action.payload] || []), 1000)));
@@ -51,7 +50,17 @@ function* fetchCitiesSaga(action) {
     }
 }
 
-export function* watchLocationSagas() {
+export function* watchFetchProvincesSaga() {
     yield takeLatest(FETCH_PROVINCES_REQUEST, fetchProvincesSaga);
+}
+
+export function* watchFetchCitiesSaga() {
     yield takeLatest(FETCH_CITIES_REQUEST, fetchCitiesSaga);
+}
+
+export default function* rootLocationSaga() {
+    yield all([
+        fork(watchFetchProvincesSaga),
+        fork(watchFetchCitiesSaga),
+    ]);
 }

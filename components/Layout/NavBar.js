@@ -35,13 +35,10 @@ const NavBar = () => {
 
     const end = (
         <div className="navbar-end">
-            {!user ? (
+            {!user && (
                 <Button label={t('login')} onClick={handleLoginClick} />
-            ) : (
-                <>
-                    <Button label={t('post_ad')} onClick={handlePostAdClick} className="p-button-success" />
-                </>
             )}
+            <Button label={t('post_ad')} onClick={handlePostAdClick} className="p-button-success" />
         </div>
     );
 

@@ -3,7 +3,7 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginRequest } from "../actions/auth";
+import { loginRequest } from "../actions/authActions";
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();

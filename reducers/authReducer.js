@@ -1,5 +1,5 @@
 // app/reducers/authReducer.js
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/auth";
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/authActions";
 
 const initialState = {
   user: null,

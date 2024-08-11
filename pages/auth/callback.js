@@ -1,7 +1,7 @@
 // pages/auth/callback.js
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../actions/auth';
+import { loginSuccess } from '../../actions/authActions';
 import { useRouter } from 'next/router';
 import { ProgressSpinner } from 'primereact/progressspinner';
 

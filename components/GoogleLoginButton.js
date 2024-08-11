@@ -3,7 +3,7 @@
 
 import React from "react";
 import { useDispatch } from "react-redux";
-import { loginRequest } from "../actions/auth";
+import { loginRequest } from "../actions/authActions";
 import { Button } from "primereact/button";
 
 const GoogleLoginButton = () => {
