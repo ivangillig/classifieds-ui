@@ -7,6 +7,7 @@ import '../styles/index.less';
 import { Provider } from 'react-redux';
 import store from '../store';
 import { appWithTranslation } from 'next-i18next';
+import '../i18n';
 
 import DefaultLayout from '../components/Layout/DefaultLayout'; 
 
