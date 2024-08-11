@@ -11,7 +11,7 @@ import { appWithTranslation } from 'next-i18next';
 import DefaultLayout from '../components/Layout/DefaultLayout'; 
 
 function MyApp({ Component, pageProps }) {
-  const Layout = Component.Layout || DefaultLayout;
+  const Layout = Component.Layout === undefined ? DefaultLayout : Component.Layout;
 
   return (
     <Provider store={store}>

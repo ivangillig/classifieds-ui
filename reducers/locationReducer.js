@@ -6,7 +6,7 @@ import {
     FETCH_CITIES_REQUEST,
     FETCH_CITIES_SUCCESS,
     FETCH_CITIES_FAILURE,
-} from '../actions/locationsActions';
+} from '../constants/ActionsTypes';
 
 const initialState = {
     provinces: [],

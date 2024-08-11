@@ -29,7 +29,7 @@ const HomePage = () => {
           label={t('go_to_main')} 
           icon="pi pi-arrow-right" 
           className="p-button-outlined p-ml-2" 
-          onClick={() => router.push("/main")}
+          onClick={() => router.push("/")}
         />
       </Card>
   );

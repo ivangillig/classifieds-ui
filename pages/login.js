@@ -1,11 +1,8 @@
 // pages/login.js
 import React from "react";
 import GoogleLoginButton from '../components/GoogleLoginButton';
-import { useTranslation } from "next-i18next";
 
 const LoginPage = () => {
-  const { t } = useTranslation();
-
   return (
     <div className="login-container">
       <div className="login-box">
@@ -15,5 +12,8 @@ const LoginPage = () => {
     </div>
   );
 };
+
+// empty Layout to avoid DefaultLayout
+LoginPage.Layout = ({ children }) => <>{children}</>;
 
 export default LoginPage;
