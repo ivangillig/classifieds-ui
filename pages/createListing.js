@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DefaultLayout from '../components/Layout/DefaultLayout'; 
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import { AutoComplete } from 'primereact/autocomplete';
@@ -112,5 +113,7 @@ const CreateListing = () => {
         </div>
     );
 };
+
+CreateListing.Layout = DefaultLayout;
 
 export default CreateListing;

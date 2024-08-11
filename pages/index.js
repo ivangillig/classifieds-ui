@@ -18,12 +18,10 @@ const HomePage = () => {
   const { t } = useTranslation();
 
   return (
-    <DefaultLayout title={t('app_name')}>
       <Card title={t('welcome_message')}>
         <Button label={t('go_to_login')} icon="pi pi-sign-in" className="p-button-outlined" onClick={() => window.location.href = "/login"} />
         <Button label={t('go_to_main')} icon="pi pi-arrow-right" className="p-button-outlined p-ml-2" onClick={() => window.location.href = "/main"} />
       </Card>
-    </DefaultLayout>
   );
 };
 
