@@ -1,5 +1,4 @@
-// components/NavBar.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
@@ -12,6 +11,11 @@ const NavBar = () => {
     const appName = process.env.NEXT_PUBLIC_APP_NAME;
     const router = useRouter();
     const user = useSelector((state) => state.auth.user);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const handleLoginClick = () => {
         router.push('/login');
@@ -20,6 +24,10 @@ const NavBar = () => {
     const handlePostAdClick = () => {
         router.push('/createListing');
     };
+
+    if (!isMounted) {
+        return null; 
+    }
 
     const start = (
         <div className="navbar-start">
