@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: transparent; /* Transparent to show the global background */
   padding: 1rem; /* Add padding for mobile devices */
@@ -20,13 +20,12 @@
 }
 
 .login-logo {
-  width: 80px; /* Reduce logo size for mobile */
-  margin-bottom: 1rem;
-}
-
-.login-title {
-  margin-bottom: 1rem;
-  font-size: 1.5rem; /* Adjust font size for mobile */
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff;
+  margin-bottom: 40px;
 }
 
 .login-input {

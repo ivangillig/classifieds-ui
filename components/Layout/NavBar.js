@@ -1,3 +1,4 @@
+// components/NavBar.js
 import React, { useEffect, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -5,6 +6,7 @@ import { Menubar } from 'primereact/menubar';
 import { useTranslation } from "next-i18next";
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
+import UserMenu from '../UserMenu';
 
 const NavBar = () => {
     const { t } = useTranslation();
@@ -47,6 +49,9 @@ const NavBar = () => {
                 <Button label={t('login')} onClick={handleLoginClick} />
             )}
             <Button label={t('post_ad')} onClick={handlePostAdClick} className="p-button-success" />
+            {user && (
+                <UserMenu user={user} />
+            )}
         </div>
     );
 

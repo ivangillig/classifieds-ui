@@ -2,5 +2,10 @@
     "app_name": "Clasificados",
     "search_placeholder": "Buscar...",
     "login": "Iniciar Sesión",
-    "post_ad": "Publicar Anuncio"
+    "post_ad": "Publicar Anuncio",
+    "user": {
+        "my_profile": "Mi perfil",
+        "my_ads": "Mis anuncios",
+        "logout": "Cerrar sesión"
+    }
 }
