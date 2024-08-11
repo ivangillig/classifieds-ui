@@ -23,12 +23,12 @@ const NavBar = () => {
 
     const start = (
         <div className="navbar-start">
-            <span className="navbar-logo">
+            <a href="/" className="navbar-logo">
                 {appName}
-            </span>
+            </a>
             <div className="navbar-search">
                 <InputText placeholder={t('search_placeholder')} />
-                <Button icon="pi pi-search" className="p-button-primary" />
+                <Button icon="pi pi-search" className="p-button-primary" style={{ marginLeft: '0.5rem' }} />
             </div>
         </div>
     );
