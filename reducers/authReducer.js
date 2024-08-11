@@ -2,7 +2,8 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/authActions";
 
 const initialState = {
-  user: null,
+  user: (typeof window !== 'undefined') ? ((window.localStorage.getItem('user')) ? JSON.parse(window.localStorage.getItem('user')) : undefined) : undefined,
+  token: (typeof window !== 'undefined') ? ((window.localStorage.getItem('token')) ? window.localStorage.getItem('token') : undefined) : undefined,
   loading: false,
   error: null,
 };

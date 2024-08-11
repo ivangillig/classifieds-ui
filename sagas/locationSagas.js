@@ -1,13 +1,16 @@
 // store/sagas/locationSagas.js
 import { call, put, takeLatest, all, fork } from 'redux-saga/effects';
 import {
-    FETCH_PROVINCES_REQUEST,
     fetchProvincesSuccess,
     fetchProvincesFailure,
-    FETCH_CITIES_REQUEST,
     fetchCitiesSuccess,
     fetchCitiesFailure,
 } from '../actions/locationsActions';
+
+import {
+    FETCH_PROVINCES_REQUEST,
+    FETCH_CITIES_REQUEST,
+} from '../constants/ActionsTypes'
 
 const mockProvinces = [
     { label: 'Buenos Aires', value: '1' },

@@ -1,6 +1,9 @@
 // app/sagas/authSaga.js
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
-import { LOGIN_REQUEST, LOGOUT_REQUEST, loginSuccess, loginFailure, logoutSuccess, logoutFailure } from "../actions/authActions";
+import {  loginSuccess, loginFailure, logoutSuccess, logoutFailure } from "../actions/authActions";
+import {
+  LOGIN_REQUEST, LOGOUT_REQUEST
+} from '../constants/ActionsTypes'
 import { signInRequest, signOutRequest } from "../api/authApi";
 import Axios from 'axios';
 import Router from 'next/router';

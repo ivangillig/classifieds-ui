@@ -9,3 +9,7 @@ export const signInRequest = async () => {
     throw error;
   }
 };
+
+export const signOutRequest = async () => {
+  // Your API call logic for signing out
+};
