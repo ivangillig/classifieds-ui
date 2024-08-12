@@ -1,28 +1,20 @@
 // pages/auth/callback.js
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../actions/authActions';
 import { useRouter } from 'next/router';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { getUserInfoRequest } from '../../actions/authActions';
 
 const AuthCallback = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    const { token, user } = router.query;
+    const { token } = router.query;
 
-    if (user) {
-      // Decode the 'user' string
-      const parsedUser = JSON.parse(decodeURIComponent(user));
-      const { email } = parsedUser;
-
-      if (email) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(parsedUser));
-        dispatch(loginSuccess(parsedUser, token));
-        router.push('/');
-      }
+    if (token) {
+      localStorage.setItem('token', token);
+      dispatch(getUserInfoRequest(token));
     }
   }, [router.query, dispatch, router]);
 

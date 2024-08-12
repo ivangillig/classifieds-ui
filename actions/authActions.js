@@ -6,6 +6,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_FAILURE
 } from '../constants/ActionsTypes';
 
 export const loginRequest = () => ({
@@ -33,4 +36,19 @@ export const logoutSuccess = () => ({
 export const logoutFailure = (error) => ({
   type: LOGOUT_FAILURE,
   payload: error,
+});
+
+export const getUserInfoRequest = (token) => ({
+  type: GET_USER_INFO_REQUEST,
+  token,
+});
+
+export const getUserInfoSuccess = (user) => ({
+  type: GET_USER_INFO_SUCCESS,
+  user,
+});
+
+export const getUserInfoFailure = (error) => ({
+  type: GET_USER_INFO_FAILURE,
+  error,
 });

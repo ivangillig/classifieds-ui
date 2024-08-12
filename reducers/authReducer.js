@@ -1,5 +1,13 @@
 // app/reducers/authReducer.js
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from "../constants/ActionsTypes";
+import { 
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+   LOGIN_FAILURE,
+   LOGOUT_SUCCESS,
+   GET_USER_INFO_SUCCESS,
+   GET_USER_INFO_REQUEST,
+   GET_USER_INFO_FAILURE
+} from "../constants/ActionsTypes";
 
 const initialState = {
   user: (typeof window !== 'undefined') ? ((window.localStorage.getItem('user')) ? JSON.parse(window.localStorage.getItem('user')) : undefined) : undefined,
@@ -33,6 +41,23 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         user: undefined,
         token: undefined
+      };
+    case GET_USER_INFO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        user: action.user,
+        loading: false,
+      };
+    case GET_USER_INFO_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        loading: false,
       };
     default:
       return state;

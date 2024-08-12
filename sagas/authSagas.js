@@ -1,12 +1,25 @@
 // app/sagas/authSaga.js
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
-import {  loginSuccess, loginFailure, logoutSuccess, logoutFailure } from "../actions/authActions";
-import {
-  LOGIN_REQUEST, LOGOUT_REQUEST
-} from '../constants/ActionsTypes'
-import { signInRequest, signOutRequest } from "../api/authApi";
 import Axios from 'axios';
 import Router from 'next/router';
+import {  
+  loginSuccess,
+  loginFailure,
+  logoutSuccess,
+  logoutFailure,
+  getUserInfoSuccess,
+  getUserInfoFailure
+} from "../actions/authActions";
+import {
+  LOGIN_REQUEST,
+  LOGOUT_REQUEST,
+  GET_USER_INFO_REQUEST
+} from '../constants/ActionsTypes'
+import {
+  signInRequest, 
+  signOutRequest,
+  getUserInfoApi 
+} from "../api/authApi";
 
 function* loginSaga() {
   try {
@@ -44,6 +57,21 @@ function* logoutSaga() {
   }
 }
 
+function* getUserInfo() {
+  try {
+    const userData = yield call(getUserInfoApi);
+
+    if (userData) {
+      yield put(getUserInfoSuccess(userData));
+      localStorage.setItem('user', JSON.stringify(userData));
+      Router.push('/');
+    } 
+  } catch (error) {
+    console.log(error);
+    yield put(getUserInfoFailure(error.message));
+  }
+}
+
 export function* watchLoginSaga() {
   yield takeLatest(LOGIN_REQUEST, loginSaga);
 }
@@ -52,10 +80,15 @@ export function* watchLogoutSaga() {
   yield takeLatest(LOGOUT_REQUEST, logoutSaga);
 }
 
+export function* watchGetUserInfo() {
+  yield takeLatest(GET_USER_INFO_REQUEST, getUserInfo);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(watchLoginSaga),
     fork(watchLogoutSaga),
+    fork(watchGetUserInfo),
   ]);
 }
 

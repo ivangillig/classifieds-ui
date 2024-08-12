@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
+import configureAxios from '@/utils/axiosConfig';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -13,6 +14,8 @@ const store = configureStore({
       thunk: false,
     }).concat(sagaMiddleware),
 });
+
+configureAxios(store);
 
 sagaMiddleware.run(rootSaga);
 
