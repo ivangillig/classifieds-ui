@@ -4,8 +4,25 @@
     "login": "Iniciar Sesión",
     "post_ad": "Publicar Anuncio",
     "user": {
-        "my_profile": "Mi perfil",
-        "my_ads": "Mis anuncios",
+        "myProfile": "Mi perfil",
+        "myAds": "Mis anuncios",
         "logout": "Cerrar sesión"
+    },
+    "private": {
+        "activeAds": "Activos",
+        "underReviewAds": "En revisión",
+        "pausedAds": "Pausados",
+        "expiredAds": "Caducados",
+        "generalInfo": "Información general",
+        "security": "Seguridad",
+        "notifications": "Notificaciones",
+        "activeAdsContent": "Aquí están los avisos activos...",
+        "underReviewAdsContent": "Aquí están los avisos en revisión...",
+        "pausedAdsContent": "Aquí están los avisos pausados...",
+        "expiredAdsContent": "Aquí están los avisos caducados...",
+        "generalInfoContent": "Aquí está la información general de tu perfil...",
+        "securityContent": "Aquí puedes ajustar la seguridad...",
+        "notificationsContent": "Aquí puedes gestionar tus notificaciones...",
+        "selectAnOption": "Por favor, selecciona una opción"
     }
 }

@@ -17,7 +17,7 @@ const UserMenu = ({ user }) => {
         {
             label: t('user.my_profile'),
             icon: 'pi pi-user',
-            command: () => router.push('/profile')
+            command: () => router.push('/user/private')
         },
         {
             label: t('user.my_ads'),
