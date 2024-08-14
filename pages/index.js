@@ -5,14 +5,6 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 
-export async function getServerSideProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-}
-
 const HomePage = () => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -34,5 +26,13 @@ const HomePage = () => {
       </Card>
   );
 };
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'es', ['common'])),
+    },
+  };
+}
 
 export default HomePage;

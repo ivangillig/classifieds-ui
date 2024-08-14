@@ -24,5 +24,16 @@
         "securityContent": "Aquí puedes ajustar la seguridad...",
         "notificationsContent": "Aquí puedes gestionar tus notificaciones...",
         "selectAnOption": "Por favor, selecciona una opción"
-    }
+    },
+    "listing": {
+        "ad_location": "Ubicación del anuncio",
+        "ad_text": "Texto del anuncio",
+        "title": "Título de su anuncio",
+        "description_placeholder": "Utilice este espacio para describirse, su cuerpo, hablar sus habilidades, que le gusta…",
+        "add_images": "Agregar imagenes",
+        "image_upload_instructions": "Cargue un mínimo de 2 imágenes, con un máximo permitido de hasta 10 imágenes.",
+        "phone": "Teléfono de contacto"
+    },
+    "Publish": "Publicar",
+    "Back": "Volver"
 }
