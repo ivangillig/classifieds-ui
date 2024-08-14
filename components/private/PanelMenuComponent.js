@@ -8,7 +8,7 @@ const PanelMenuComponent = () => {
 
   const items = [
     {
-      label: t('user.myAds'),
+      label: t('user.my_ads'),
       items: [
         { label: t('private.activeAds') },
         { label: t('private.underReviewAds') },
@@ -17,7 +17,7 @@ const PanelMenuComponent = () => {
       ],
     },
     {
-      label: t('user.myProfile'),
+      label: t('user.my_profile'),
       items: [
         { label: t('private.generalInfo') },
         { label: t('private.security') },

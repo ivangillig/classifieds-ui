@@ -7,6 +7,7 @@ import configureAxios from '@/utils/axiosConfig';
 
 const sagaMiddleware = createSagaMiddleware();
 
+// Función para crear el store
 const makeStore = () => {
   const store = configureStore({
     reducer: rootReducer,
@@ -16,11 +17,12 @@ const makeStore = () => {
       }).concat(sagaMiddleware),
   });
 
-  configureAxios(store);
+  configureAxios(store); // Configura Axios con el store
 
   sagaMiddleware.run(rootSaga);
 
   return store;
 };
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+// Crear el wrapper
+export const wrapper = createWrapper(makeStore, { debug: true }); // `debug: true` es opcional para ver información adicional en desarrollo

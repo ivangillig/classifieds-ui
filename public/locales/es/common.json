@@ -1,11 +1,14 @@
 {
     "app_name": "Clasificados",
+    "welcome_message": "Bienvenido a la App de Clasificados",
+    "go_to_login": "Ir al login",
+    "go_to_main": "Ir al home",
     "search_placeholder": "Buscar...",
     "login": "Iniciar Sesión",
     "post_ad": "Publicar Anuncio",
     "user": {
-        "myProfile": "Mi perfil",
-        "myAds": "Mis anuncios",
+        "my_profile": "Mi perfil",
+        "my_ads": "Mis anuncios",
         "logout": "Cerrar sesión"
     },
     "private": {
@@ -32,7 +35,10 @@
         "description_placeholder": "Utilice este espacio para describirse, su cuerpo, hablar sus habilidades, que le gusta…",
         "add_images": "Agregar imagenes",
         "image_upload_instructions": "Cargue un mínimo de 2 imágenes, con un máximo permitido de hasta 10 imágenes.",
-        "phone": "Teléfono de contacto"
+        "phone": "Teléfono de contacto",
+        "contact_information": "Información de contacto",
+        "select_province": "Selecciona una provincia",
+        "select_city": "Selecciona una ciudad"
     },
     "Publish": "Publicar",
     "Back": "Volver"
