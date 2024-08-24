@@ -1,7 +1,8 @@
 // utils/axiosConfig.js
 import Axios from 'axios';
-// import NProgress from 'nprogress';
 import getConfig from 'next/config';
+import { handleApiErrors } from './errorMiddleware';
+// import NProgress from 'nprogress';
 // import { showLoader, hideLoader, userSignOut, showMessage } from '../actions';
 
 export default function configureAxios(store) {
@@ -42,43 +43,18 @@ export default function configureAxios(store) {
     //   setTimeout(() => {
     //     NProgress.done();
     //   }, 1000);
-    return response;
+      return response;
     },
     (error) => {
       // Handle response error
-        //   store.dispatch(hideLoader());
-        //   setTimeout(() => {
-        // NProgress.done();
-        //   }, 1000);
+      // store.dispatch(hideLoader());
+      // setTimeout(() => {
+      //   NProgress.done();
+      // }, 1000);
 
       if (error.response) {
-        // switch (error.response.status) {
-        //   case 401:
-        //     // If unauthorized, sign the user out
-        //     store.dispatch(userSignOut());
-        //     break;
-        //   case 404:
-        //     store.dispatch(showMessage({
-        //       type: 'error',
-        //       message: 'Error 404',
-        //       description: error.response.data.message || 'Resource not found',
-        //     }));
-        //     break;
-        //   case 403:
-        //     store.dispatch(showMessage({
-        //       type: 'error',
-        //       message: 'Access Denied',
-        //       description: 'You are not authorized to access this resource',
-        //     }));
-        //     break;
-        //   default:
-        //     store.dispatch(showMessage({
-        //       type: 'error',
-        //       message: 'Error',
-        //       description: 'An error occurred while communicating with the server',
-        //     }));
-        //     break;
-        // }
+        // Custom error handling middleware
+        handleApiErrors(error, store);
       } else {
         // store.dispatch(showMessage({
         //   type: 'error',

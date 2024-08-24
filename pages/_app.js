@@ -8,6 +8,7 @@ import { appWithTranslation } from 'next-i18next';
 import DefaultLayout from '../components/Layout/DefaultLayout'; 
 import { wrapper } from '../store';
 import nextI18NextConfig from '../next-i18next.config.js';
+import Notifications from '../components/Notifications';
 
 function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -16,6 +17,7 @@ function MyApp({ Component, ...rest }) {
   return (
     <Provider store={store}>
       <Layout>
+        <Notifications />
         <Component {...props.pageProps} />
       </Layout>
     </Provider>

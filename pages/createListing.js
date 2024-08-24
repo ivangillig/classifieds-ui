@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { fetchProvincesRequest, fetchCitiesRequest } from '../actions/locationsActions';
-// import { createListingRequest } from '../actions/listingActions';
+import { createListingRequest } from '../actions/listingActions';
 
 const CreateListing = () => {
     const { t } = useTranslation('common');
@@ -70,7 +70,7 @@ const CreateListing = () => {
                             options={provinces}
                             onChange={handleProvinceChange}
                             placeholder={t('listing.select_province')}
-                            />
+                        />
                     </div>
                     <div className="p-field half-width">
                         <AutoComplete
@@ -81,7 +81,7 @@ const CreateListing = () => {
                             onChange={(e) => setCity(e.value)}
                             placeholder={t('listing.select_city')}
                             disabled={!province}
-                            />
+                        />
                     </div>  
                 </div>
             </div>
@@ -91,6 +91,16 @@ const CreateListing = () => {
                 <div className="p-field full-width">
                     <label htmlFor="title">{t('listing.title')}</label>
                     <InputText id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                </div>
+                <div className="p-field full-width">
+                    <label htmlFor="price">{t('listing.price')}</label>
+                    <InputText 
+                        id="price" 
+                        value={price} 
+                        onChange={(e) => setPrice(e.target.value)} 
+                        keyfilter="num"
+                        placeholder={t('listing.price_placeholder')}
+                    />
                 </div>
             </div>
 
