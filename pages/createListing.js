@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import DefaultLayout from "../components/Layout/DefaultLayout";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from "primereact/inputnumber";
 import { FileUpload } from "primereact/fileupload";
+import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +31,7 @@ const CreateListing = () => {
   const [photos, setPhotos] = useState([]);
   const [price, setPrice] = useState(null);
   const [phone, setPhone] = useState("");
+  const [useWhatsApp, setUseWhatsApp] = useState(false);
 
   const provinces = useSelector((state) => state.location?.provinces || []);
   const cities = useSelector((state) => state.location?.cities || []);
@@ -74,13 +76,14 @@ const CreateListing = () => {
       photos,
       price,
       phone,
+      useWhatsApp,
     };
     dispatch(createListingRequest(newListing));
   };
 
-  const handleBack = () => {
-    router.push("/");
-  };
+  //   const handleBack = () => {
+  //     router.push("/");
+  //   };
 
   const handleFileUpload = (e) => {
     setPhotos(e.files);
@@ -154,20 +157,32 @@ const CreateListing = () => {
 
       <div className="form-section">
         <h2>{t("listing.contact_information")}</h2>
-        <div className="p-field full-width">
-          <label htmlFor="phone">{t("listing.phone")}</label>
+        <div className="p-inputgroup">
+          <span className="p-inputgroup-addon">+54</span>
           <InputText
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            placeholder={t("listing.phone_placeholder")}
           />
         </div>
         <div className="p-field full-width">
-          <Button
-            label="WhatsApp"
-            className="p-button-success"
-            icon="pi pi-whatsapp"
-          />
+          <label htmlFor="useWhatsApp" className="whatsapp-label">
+            <div className="whatsapp-content">
+              <img
+                src="/static/whatsapp.svg"
+                alt="WhatsApp"
+                className="whatsapp-icon"
+              />
+              <span className="whatsapp-text">WhatsApp</span>
+            </div>
+            <Checkbox
+              inputId="useWhatsApp"
+              checked={useWhatsApp}
+              onChange={(e) => setUseWhatsApp(e.checked)}
+              className="whatsapp-checkbox"
+            />
+          </label>
         </div>
       </div>
 
@@ -178,12 +193,12 @@ const CreateListing = () => {
           onClick={handleUpload}
           className="p-button-primary"
         />
-        <Button
+        {/* <Button
           label={t("Back")}
           className="p-button-secondary"
           icon="pi pi-arrow-left"
           onClick={handleBack}
-        />
+        /> */}
       </div>
     </div>
   );
