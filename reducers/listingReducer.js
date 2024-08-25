@@ -3,13 +3,13 @@ import {
     CREATE_LISTING_REQUEST,
     CREATE_LISTING_SUCCESS,
     CREATE_LISTING_ERROR,
+    CLEAR_LISTING_STATE,
 } from '../constants/ActionsTypes';
 
 const initialState = {
     isLoading: false,
-    listing: null,
+    listingCreated: false,
     error: null,
-    listingCreatedSuccessfully: false
 };
 
 export default function listingReducer(state = initialState, action) {
@@ -24,8 +24,7 @@ export default function listingReducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: false,
-                listing: action.payload,
-                listingCreatedSuccessfully: true
+                listingCreated: true,
             };
         case CREATE_LISTING_ERROR:
             return {
@@ -33,6 +32,8 @@ export default function listingReducer(state = initialState, action) {
                 isLoading: false,
                 error: action.payload,
             };
+        case CLEAR_LISTING_STATE:
+            return initialState;
         default:
             return state;
     }

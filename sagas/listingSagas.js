@@ -10,9 +10,7 @@ import {
     CREATE_LISTING_REQUEST,
 } from '../constants/ActionsTypes'
 
-import { showMessage } from '../actions/notificationActions'; 
 import { createListing } from '../api/listingApi';
-import i18n from 'i18next';
 
 function* createListingRequest({ payload }) {
     try {
@@ -22,13 +20,6 @@ function* createListingRequest({ payload }) {
             yield put(createListingSuccess(data));
 
             Router.push('/');
-
-            // Check this
-            yield put(showMessage([{
-                severity: 'success',
-                summary: i18n.t('listing.created_summary'),
-                detail: i18n.t('listing.created_detail'),
-            }]));
         }
     } catch (error) {
         yield put(createListingError(error));

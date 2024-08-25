@@ -42,7 +42,7 @@
         "select_province": "Selecciona una provincia",
         "select_city": "Selecciona una ciudad",
         "created_summary": "Anuncio creado",
-        "created_detail": "Tu anuncio fue creado correctamente",
+        "created_detail": "Tu anuncio fue creado correctamente"
     },
     "Publish": "Publicar",
     "Back": "Volver",

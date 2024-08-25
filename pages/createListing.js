@@ -9,7 +9,8 @@ import { useTranslation } from 'next-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { fetchProvincesRequest, fetchCitiesRequest } from '../actions/locationsActions';
-import { createListingRequest } from '../actions/listingActions';
+import { createListingRequest, clearListingState  } from '../actions/listingActions';
+import { showMessage } from '../actions/notificationActions';
 
 const CreateListing = () => {
     const { t } = useTranslation('common');
@@ -22,13 +23,26 @@ const CreateListing = () => {
     const [city, setCity] = useState(null);
     const [photos, setPhotos] = useState([]);
     const [price, setPrice] = useState(null);
+    const [phone, setPhone] = useState('');
 
     const provinces = useSelector(state => state.location?.provinces || []);
     const cities = useSelector(state => state.location?.cities || []);
+    const listingState = useSelector(state => state.listing);
 
     useEffect(() => {
         dispatch(fetchProvincesRequest());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (listingState.listingCreated) {
+            dispatch(showMessage([{
+                severity: 'success',
+                summary: t('listing.created_summary'),
+                detail: t('listing.created_detail'),
+            }]));
+            dispatch(clearListingState());
+        }
+    }, [listingState.listingCreated, dispatch, router, t]);
 
     const handleProvinceChange = (e) => {
         const selectedProvince = e.value;
@@ -44,6 +58,7 @@ const CreateListing = () => {
             city,
             photos,
             price,
+            phone
         };
         dispatch(createListingRequest(newListing));
     };
@@ -121,7 +136,7 @@ const CreateListing = () => {
                 <h2>{t('listing.contact_information')}</h2>
                 <div className="p-field full-width">
                     <label htmlFor="phone">{t('listing.phone')}</label>
-                    <InputText id="phone" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <InputText id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
                 <div className="p-field full-width">
                     <Button label="WhatsApp" className="p-button-success" icon="pi pi-whatsapp" />
