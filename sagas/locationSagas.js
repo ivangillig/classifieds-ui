@@ -17,8 +17,10 @@ import { fetchProvincesFromApi, fetchCitiesFromApi } from "../api/locationApi";
 function* fetchProvincesSaga() {
   try {
     const provinces = yield call(fetchProvincesFromApi);
-    console.log('provinces en sagas: ', provinces)
-    yield put(fetchProvincesSuccess(provinces));
+    
+    if (provinces && provinces.data) {
+      yield put(fetchProvincesSuccess(provinces.data));
+    }
   } catch (error) {
     yield put(fetchProvincesFailure("Failed to fetch provinces"));
   }
@@ -28,7 +30,10 @@ function* fetchProvincesSaga() {
 function* fetchCitiesSaga(action) {
   try {
     const cities = yield call(fetchCitiesFromApi, action.payload);
-    yield put(fetchCitiesSuccess(cities));
+    
+    if (cities && cities.data) {
+      yield put(fetchCitiesSuccess(cities.data));
+    }
   } catch (error) {
     yield put(fetchCitiesFailure("Failed to fetch cities"));
   }

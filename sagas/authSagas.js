@@ -59,11 +59,12 @@ function* logoutSaga() {
 
 function* getUserInfo() {
   try {
-    const userData = yield call(getUserInfoApi);
+    const response = yield call(getUserInfoApi);
 
-    if (userData) {
-      yield put(getUserInfoSuccess(userData));
-      localStorage.setItem('user', JSON.stringify(userData));
+    if (response && response.data && response.data.user) {
+      const user = response.data.user;
+      yield put(getUserInfoSuccess(user));
+      localStorage.setItem('user', JSON.stringify(user));
       Router.push('/');
     } 
   } catch (error) {
