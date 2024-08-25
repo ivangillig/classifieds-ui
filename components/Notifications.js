@@ -10,14 +10,12 @@ const Notifications = () => {
   const toast = useRef(null);
 
   useEffect(() => {
-    if (messages.length > 0) {
-      messages.forEach(msg => {
+    if (messages) {
         toast.current.show({
-          ...msg,
-          summary: t(msg.summary),
-          detail: t(msg.detail),
+          ...messages,
+          summary: t(messages.summary),
+          detail: t(messages.detail),
         });
-      });
     }
   }, [messages, t]);
 
