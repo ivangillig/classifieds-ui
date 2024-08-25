@@ -6,7 +6,7 @@ const initialState = [];
 export default function notificationReducer(state = initialState, action) {
   switch (action.type) {
     case SHOW_MESSAGE:
-      return action.payload;
+      return Array.isArray(action.payload) ? action.payload : [action.payload];
     default:
       return state;
   }

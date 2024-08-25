@@ -9,6 +9,7 @@ import { Button } from "primereact/button";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import ProtectedRoute from '../components/ProtectedRoute';
 import {
   fetchProvincesRequest,
   fetchCitiesRequest,
@@ -90,117 +91,119 @@ const CreateListing = () => {
   };
 
   return (
-    <div className="create-listing-form">
-      <h1 className="form-title">{t("post_ad")}</h1>
+    <ProtectedRoute>
+      <div className="create-listing-form">
+        <h1 className="form-title">{t("post_ad")}</h1>
 
-      <div className="form-section">
-        <h2>{t("listing.ad_location")}</h2>
-        <div className="location-fields">
-          <div className="p-field half-width">
-            <Dropdown
-              id="province"
-              value={province}
-              options={provinces}
-              onChange={handleProvinceChange}
-              placeholder={t("listing.select_province")}
-            />
-          </div>
-          <div className="p-field half-width">
-            <Dropdown
-              id="city"
-              value={city}
-              options={cityOptions}
-              onChange={(e) => setCity(e.value)}
-              placeholder={t("listing.select_city")}
-              disabled={!province}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="form-section">
-        <h2>{t("listing.ad_text")}</h2>
-        <div className="p-field full-width">
-          <label htmlFor="title">{t("listing.title")}</label>
-          <InputText
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div className="p-field full-width">
-          <label htmlFor="price">{t("listing.price")}</label>
-          <InputNumber
-            id="price"
-            value={price}
-            onValueChange={(e) => setPrice(e.value)}
-            mode="currency"
-            currency="ARS"
-            locale="es-AR"
-            placeholder={t("listing.price_placeholder")}
-          />
-        </div>
-      </div>
-
-      <div className="form-section">
-        <h2>{t("listing.add_images")}</h2>
-        <p>{t("listing.image_upload_instructions")}</p>
-        <FileUpload
-          name="photos[]"
-          multiple
-          accept="image/*"
-          maxFileSize={1000000}
-          onUpload={handleFileUpload}
-          customUpload
-        />
-      </div>
-
-      <div className="form-section">
-        <h2>{t("listing.contact_information")}</h2>
-        <div className="p-inputgroup">
-          <span className="p-inputgroup-addon">+54</span>
-          <InputText
-            id="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder={t("listing.phone_placeholder")}
-          />
-        </div>
-        <div className="p-field full-width">
-          <label htmlFor="useWhatsApp" className="whatsapp-label">
-            <div className="whatsapp-content">
-              <img
-                src="/static/whatsapp.svg"
-                alt="WhatsApp"
-                className="whatsapp-icon"
+        <div className="form-section">
+          <h2>{t("listing.ad_location")}</h2>
+          <div className="location-fields">
+            <div className="p-field half-width">
+              <Dropdown
+                id="province"
+                value={province}
+                options={provinces}
+                onChange={handleProvinceChange}
+                placeholder={t("listing.select_province")}
               />
-              <span className="whatsapp-text">WhatsApp</span>
             </div>
-            <Checkbox
-              inputId="useWhatsApp"
-              checked={useWhatsApp}
-              onChange={(e) => setUseWhatsApp(e.checked)}
-              className="whatsapp-checkbox"
-            />
-          </label>
+            <div className="p-field half-width">
+              <Dropdown
+                id="city"
+                value={city}
+                options={cityOptions}
+                onChange={(e) => setCity(e.value)}
+                placeholder={t("listing.select_city")}
+                disabled={!province}
+              />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="form-actions">
-        <Button
-          label={t("Publish")}
-          icon="pi pi-check"
-          onClick={handleUpload}
-          className="p-button-primary"
-        />
-        {/* <Button
+        <div className="form-section">
+          <h2>{t("listing.ad_text")}</h2>
+          <div className="p-field full-width">
+            <label htmlFor="title">{t("listing.title")}</label>
+            <InputText
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="p-field full-width">
+            <label htmlFor="price">{t("listing.price")}</label>
+            <InputNumber
+              id="price"
+              value={price}
+              onValueChange={(e) => setPrice(e.value)}
+              mode="currency"
+              currency="ARS"
+              locale="es-AR"
+              placeholder={t("listing.price_placeholder")}
+            />
+          </div>
+        </div>
+
+        <div className="form-section">
+          <h2>{t("listing.add_images")}</h2>
+          <p>{t("listing.image_upload_instructions")}</p>
+          <FileUpload
+            name="photos[]"
+            multiple
+            accept="image/*"
+            maxFileSize={1000000}
+            onUpload={handleFileUpload}
+            customUpload
+          />
+        </div>
+
+        <div className="form-section">
+          <h2>{t("listing.contact_information")}</h2>
+          <div className="p-inputgroup">
+            <span className="p-inputgroup-addon">+54</span>
+            <InputText
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={t("listing.phone_placeholder")}
+            />
+          </div>
+          <div className="p-field full-width">
+            <label htmlFor="useWhatsApp" className="whatsapp-label">
+              <div className="whatsapp-content">
+                <img
+                  src="/static/whatsapp.svg"
+                  alt="WhatsApp"
+                  className="whatsapp-icon"
+                />
+                <span className="whatsapp-text">WhatsApp</span>
+              </div>
+              <Checkbox
+                inputId="useWhatsApp"
+                checked={useWhatsApp}
+                onChange={(e) => setUseWhatsApp(e.checked)}
+                className="whatsapp-checkbox"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="form-actions">
+          <Button
+            label={t("Publish")}
+            icon="pi pi-check"
+            onClick={handleUpload}
+            className="p-button-primary"
+          />
+          {/* <Button
           label={t("Back")}
           className="p-button-secondary"
           icon="pi pi-arrow-left"
           onClick={handleBack}
-        /> */}
+          /> */}
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 };
 

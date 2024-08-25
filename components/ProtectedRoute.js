@@ -1,17 +1,26 @@
 // app/components/ProtectedRoute.js
 "use client";
 
-import React from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import LoginPage from "../pages/login";
+import LoadingOverlay from "./common/LoadingOverlay";
 
 const ProtectedRoute = ({ children }) => {
   const user = useSelector((state) => state.auth.user);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(!user);
 
-  if (!user) {
-    return <LoginPage />;
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    } else {
+      setIsLoading(false);
+    }
+  }, [user, router]);
+
+  if (isLoading) {
+    return <LoadingOverlay />;
   }
 
   return children;

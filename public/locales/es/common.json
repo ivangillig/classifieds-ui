@@ -49,6 +49,7 @@
     "Back": "Volver",
     "Error": "Error",
     "SUCCESS_LISTING_CREATED": "",
+    "ERROR_INVALID_TOKEN": "Error de autenticación, por favor ingrese nuevamente",
     "ERROR_TITLE_REQUIRED": "Ingrese un título para el anuncio",
     "ERROR_VALIDATION_FAILED": "Falló la validación",
     "ERROR_LOCATION_REQUIRED": "Seleccione una provincia y ciudad para el anuncio",

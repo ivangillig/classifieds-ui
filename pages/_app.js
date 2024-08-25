@@ -8,7 +8,7 @@ import { appWithTranslation } from 'next-i18next';
 import DefaultLayout from '../components/Layout/DefaultLayout'; 
 import { wrapper } from '../store';
 import nextI18NextConfig from '../next-i18next.config.js';
-import Notifications from '../components/Notifications';
+import Notifications from '../components/common/Notifications';
 
 function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
