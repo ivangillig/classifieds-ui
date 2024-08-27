@@ -1,41 +1,38 @@
 import React from 'react';
-import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
-const ListingList = ({ listing }) => {
-  return (
-    <div className="w-full p-4">
-      <Card
-        title={listing.title}
-        subTitle={listing.location?.name}
-        className="shadow-lg border border-gray-200 rounded-lg overflow-hidden"
-      >
-        <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/3">
-            {listing.photos && listing.photos.length > 0 ? (
-              <img
-                src={listing.photos[0]}
-                alt={listing.title}
-                className="w-full h-48 md:h-full object-cover"
-              />
-            ) : (
-              <div className="w-full h-48 md:h-full bg-gray-200" />
-            )}
-          </div>
-          <div className="w-full md:w-2/3 p-4">
-            <p className="text-lg font-semibold mb-2">Price: {listing.price}</p>
-            <p className="text-sm text-gray-600 mb-4">Contact: {listing.phone}</p>
-            <Button
-              label="View Details"
-              icon="pi pi-info-circle"
-              className="p-button-outlined"
-              onClick={() => console.log("View Details clicked")}
-            />
-          </div>
+const ListingList = ({ data }) => {
+    return (
+        <div className="col-12">
+            <div className="product-list-item">
+                <img
+                    src={`images/product/${data.image}`}
+                    onError={(e) =>
+                        (e.target.src =
+                            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                    }
+                    alt={data.name}
+                />
+                <div className="product-list-detail">
+                    <div className="product-name">{data.title}</div>
+                    <div className="product-description">{data.description}</div>
+                    <i className="pi pi-tag product-category-icon"></i>
+                    <span className="product-category">{data.location.name}</span>
+                </div>
+                <div className="product-list-action">
+                    <span className="product-price">${data.price}</span>
+                    <Button
+                        icon="pi pi-shopping-cart"
+                        label="Add to Cart"
+                        disabled={data.inventoryStatus === "OUTOFSTOCK"}
+                    />
+                    <span className={`product-badge status-instock}`}>
+                        {data.inventoryStatus}
+                    </span>
+                </div>
+            </div>
         </div>
-      </Card>
-    </div>
-  );
+    );
 };
 
 export default ListingList;

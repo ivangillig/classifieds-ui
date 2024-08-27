@@ -2,34 +2,42 @@ import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
-const ListingCard = ({ listing }) => {
-  return (
-    <div className="p-2 md:w-1/3">
-      <Card
-        title={listing.title}
-        subTitle={listing.location?.name}
-        className="shadow-lg border border-gray-200 rounded-lg overflow-hidden"
-      >
-        {listing.photos && listing.photos.length > 0 ? (
-          <img
-            src={listing.photos[0]}
-            alt={listing.title}
-            className="w-full h-48 object-cover"
-          />
-        ) : (
-          <div className="w-full h-48 bg-gray-200" />
-        )}
-        <p className="text-lg font-semibold mt-2">Price: {listing.price}</p>
-        <p className="text-sm text-gray-600">Contact: {listing.phone}</p>
-        <Button
-          label="View Details"
-          icon="pi pi-info-circle"
-          className="p-button-outlined mt-2"
-          onClick={() => console.log("View Details clicked")}
-        />
-      </Card>
-    </div>
-  );
+const ListingCard = ({ data }) => {
+    return (
+        <div className="col-12 md:col-3">
+            <div className="product-grid-item card">
+                <div className="product-grid-item-top">
+                    <div>
+                        <i className="pi pi-tag product-category-icon"></i>
+                        <span className="product-category">{data.location.name}</span>
+                    </div>
+                    <span className={`product-badge status-instock}`}>
+                        {data.inventoryStatus}
+                    </span>
+                </div>
+                <div className="product-grid-item-content">
+                    <img
+                        src={`images/product/${data.image}`}
+                        onError={(e) =>
+                            (e.target.src =
+                                "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                        }
+                        alt={data.name}
+                    />
+                    <div className="product-name">{data.title}</div>
+                    <div className="product-description">{data.description}</div>
+                </div>
+                <div className="product-grid-item-bottom">
+                    <span className="product-price">${data.price}</span>
+                    <Button
+                        icon="pi pi-shopping-cart"
+                        label="Add to Cart"
+                        disabled={data.inventoryStatus === "OUTOFSTOCK"}
+                    />
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default ListingCard;
