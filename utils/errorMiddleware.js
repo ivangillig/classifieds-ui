@@ -4,7 +4,8 @@ import { logoutRequest } from "../actions/authActions";
 export const handleApiErrors = (error, store) => {
   if (error.response) {
     const { status, data } = error.response;
-    const message = data && data.message ? data.message : "Error communicating with server";
+    const message =
+      data && data.message ? data.message : "Error communicating with server";
 
     switch (status) {
       case 401:
@@ -36,7 +37,7 @@ export const handleApiErrors = (error, store) => {
           showMessage({
             severity: "error",
             summary: "Error 404",
-            detail: message || "The required resource was not found",
+            detail: "The required resource was not found",
           })
         );
         break;
@@ -81,7 +82,7 @@ export const handleApiErrors = (error, store) => {
       })
     );
   } else {
-    // Unexpected error handler 
+    // Unexpected error handler
     store.dispatch(
       showMessage({
         severity: "error",

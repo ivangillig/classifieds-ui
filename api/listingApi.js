@@ -9,3 +9,8 @@ export const createListing = async (payload) => {
     throw error;
   }
 };
+
+export const fetchListingsApi = async (filters) => {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/listings`, { params: filters });
+  return response.data.data;
+};
