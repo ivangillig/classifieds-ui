@@ -4,11 +4,11 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import '../styles/index.less';
 
+import { i18n } from '../lib/i18n'
+import { wrapper } from '../store';
 import { Provider } from 'react-redux';
 import { appWithTranslation } from 'next-i18next';
 import DefaultLayout from '../components/Layout/DefaultLayout'; 
-import { wrapper } from '../store';
-import nextI18NextConfig from '../next-i18next.config.js';
 import Notifications from '../components/common/Notifications';
 
 function MyApp({ Component, ...rest }) {
@@ -25,4 +25,4 @@ function MyApp({ Component, ...rest }) {
   );
 }
 
-export default appWithTranslation(MyApp, nextI18NextConfig);
+export default appWithTranslation(MyApp, i18n);
