@@ -7,6 +7,9 @@ import {
     FETCH_LISTINGS_REQUEST,
     FETCH_LISTINGS_SUCCESS,
     FETCH_LISTINGS_ERROR,
+    FETCH_LISTINGS_BY_PROVINCE_REQUEST,
+    FETCH_LISTINGS_BY_PROVINCE_SUCCESS,
+    FETCH_LISTINGS_BY_PROVINCE_ERROR,
   } from '../constants/ActionsTypes';
 
 
@@ -42,5 +45,20 @@ export const fetchListingsSuccess = (listings) => ({
 
 export const fetchListingsError = (error) => ({
   type: FETCH_LISTINGS_ERROR,
+  payload: error,
+});
+
+export const fetchListingsByProvinceRequest = (province) => ({
+  type: FETCH_LISTINGS_BY_PROVINCE_REQUEST,
+  payload: { province },
+});
+
+export const fetchListingsByProvinceSuccess = (listings) => ({
+  type: FETCH_LISTINGS_BY_PROVINCE_SUCCESS,
+  payload: listings,
+});
+
+export const fetchListingsByProvinceError = (error) => ({
+  type: FETCH_LISTINGS_BY_PROVINCE_ERROR,
   payload: error,
 });

@@ -1,4 +1,4 @@
-// app/api/auth.js
+// app/api/listingApi.js
 import axios from 'axios';
 
 export const createListing = async (payload) => {
@@ -13,4 +13,13 @@ export const createListing = async (payload) => {
 export const fetchListingsApi = async (filters) => {
   const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/listings`, { params: filters });
   return response.data.data;
+};
+
+export const fetchListingsByProvinceApi = async (province) => {
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/listings`, { params: { province } });
+    return response.data.data;
+  } catch (error) {
+    throw error;
+  }
 };

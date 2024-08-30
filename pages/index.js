@@ -19,7 +19,8 @@ const HomePage = () => {
   }, [dispatch]);
 
   const handleProvinceClick = (province) => {
-    router.push(`/listings?province=${province}`);
+    // Use the province name just like it came from state
+    router.push(`/provinces/${encodeURIComponent(province)}`);
   };
 
   if (isLoading) {
@@ -29,12 +30,12 @@ const HomePage = () => {
   return (
     <div className="grid">
       {provinces.map((province, index) => (
-        <div key={province.name || Math.random()} className="col-12 md:col-4">
+        <div key={province || index} className="col-12 md:col-4">
           <ProvinceCard
             province={province}
-            index={index} // Pasamos el índice aquí
+            index={index}
             isLoading={isLoading}
-            onClick={() => handleProvinceClick(province.name)}
+            onClick={() => handleProvinceClick(province)}
           />
         </div>
       ))}
