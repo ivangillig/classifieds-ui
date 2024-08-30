@@ -4,8 +4,8 @@ import { DataView, DataViewLayoutOptions } from "primereact/dataview";
 import { useRouter } from "next/router";
 import { fetchListingsByProvinceRequest } from "../../actions/listingActions";
 import LoadingOverlay from "../../components/common/LoadingOverlay";
-import ListingCard from "../../components/ListingCard";
-import ListingList from "../../components/ListingList";
+import ListingCard from "../../components/Listing/ListingCard";
+import ListingList from "../../components/Listing/ListingList";
 import { useTranslation } from "next-i18next";
 import { Dropdown } from "primereact/dropdown";
 

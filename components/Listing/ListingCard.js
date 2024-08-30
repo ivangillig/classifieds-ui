@@ -1,8 +1,11 @@
 import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
+import { useTranslation } from 'react-i18next';
 
 const ListingCard = ({ data }) => {
+    const { t } = useTranslation()
+
     return (
         <div className="col-12 md:col-3">
             <div className="product-grid-item card">
@@ -32,7 +35,6 @@ const ListingCard = ({ data }) => {
                     <Button
                         icon="pi pi-shopping-cart"
                         label="Add to Cart"
-                        disabled={data.inventoryStatus === "OUTOFSTOCK"}
                     />
                 </div>
             </div>
