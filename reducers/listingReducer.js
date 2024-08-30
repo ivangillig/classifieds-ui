@@ -7,6 +7,9 @@ import {
   FETCH_LISTINGS_SUCCESS,
   FETCH_LISTINGS_ERROR,
   CLEAR_LISTING_STATE,
+  FETCH_LISTINGS_BY_PROVINCE_SUCCESS,
+  FETCH_LISTINGS_BY_PROVINCE_ERROR,
+  FETCH_LISTINGS_BY_PROVINCE_REQUEST,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -49,6 +52,24 @@ export default function listingReducer(state = initialState, action) {
         isLoading: false,
       };
     case FETCH_LISTINGS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
+    case FETCH_LISTINGS_BY_PROVINCE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case FETCH_LISTINGS_BY_PROVINCE_SUCCESS:
+      return {
+        ...state,
+        listings: action.payload,
+        isLoading: false,
+      };
+    case FETCH_LISTINGS_BY_PROVINCE_ERROR:
       return {
         ...state,
         error: action.payload,

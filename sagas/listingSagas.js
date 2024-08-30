@@ -47,10 +47,7 @@ function* fetchListingsSaga(action) {
 
 function* fetchListingsByProvinceSaga(action) {
   try {
-    const listings = yield call(
-      fetchListingsByProvinceApi,
-      action.payload.province
-    );
+    const listings = yield call(fetchListingsByProvinceApi, action.payload.province);
     yield put(fetchListingsByProvinceSuccess(listings));
   } catch (error) {
     yield put(fetchListingsByProvinceError(error.message));
