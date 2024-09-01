@@ -3,13 +3,13 @@ import DefaultLayout from "../components/Layout/DefaultLayout";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
-import { FileUpload } from "primereact/fileupload";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ProtectedRoute from '../components/ProtectedRoute';
+import ImageUploader from '../components/Listing/ImageUploader';  // Importa tu nuevo componente
 import {
   fetchProvincesRequest,
   fetchCitiesRequest,
@@ -82,14 +82,6 @@ const CreateListing = () => {
     dispatch(createListingRequest(newListing));
   };
 
-  //   const handleBack = () => {
-  //     router.push("/");
-  //   };
-
-  const handleFileUpload = (e) => {
-    setPhotos(e.files);
-  };
-
   return (
     <ProtectedRoute>
       <div className="create-listing-form">
@@ -147,14 +139,7 @@ const CreateListing = () => {
         <div className="form-section">
           <h2>{t("listing.add_images")}</h2>
           <p>{t("listing.image_upload_instructions")}</p>
-          <FileUpload
-            name="photos[]"
-            multiple
-            accept="image/*"
-            maxFileSize={1000000}
-            onUpload={handleFileUpload}
-            customUpload
-          />
+          <ImageUploader setPhotos={setPhotos} /> {/* Aquí usas el nuevo componente */}
         </div>
 
         <div className="form-section">
@@ -195,12 +180,6 @@ const CreateListing = () => {
             onClick={handleUpload}
             className="p-button-primary"
           />
-          {/* <Button
-          label={t("Back")}
-          className="p-button-secondary"
-          icon="pi pi-arrow-left"
-          onClick={handleBack}
-          /> */}
         </div>
       </div>
     </ProtectedRoute>
