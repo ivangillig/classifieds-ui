@@ -8,9 +8,9 @@ import ListingCard from "../../components/Listing/ListingCard";
 import ListingList from "../../components/Listing/ListingList";
 import { useTranslation } from "next-i18next";
 import { Dropdown } from "primereact/dropdown";
+import listingReducer from "@/reducers/listingReducer";
 
 const ProvincePage = () => {
-
   const dispatch = useDispatch();
   const router = useRouter();
   const { province } = router.query; // Get province name from url
@@ -54,9 +54,11 @@ const ProvincePage = () => {
   const itemTemplate = (listing, layout) => {
     if (!listing) return null;
 
-    return layout === "list"
-      ? <ListingList data={listing} />
-      : <ListingCard data={listing} />;
+    return layout === "list" ? (
+      <ListingList data={listing} />
+    ) : (
+      <ListingCard data={listing} />
+    );
   };
 
   const renderHeader = () => {

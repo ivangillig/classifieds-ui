@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import PanelMenuComponent from '../../components/private/PanelMenuComponent';
 import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const PrivatePage = () => {
   const { t } = useTranslation();
@@ -38,13 +37,5 @@ const PrivatePage = () => {
     </div>
   );
 };
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-  };
-}
 
 export default PrivatePage;

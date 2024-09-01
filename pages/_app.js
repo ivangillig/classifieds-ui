@@ -16,7 +16,7 @@ function MyApp({ Component, ...rest }) {
   const Layout = Component.Layout === undefined ? DefaultLayout : Component.Layout;
 
   return (
-    <Provider store={store}>
+    <Provider store={store} stabilityCheck="never">
       <Layout>
         <Notifications />
         <Component {...props.pageProps} />

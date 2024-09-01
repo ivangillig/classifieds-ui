@@ -17,7 +17,7 @@ const makeStore = () => {
       }).concat(sagaMiddleware),
   });
 
-  configureAxios(store); // Configura Axios con el store
+  configureAxios(store); // Configure Axios on the store
 
   sagaMiddleware.run(rootSaga);
 
@@ -25,4 +25,4 @@ const makeStore = () => {
 };
 
 // Crear el wrapper
-export const wrapper = createWrapper(makeStore, { debug: true }); // `debug: true` es opcional para ver información adicional en desarrollo
+export const wrapper = createWrapper(makeStore, { debug: false });
