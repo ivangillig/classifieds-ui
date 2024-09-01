@@ -3,13 +3,13 @@ import DefaultLayout from "../components/Layout/DefaultLayout";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
-import { FileUpload } from "primereact/fileupload";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ProtectedRoute from '../components/ProtectedRoute';
+import ImageUploader from '../components/Listing/ImageUploader';
 import {
   fetchProvincesRequest,
   fetchCitiesRequest,
@@ -19,6 +19,7 @@ import {
   clearListingState,
 } from "../actions/listingActions";
 import { showMessage } from "../actions/notificationActions";
+import { uploadImagesApi } from '../api/listingApi';  // Importa tu función de subida
 
 const CreateListing = () => {
   const { t } = useTranslation("common");
@@ -69,25 +70,28 @@ const CreateListing = () => {
     dispatch(fetchCitiesRequest(e.value));
   };
 
-  const handleUpload = () => {
-    const newListing = {
-      title,
-      province,
-      location: city,
-      photos,
-      price,
-      phone,
-      useWhatsApp,
-    };
-    dispatch(createListingRequest(newListing));
-  };
-
-  //   const handleBack = () => {
-  //     router.push("/");
-  //   };
-
-  const handleFileUpload = (e) => {
-    setPhotos(e.files);
+  const handleUpload = async () => {
+    try {
+      const newListing = {
+        title,
+        province,
+        location: city,
+        price,
+        phone,
+        useWhatsApp,
+      };
+      dispatch(createListingRequest({ ...newListing, files: photos }));
+    } catch (error) {
+      dispatch(
+        showMessage([
+          {
+            severity: "error",
+            summary: t("upload_failed"),
+            detail: error.message,
+          },
+        ])
+      );
+    }
   };
 
   return (
@@ -147,14 +151,7 @@ const CreateListing = () => {
         <div className="form-section">
           <h2>{t("listing.add_images")}</h2>
           <p>{t("listing.image_upload_instructions")}</p>
-          <FileUpload
-            name="photos[]"
-            multiple
-            accept="image/*"
-            maxFileSize={1000000}
-            onUpload={handleFileUpload}
-            customUpload
-          />
+          <ImageUploader onFilesUpdated={setPhotos} />
         </div>
 
         <div className="form-section">
@@ -195,12 +192,6 @@ const CreateListing = () => {
             onClick={handleUpload}
             className="p-button-primary"
           />
-          {/* <Button
-          label={t("Back")}
-          className="p-button-secondary"
-          icon="pi pi-arrow-left"
-          onClick={handleBack}
-          /> */}
         </div>
       </div>
     </ProtectedRoute>

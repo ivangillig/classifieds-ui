@@ -8,6 +8,8 @@ import {
   fetchListingsError,
   fetchListingsByProvinceSuccess,
   fetchListingsByProvinceError,
+  uploadImagesSuccess, 
+  uploadImagesError 
 } from "../actions/listingActions";
 
 import {
@@ -20,18 +22,41 @@ import {
   createListing,
   fetchListingsApi,
   fetchListingsByProvinceApi,
+  uploadImagesApi,
+  deleteImagesApi
 } from "../api/listingApi";
 
-function* createListingRequest({ payload }) {
+function* uploadImagesSaga(files) {
   try {
-    const data = yield call(createListing, payload);
+    const urls = yield call(uploadImagesApi, files); // Upload images
+    yield put(uploadImagesSuccess(urls)); // Save image's URLs in reducer
+    return urls;
+  } catch (error) {
+    yield put(uploadImagesError(error));
+    throw error;
+  }
+}
+
+
+function* createListingRequest({ payload }) {
+  let uploadedPhotos
+  try {
+    const { files, ...listingData } = payload;
+
+    // Upload images and get urls
+    uploadedPhotos = yield call(uploadImagesSaga, files);
+
+    // Create listing with images urls
+    const data = yield call(createListing, { ...listingData, photos: uploadedPhotos });
 
     if (data) {
       yield put(createListingSuccess(data));
-
       Router.push("/");
     }
   } catch (error) {
+    if (uploadedPhotos && uploadedPhotos.length > 0) {
+      yield call(deleteImagesApi, uploadedPhotos); // Delete images from server if something go wrong
+    }
     yield put(createListingError(error));
   }
 }
