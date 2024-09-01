@@ -62,3 +62,19 @@ export const fetchListingsByProvinceError = (error) => ({
   type: FETCH_LISTINGS_BY_PROVINCE_ERROR,
   payload: error,
 });
+
+
+export const uploadImagesRequest = (files) => ({
+  type: 'UPLOAD_IMAGES_REQUEST',
+  payload: files,
+});
+
+export const uploadImagesSuccess = (urls) => ({
+  type: 'UPLOAD_IMAGES_SUCCESS',
+  payload: urls,
+});
+
+export const uploadImagesError = (error) => ({
+  type: 'UPLOAD_IMAGES_ERROR',
+  payload: error,
+});

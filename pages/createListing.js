@@ -9,7 +9,7 @@ import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ProtectedRoute from '../components/ProtectedRoute';
-import ImageUploader from '../components/Listing/ImageUploader';  // Importa tu nuevo componente
+import ImageUploader from '../components/Listing/ImageUploader';
 import {
   fetchProvincesRequest,
   fetchCitiesRequest,
@@ -19,6 +19,7 @@ import {
   clearListingState,
 } from "../actions/listingActions";
 import { showMessage } from "../actions/notificationActions";
+import { uploadImagesApi } from '../api/listingApi';  // Importa tu función de subida
 
 const CreateListing = () => {
   const { t } = useTranslation("common");
@@ -69,17 +70,28 @@ const CreateListing = () => {
     dispatch(fetchCitiesRequest(e.value));
   };
 
-  const handleUpload = () => {
-    const newListing = {
-      title,
-      province,
-      location: city,
-      photos,
-      price,
-      phone,
-      useWhatsApp,
-    };
-    dispatch(createListingRequest(newListing));
+  const handleUpload = async () => {
+    try {
+      const newListing = {
+        title,
+        province,
+        location: city,
+        price,
+        phone,
+        useWhatsApp,
+      };
+      dispatch(createListingRequest({ ...newListing, files: photos }));
+    } catch (error) {
+      dispatch(
+        showMessage([
+          {
+            severity: "error",
+            summary: t("upload_failed"),
+            detail: error.message,
+          },
+        ])
+      );
+    }
   };
 
   return (
@@ -139,7 +151,7 @@ const CreateListing = () => {
         <div className="form-section">
           <h2>{t("listing.add_images")}</h2>
           <p>{t("listing.image_upload_instructions")}</p>
-          <ImageUploader setPhotos={setPhotos} /> {/* Aquí usas el nuevo componente */}
+          <ImageUploader onFilesUpdated={setPhotos} />
         </div>
 
         <div className="form-section">

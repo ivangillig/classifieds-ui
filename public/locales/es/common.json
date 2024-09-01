@@ -61,5 +61,9 @@
     "ERROR_PRICE_MUST_BE_NUMBER": "El precio debe ser numérico",
     "ERROR_PHONE_MUST_BE_NUMBER": "El teléfono debe ser numérico",
     "ERROR_PHONE_REQUIRED": "Ingrese un número de contacto",
-    "ERROR_USE_WHATSAPP_BOOLEAN": "El valor ingresado no es válido"
+    "ERROR_USE_WHATSAPP_BOOLEAN": "El valor ingresado no es válido",
+    "ERROR_UPLOAD_FAILED": "Hubo un error al subir las fotos",
+    "ERROR_DELETE_IMAGES_FAILED": "Hubo un error al intentar eliminar las imagenes",
+    "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente"
+    
 }

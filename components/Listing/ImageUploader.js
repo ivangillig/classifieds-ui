@@ -1,4 +1,4 @@
-// components/ImageUploader.js
+// components/Listing/ImageUploader.js
 import React, { useState } from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
@@ -18,15 +18,16 @@ registerPlugin(
     FilePondPluginImageEdit
 );
 
-const ImageUploader = ({ setPhotos }) => {
+const ImageUploader = ({ onFilesUpdated }) => {
     const { t } = useTranslation(); 
     const [files, setFiles] = useState([]);
 
     const handleUpdateFiles = (fileItems) => {
-        const currentFiles = fileItems.map(fileItem => fileItem.file);
         setFiles(fileItems);
-        setPhotos(currentFiles);
+        const currentFiles = fileItems.map(fileItem => fileItem.file);
+        onFilesUpdated(currentFiles);
     };
+
     const labelIdleText = `${t('listing.drag_and_drop_images')} <span class="filepond--label-action">${t('listing.browse')}</span>`;
 
     return (
@@ -39,14 +40,6 @@ const ImageUploader = ({ setPhotos }) => {
             name="photos"
             labelIdle={labelIdleText}
             acceptedFileTypes={['image/*']}
-            onprocessfile={(error, file) => {
-                if (error) {
-                    console.error('Oh no');
-                    return;
-                }
-                const uploadedFiles = files.map(f => f.file);
-                setPhotos(uploadedFiles);
-            }}
         />
     );
 };
