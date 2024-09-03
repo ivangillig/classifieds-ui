@@ -57,6 +57,8 @@
     "ERROR_TITLE_REQUIRED": "Ingrese un título para el anuncio",
     "ERROR_VALIDATION_FAILED": "Falló la validación",
     "ERROR_LOCATION_REQUIRED": "Seleccione una provincia y ciudad para el anuncio",
+    "ERROR_PROVINCE_REQUIRED": "Seleccione una provincia para el anuncio",
+    "ERROR_CITY_REQUIRED": "Seleccione una ciudad para el anuncio",
     "ERROR_PRICE_REQUIRED": "El precio debe ser mayor que 0",
     "ERROR_PRICE_MUST_BE_NUMBER": "El precio debe ser numérico",
     "ERROR_PHONE_MUST_BE_NUMBER": "El teléfono debe ser numérico",
