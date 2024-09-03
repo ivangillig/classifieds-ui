@@ -2,6 +2,7 @@ import React from 'react';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { useTranslation } from 'react-i18next';
+import { getImagesPath } from '@/utils/listingsUtils';
 
 const ListingCard = ({ data }) => {
     const { t } = useTranslation();
@@ -17,6 +18,10 @@ const ListingCard = ({ data }) => {
         }
     };
 
+    const mainImage = data.photos && data.photos.length > 0 
+        ? getImagesPath() + data.photos[0] 
+        : "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png";
+
     return (
         <div className="col-12 md:col-3">
             <div className="product-grid-item card">
@@ -31,12 +36,12 @@ const ListingCard = ({ data }) => {
                 </div>
                 <div className="product-grid-item-content">
                     <img
-                        src={`images/product/${data.image}`}
+                        src={mainImage}
                         onError={(e) =>
                             (e.target.src =
                                 "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
                         }
-                        alt={data.name}
+                        alt={data.title}
                     />
                     <div className="product-name">{data.title}</div>
                     <div className="product-description">{data.description}</div>
