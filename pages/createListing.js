@@ -248,7 +248,7 @@ const CreateListing = () => {
                   type="submit"
                   label={t("Publish")}
                   icon="pi pi-check"
-                  className="p-button-primary"
+                  className="p-button-primary button-publish"
                 />
               </div>
             </Form>

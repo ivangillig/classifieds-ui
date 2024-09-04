@@ -48,7 +48,7 @@ const NavBar = () => {
             {!user && (
                 <Button label={t('login')} onClick={handleLoginClick} />
             )}
-            <Button label={t('post_ad')} onClick={handlePostAdClick} className="p-button-success" />
+            <Button label={t('post_ad')} onClick={handlePostAdClick} className="p-button-primary button-publish" />
             {user && (
                 <UserMenu user={user} />
             )}

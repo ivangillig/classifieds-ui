@@ -4,22 +4,22 @@ import { Button } from 'primereact/button';
 import { useTranslation } from 'react-i18next';
 import { getImagesPath } from '@/utils/listingsUtils';
 
-const ListingCard = ({ data }) => {
+const ListingCard = ({ data: listing }) => {
     const { t } = useTranslation();
 
-    const whatsappLink = `https://wa.me/${data.phone.replace(/\D/g, '')}`;
-    const callLink = `tel:${data.phone}`;
+    const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, '')}`;
+    const callLink = `tel:${listing.phone}`;
 
     const handleButtonClick = () => {
-        if (data.useWhatsApp) {
+        if (listing.useWhatsApp) {
             window.open(whatsappLink, '_blank');
         } else {
             window.open(callLink, '_self');
         }
     };
 
-    const mainImage = data.photos && data.photos.length > 0 
-        ? getImagesPath() + data.photos[0] 
+    const mainImage = listing.photos && listing.photos.length > 0 
+        ? getImagesPath() + listing.photos[0] 
         : "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png";
 
     return (
@@ -28,10 +28,10 @@ const ListingCard = ({ data }) => {
                 <div className="product-grid-item-top">
                     <div>
                         <i className="pi pi-map-marker product-category-icon"></i>
-                        <span className="product-category">{data.location.name}</span>
+                        <span className="product-category">{listing.location.name}</span>
                     </div>
                     <span className={`product-badge status-instock}`}>
-                        {data.inventoryStatus}
+                        {listing.inventoryStatus}
                     </span>
                 </div>
                 <div className="product-grid-item-content">
@@ -41,17 +41,17 @@ const ListingCard = ({ data }) => {
                             (e.target.src =
                                 "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
                         }
-                        alt={data.title}
+                        alt={listing.title}
                     />
-                    <div className="product-name">{data.title}</div>
-                    <div className="product-description">{data.description}</div>
+                    <div className="product-name">{listing.title}</div>
+                    <div className="product-description">{listing.description}</div>
                 </div>
                 <div className="product-grid-item-bottom">
-                    <span className="product-price">${data.price}</span>
+                    <span className="product-price">${listing.price}</span>
                     <Button
-                        icon={data.useWhatsApp ? "pi pi-whatsapp" : "pi pi-phone"}
-                        label={data.phone}
-                        className={data.useWhatsApp ? "p-button-success" : "p-button-primary"}
+                        icon={listing.useWhatsApp ? "pi pi-whatsapp" : "pi pi-phone"}
+                        label={listing.phone}
+                        className={listing.useWhatsApp ? "button-whatsapp" : "button-phone"}
                         onClick={handleButtonClick}
                     />
                 </div>

@@ -3,6 +3,9 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --main-white: #f8f9fa;
+
+  --purple: #5d40dd;
+  --light-purple: #7b63e6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,11 +31,36 @@ body {
   background-size: cover;
 }
 
+.p-button-primary {
+  background-color: var(--purple);  
+  border-radius: 4px;
+  color: #fff;  
+  font-weight: 700;
+}
+
+.button-publish {
+  text-transform: uppercase;
+  font-size: 1.1rem;  
+  border-radius: .5rem !important;
+}
+
+.button-whatsapp {
+  background-color: #48c857;
+  border: 2px solid #48c857;
+}
+
+.button-phone {
+  background-color: var(--light-purple);
+  border: 2px solid var(--light-purple);
+}
+
 .layout {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh;  
+  text-transform: uppercase;  
+  display: flex;
 }
 
 .main-container {
