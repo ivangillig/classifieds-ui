@@ -1,0 +1,63 @@
+.listing-card {
+    margin: .5em;
+    border: 1px solid var(--surface-border);
+    padding: .75rem;
+    width: 250px;
+
+    .listing-grid-item-top,
+    .listing-grid-item-bottom {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+
+        .button-phone, .button-whatsapp {
+            width: 100%;
+        }
+    }
+
+    img {
+        width: 100%;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin: 1rem 0;
+    }
+
+    .listing-grid-item-content {
+        text-align: center;
+    }
+
+    .listing-price {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .listing-card {
+        .listing-grid-item {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        img {
+            width: 75%;
+            margin: 2rem 0;
+        }
+
+        .listing-list-detail {
+            text-align: center;
+        }
+
+        .listing-price {
+            align-self: center;
+        }
+
+        .listing-list-action {
+            margin-top: 2rem;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+    }
+}

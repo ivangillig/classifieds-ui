@@ -24,17 +24,17 @@ const ListingCard = ({ data: listing }) => {
 
     return (
         <div className="col-12 md:col-3">
-            <div className="product-grid-item card">
-                <div className="product-grid-item-top">
+            <div className="listing-card card">
+                <div className="listing-grid-item-top">
                     <div>
-                        <i className="pi pi-map-marker product-category-icon"></i>
-                        <span className="product-category">{listing.location.name}</span>
+                        <i className="pi pi-map-marker listing-category-icon"></i>
+                        <span className="listing-category">{listing.location.name}</span>
                     </div>
-                    <span className={`product-badge status-instock}`}>
+                    <span className={`listing-badge status-instock}`}>
                         {listing.inventoryStatus}
                     </span>
                 </div>
-                <div className="product-grid-item-content">
+                <div className="listing-grid-item-content">
                     <img
                         src={mainImage}
                         onError={(e) =>
@@ -43,11 +43,11 @@ const ListingCard = ({ data: listing }) => {
                         }
                         alt={listing.title}
                     />
-                    <div className="product-name">{listing.title}</div>
-                    <div className="product-description">{listing.description}</div>
+                    <div className="listing-name">{listing.title}</div>
+                    <div className="listing-description">{listing.description}</div>
+                    <span className="listing-price">${listing.price}</span>
                 </div>
-                <div className="product-grid-item-bottom">
-                    <span className="product-price">${listing.price}</span>
+                <div className="listing-grid-item-bottom">
                     <Button
                         icon={listing.useWhatsApp ? "pi pi-whatsapp" : "pi pi-phone"}
                         label={listing.phone}
