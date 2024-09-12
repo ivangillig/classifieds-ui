@@ -36,4 +36,4 @@ yarn-error.log*
 next-env.d.ts
 
 # files
-public/static/images/provinces/*.*
+public/static/images/provinces/
