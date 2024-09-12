@@ -1,45 +1,51 @@
 import React from 'react';
 import { Button } from 'primereact/button';
+import { getImagesPath } from '@/utils/listingsUtils';
 
-const ListingList = ({ data }) => {
-    const whatsappLink = `https://wa.me/${data.phone.replace(/\D/g, '')}`;
-    const callLink = `tel:${data.phone}`;
+
+const ListingList = ({ data: listing }) => {
+    const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, '')}`;
+    const callLink = `tel:${listing.phone}`;
 
     const handleButtonClick = () => {
-        if (data.useWhatsApp) {
+        if (listing.useWhatsApp) {
             window.open(whatsappLink, '_blank');
         } else {
             window.open(callLink, '_self');
         }
     };
+    
+    const mainImage = listing.photos && listing.photos.length > 0 
+        ? getImagesPath() + listing.photos[0] 
+        : "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png";
 
     return (
         <div className="col-12">
             <div className="listing-list-item">
                 <img
-                    src={`images/listing/${data.image}`}
+                    src={mainImage}
                     onError={(e) =>
                         (e.target.src =
                             "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
                     }
-                    alt={data.name}
+                    alt={listing.name}
                 />
                 <div className="listing-list-detail">
-                    <div className="listing-name">{data.title}</div>
-                    <div className="listing-description">{data.description}</div>
+                    <div className="listing-name">{listing.title}</div>
+                    <div className="listing-description">{listing.description}</div>
                     <i className="pi pi-map-marker listing-category-icon"></i>
-                    <span className="listing-category">{data.location.name}</span>
+                    <span className="listing-category">{listing.location.name}</span>
                 </div>
                 <div className="listing-list-action">
-                    <span className="listing-price">${data.price}</span>
+                    <span className="listing-price">${listing.price}</span>
                     <Button
-                        icon={data.useWhatsApp ? "pi pi-whatsapp" : "pi pi-phone"}
-                        label={data.phone}
-                        className={data.useWhatsApp ? "p-button-success" : "p-button-primary"}
+                        icon={listing.useWhatsApp ? "pi pi-whatsapp" : "pi pi-phone"}
+                        label={listing.phone}
+                        className={listing.useWhatsApp ? "p-button-success" : "p-button-primary"}
                         onClick={handleButtonClick}
                     />
                     <span className={`listing-badge status-instock}`}>
-                        {data.inventoryStatus}
+                        {listing.inventoryStatus}
                     </span>
                 </div>
             </div>

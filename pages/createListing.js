@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import DefaultLayout from "../components/Layout/DefaultLayout";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ImageUploader from "../components/Listing/ImageUploader";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
   fetchProvincesRequest,
@@ -95,48 +95,34 @@ const CreateListing = () => {
                 <h2>{t("listing.ad_location")}</h2>
                 <div className="location-fields">
                   <div className="p-field half-width">
-                    <Field name="province">
-                      {({ field }) => (
-                        <Dropdown
-                          {...field}
-                          id="province"
-                          value={field.value}
-                          options={provinces}
-                          onChange={(e) => {
-                            setFieldValue("province", e.value);
-                            setFieldValue("city", null); // Reset city when province changes
-                            dispatch(fetchCitiesRequest(e.value));
-                          }}
-                          placeholder={t("listing.select_province")}
-                          className={
-                            touched.province && errors.province
-                              ? "p-invalid"
-                              : ""
-                          }
-                        />
-                      )}
-                    </Field>
+                    <Dropdown
+                      id="province"
+                      value={values.province}
+                      options={provinces}
+                      onChange={(e) => {
+                        setFieldValue("province", e.value);
+                        setFieldValue("city", null); // Reset city when province changes
+                        dispatch(fetchCitiesRequest(e.value));
+                      }}
+                      placeholder={t("listing.select_province")}
+                      className={
+                        touched.province && errors.province ? "p-invalid" : ""
+                      }
+                    />
                     {touched.province && errors.province && (
                       <small className="p-error">{errors.province}</small>
                     )}
                   </div>
                   <div className="p-field half-width">
-                    <Field name="city">
-                      {({ field }) => (
-                        <Dropdown
-                          {...field}
-                          id="city"
-                          value={field.value}
-                          options={cityOptions}
-                          onChange={(e) => setFieldValue("city", e.value)}
-                          placeholder={t("listing.select_city")}
-                          disabled={!values.province}
-                          className={
-                            touched.city && errors.city ? "p-invalid" : ""
-                          }
-                        />
-                      )}
-                    </Field>
+                    <Dropdown
+                      id="city"
+                      value={values.city}
+                      options={cityOptions}
+                      onChange={(e) => setFieldValue("city", e.value)}
+                      placeholder={t("listing.select_city")}
+                      disabled={!values.province}
+                      className={touched.city && errors.city ? "p-invalid" : ""}
+                    />
                     {touched.city && errors.city && (
                       <small className="p-error">{errors.city}</small>
                     )}
@@ -148,40 +134,32 @@ const CreateListing = () => {
                 <h2>{t("listing.ad_text")}</h2>
                 <div className="p-field full-width">
                   <label htmlFor="title">{t("listing.title")}</label>
-                  <Field name="title">
-                    {({ field }) => (
-                      <InputText
-                        {...field}
-                        id="title"
-                        className={
-                          touched.title && errors.title ? "p-invalid" : ""
-                        }
-                      />
-                    )}
-                  </Field>
+                  <InputText
+                    id="title"
+                    value={values.title}
+                    onChange={(e) => setFieldValue("title", e.target.value)}
+                    className={
+                      touched.title && errors.title ? "p-invalid" : ""
+                    }
+                  />
                   {touched.title && errors.title && (
                     <small className="p-error">{errors.title}</small>
                   )}
                 </div>
                 <div className="p-field full-width">
                   <label htmlFor="price">{t("listing.price")}</label>
-                  <Field name="price">
-                    {({ field }) => (
-                      <InputNumber
-                        {...field}
-                        id="price"
-                        value={field.value}
-                        onChange={(e) => setFieldValue("price", e.value)}
-                        mode="currency"
-                        currency="ARS"
-                        locale="es-AR"
-                        placeholder={t("listing.price_placeholder")}
-                        className={
-                          touched.price && errors.price ? "p-invalid" : ""
-                        }
-                      />
-                    )}
-                  </Field>
+                  <InputNumber
+                    id="price"
+                    value={values.price}
+                    onChange={(e) => setFieldValue("price", e.value)}
+                    mode="currency"
+                    currency="ARS"
+                    locale="es-AR"
+                    placeholder={t("listing.price_placeholder")}
+                    className={
+                      touched.price && errors.price ? "p-invalid" : ""
+                    }
+                  />
                   {touched.price && errors.price && (
                     <small className="p-error">{errors.price}</small>
                   )}
@@ -200,18 +178,15 @@ const CreateListing = () => {
                 <h2>{t("listing.contact_information")}</h2>
                 <div className="p-inputgroup">
                   <span className="p-inputgroup-addon">+54</span>
-                  <Field name="phone">
-                    {({ field }) => (
-                      <InputText
-                        {...field}
-                        id="phone"
-                        placeholder={t("listing.phone_placeholder")}
-                        className={
-                          touched.phone && errors.phone ? "p-invalid" : ""
-                        }
-                      />
-                    )}
-                  </Field>
+                  <InputText
+                    id="phone"
+                    value={values.phone}
+                    onChange={(e) => setFieldValue("phone", e.target.value)}
+                    placeholder={t("listing.phone_placeholder")}
+                    className={
+                      touched.phone && errors.phone ? "p-invalid" : ""
+                    }
+                  />
                   {touched.phone && errors.phone && (
                     <small className="p-error">{errors.phone}</small>
                   )}
@@ -226,19 +201,12 @@ const CreateListing = () => {
                       />
                       <span className="whatsapp-text">WhatsApp</span>
                     </div>
-                    <Field name="useWhatsApp">
-                      {({ field }) => (
-                        <Checkbox
-                          {...field}
-                          id="useWhatsApp"
-                          checked={field.value}
-                          onChange={(e) =>
-                            setFieldValue("useWhatsApp", e.checked)
-                          }
-                          className="whatsapp-checkbox"
-                        />
-                      )}
-                    </Field>
+                    <Checkbox
+                      id="useWhatsApp"
+                      checked={values.useWhatsApp}
+                      onChange={(e) => setFieldValue("useWhatsApp", e.checked)}
+                      className="whatsapp-checkbox"
+                    />
                   </label>
                 </div>
               </div>
