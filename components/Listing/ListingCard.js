@@ -25,15 +25,6 @@ const ListingCard = ({ data: listing }) => {
     return (
         <div className="col-12 md:col-3">
             <div className="listing-card card">
-                <div className="listing-grid-item-top">
-                    <div>
-                        <i className="pi pi-map-marker listing-category-icon"></i>
-                        <span className="listing-category">{listing.location.name}</span>
-                    </div>
-                    <span className={`listing-badge status-instock}`}>
-                        {listing.inventoryStatus}
-                    </span>
-                </div>
                 <div className="listing-grid-item-content">
                     <img
                         src={mainImage}
@@ -43,6 +34,11 @@ const ListingCard = ({ data: listing }) => {
                         }
                         alt={listing.title}
                     />
+                    
+                    <div>
+                        <i className="pi pi-map-marker listing-category-icon"></i>
+                        <span className="listing-category">{listing.location.name}</span>
+                    </div>
                     <div className="listing-name">{listing.title}</div>
                     <div className="listing-description">{listing.description}</div>
                     <span className="listing-price">${listing.price}</span>
