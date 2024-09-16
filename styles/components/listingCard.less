@@ -1,62 +1,82 @@
 .listing-card {
-    margin: .5em;
+    margin: 0.5em;
     border: 1px solid var(--surface-border);
-    padding: .75rem;
-    width: 250px;
-
-    .listing-grid-item-bottom {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: space-between;
-
-        .button-phone, .button-whatsapp {
-            width: 100%;
-        }
-    }
-
-    img {
-        width: 100%;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        margin: 1rem 0;
-    }
-
-    .listing-grid-item-content {
+    width: 210px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; 
+    
+    .listing-card-content {
         text-align: center;
-    }
+        flex-grow: 1;
+        position: relative;
+        
+        img {
+            width: 100%;
+            height: 75%;
+            object-fit: cover;
+        }
 
-    .listing-price {
-        font-size: 1.5rem;
-        font-weight: 600;
+        .listing-card-price {
+            position: absolute;
+            top: 0.4rem;
+            right: 0.4rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.25rem;
+        }
+
+        .listing-card-info {
+            .listing-card-location {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+        
+                .listing-card-location-name {
+                    margin-left: 0.5rem;
+                    font-size: .7rem;
+                }
+            }
+
+            .listing-card-name {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            .listing-card-item-bottom {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.2rem ;
+                padding-bottom: 0.5rem;
+
+                .p-button {
+                    padding: 0.2rem 0.2rem;
+                }
+                
+                .button-phone, .button-whatsapp {
+                    width: 100%;
+                }
+            }
+        }
     }
 }
 
+
 @media screen and (max-width: 576px) {
     .listing-card {
-        .listing-grid-item {
-            flex-direction: column;
-            align-items: center;
-        }
+        width: 100%;
+        height: 270px;
 
         img {
-            width: 75%;
-            margin: 2rem 0;
-        }
-
-        .listing-list-detail {
-            text-align: center;
-        }
-
-        .listing-price {
-            align-self: center;
-        }
-
-        .listing-list-action {
-            margin-top: 2rem;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
             width: 100%;
+            height: 75%;
+            object-fit: cover;
         }
     }
 }
