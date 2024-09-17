@@ -23,7 +23,7 @@ const ListingCard = ({ data: listing }) => {
       : "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png";
 
   return (
-    <div className="col-12 md:col-3 listing-card-container">
+    <div className="listing-card-container">
       <div className="listing-card">
         <div className="listing-card-content">
           <img
@@ -40,7 +40,9 @@ const ListingCard = ({ data: listing }) => {
             <div className="listing-card-name">{listing.title}</div>
             <div className="listing-card-location">
               <i className="pi pi-map-marker listing-category-icon"></i>
-              <span className="listing-card-location-name">{listing.location.name}</span>
+              <span className="listing-card-location-name">
+                {listing.location.name}
+              </span>
             </div>
             <div className="listing-card-item-bottom">
               <Button
@@ -52,7 +54,7 @@ const ListingCard = ({ data: listing }) => {
                 onClick={handleButtonClick}
               />
             </div>
-          </div>  
+          </div>
         </div>
       </div>
     </div>

@@ -70,16 +70,23 @@ body {
   background-color: var(--main-white);
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+}
+
+@media (min-width: 576px) {
+  .main-container {
+    max-width: 95%; /* tablets */
+  }
 }
 
 @media (min-width: 768px) {
   .main-container {
-    max-width: 75%;
+    max-width: 85%; /* mid screens */
   }
 }
 
 @media (min-width: 1024px) {
   .main-container {
-    max-width: 60%;
+    max-width: 1200px;  /* big screens */
   }
 }

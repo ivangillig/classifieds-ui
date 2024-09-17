@@ -1,4 +1,27 @@
 .listing-card {
+    .dataview-listings {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr); /* Móviles */
+        gap: 1rem; /* Espacio entre los cards */
+        justify-content: space-evenly;
+      
+        @media (min-width: 576px) {
+            grid-template-columns: repeat(2, 1fr); /* 2 cards por fila en pantallas pequeñas */
+        }
+    
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(3, 1fr); /* 3 cards por fila en pantallas medianas */
+        }
+    
+        @media (min-width: 1024px) {
+            grid-template-columns: repeat(4, 1fr); /* 4 cards por fila en pantallas grandes */
+        }
+    
+        @media (min-width: 1200px) {
+            grid-template-columns: repeat(5, 1fr); /* 5 cards por fila en pantallas XL */
+        }
+    }
+
     margin: 0.5em;
     border: 1px solid var(--surface-border);
     width: 210px;
