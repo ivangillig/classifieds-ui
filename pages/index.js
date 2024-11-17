@@ -20,7 +20,7 @@ const HomePage = () => {
 
   const handleProvinceClick = (province) => {
     // Use the province name just like it came from state
-    router.push(`/provinces/${encodeURIComponent(province)}`);
+    router.push(`/escorts/${encodeURIComponent(province)}`);
   };
 
   if (isLoading) {

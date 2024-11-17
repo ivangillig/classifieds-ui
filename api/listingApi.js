@@ -8,7 +8,7 @@ export const uploadImagesApi = async (files) => {
       formData.append('photos', file);
     });
 
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/upload`, formData, {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/upload`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -23,7 +23,7 @@ export const uploadImagesApi = async (files) => {
 
 export const createListing = async (payload) => {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/createListing`, payload, { withCredentials: true });
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/createListing`, payload, { withCredentials: true });
     return response.data;
   } catch (error) {
     throw error;
@@ -31,13 +31,13 @@ export const createListing = async (payload) => {
 };
 
 export const fetchListingsApi = async (filters) => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/listings`, { params: filters });
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/listings`, { params: filters });
   return response.data.data;
 };
 
 export const fetchListingsByProvinceApi = async (province) => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/listings`, { params: { province } });
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/listings`, { params: { province } });
     return response.data.data;
   } catch (error) {
     throw error;
@@ -48,7 +48,7 @@ export const fetchListingsByProvinceApi = async (province) => {
 export const deleteImagesApi = async (urls) => {
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/ads/deleteImages`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/deleteImages`,
       { urls },
       {
         withCredentials: true,
