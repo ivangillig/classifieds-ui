@@ -17,10 +17,7 @@ const ListingCard = ({ data: listing }) => {
     }
   };
 
-  const mainImage =
-    listing.photos && listing.photos.length > 0
-      ? getImagesPath() + listing.photos[0]
-      : "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png";
+  const mainImage = getImagesPath() + listing.photos[0] || null
 
   return (
     <div className="listing-card-container">
@@ -29,8 +26,7 @@ const ListingCard = ({ data: listing }) => {
           <img
             src={mainImage}
             onError={(e) =>
-              (e.target.src =
-                "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+              (e.target.src = "/static/images/image_not_available.webp")
             }
             alt={listing.title}
           />

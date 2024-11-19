@@ -65,13 +65,13 @@ const ProvincePage = () => {
     return (
       <div className="grid grid-nogutter">
         <div className="col-6" style={{ textAlign: "left" }}>
-          <Dropdown
+          {/* <Dropdown
             options={sortOptions}
             value={sortKey}
             optionLabel="label"
             placeholder="Sort By Price"
             onChange={onSortChange}
-          />
+          /> */}
         </div>
         <div className="col-6" style={{ textAlign: "right" }}>
           <DataViewLayoutOptions
@@ -87,6 +87,11 @@ const ProvincePage = () => {
     <div className="dataview-listings">
       <div className="card">
         <DataView
+          emptyMessage={
+            <div className="empty-message-container">
+              <strong>{t("escorts_not_found")}</strong>
+            </div>
+          }
           value={listings}
           layout={layout}
           header={renderHeader()}
