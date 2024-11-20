@@ -1,0 +1,64 @@
+.listing-card-details {
+    border-radius: 15px;
+}
+
+.listing-details-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .loading-container,
+  .error-container,
+  .not-found-container {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .galleria-item-container {
+    width: 100%;
+    height: 560px; 
+    max-width: 640px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+  }
+  
+  .galleria-item-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #1a1a1a;
+  }
+  
+  .p-galleria .p-galleria-thumbnail-container {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .galleria-thumbnail-container img {
+        object-fit: cover;
+        padding-inline: 5px;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+  } 
+  
+  @media (max-width: 1024px) {
+    .galleria-item-container {
+      height: 400px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .galleria-item-container {
+      height: 300px;
+    }
+  }
+  

@@ -1,4 +1,4 @@
-// store/sagas/locationSagas.js
+// store/sagas/listingSagas.js
 import Router from "next/router";
 import { call, put, takeLatest, all, fork } from "redux-saga/effects";
 import {
@@ -8,22 +8,26 @@ import {
   fetchListingsError,
   fetchListingsByProvinceSuccess,
   fetchListingsByProvinceError,
-  uploadImagesSuccess, 
-  uploadImagesError 
+  fetchListingDetailsSuccess,
+  fetchListingDetailsError,
+  uploadImagesSuccess,
+  uploadImagesError,
 } from "../actions/listingActions";
 
 import {
   CREATE_LISTING_REQUEST,
   FETCH_LISTINGS_REQUEST,
   FETCH_LISTINGS_BY_PROVINCE_REQUEST,
+  FETCH_LISTING_DETAILS_REQUEST,
 } from "../constants/ActionsTypes";
 
 import {
   createListing,
   fetchListingsApi,
   fetchListingsByProvinceApi,
+  fetchListingDetailsApi,
   uploadImagesApi,
-  deleteImagesApi
+  deleteImagesApi,
 } from "../api/listingApi";
 
 function* uploadImagesSaga(files) {
@@ -37,9 +41,8 @@ function* uploadImagesSaga(files) {
   }
 }
 
-
 function* createListingRequest({ payload }) {
-  let uploadedPhotos
+  let uploadedPhotos;
   try {
     const { files, ...listingData } = payload;
 
@@ -47,7 +50,10 @@ function* createListingRequest({ payload }) {
     uploadedPhotos = yield call(uploadImagesSaga, files);
 
     // Create listing with images urls
-    const data = yield call(createListing, { ...listingData, photos: uploadedPhotos });
+    const data = yield call(createListing, {
+      ...listingData,
+      photos: uploadedPhotos,
+    });
 
     if (data) {
       yield put(createListingSuccess(data));
@@ -70,9 +76,21 @@ function* fetchListingsSaga(action) {
   }
 }
 
+function* fetchListingDetailsSaga({ payload }) {
+  try {
+    const details = yield call(fetchListingDetailsApi, payload);
+    yield put(fetchListingDetailsSuccess(details));
+  } catch (error) {
+    yield put(fetchListingDetailsError(error.message));
+  }
+}
+
 function* fetchListingsByProvinceSaga(action) {
   try {
-    const listings = yield call(fetchListingsByProvinceApi, action.payload.province);
+    const listings = yield call(
+      fetchListingsByProvinceApi,
+      action.payload.province
+    );
     yield put(fetchListingsByProvinceSuccess(listings));
   } catch (error) {
     yield put(fetchListingsByProvinceError(error.message));
@@ -87,6 +105,10 @@ export function* watchFetchListingsSaga() {
   yield takeLatest(FETCH_LISTINGS_REQUEST, fetchListingsSaga);
 }
 
+export function* watchFetchListingDetailsSaga() {
+  yield takeLatest(FETCH_LISTING_DETAILS_REQUEST, fetchListingDetailsSaga);
+}
+
 export function* watchFetchListingsByProvinceSaga() {
   yield takeLatest(
     FETCH_LISTINGS_BY_PROVINCE_REQUEST,
@@ -99,5 +121,6 @@ export default function* rootLocationSaga() {
     fork(watchCreateListingSaga),
     fork(watchFetchListingsSaga),
     fork(watchFetchListingsByProvinceSaga),
+    fork(watchFetchListingDetailsSaga)
   ]);
 }

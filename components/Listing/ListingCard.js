@@ -2,9 +2,12 @@ import React from "react";
 import { Button } from "primereact/button";
 import { useTranslation } from "react-i18next";
 import { getImagesPath } from "@/utils/listingsUtils";
+import { useRouter } from "next/router";
 
 const ListingCard = ({ data: listing }) => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const { province } = router.query;
 
   const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, "")}`;
   const callLink = `tel:${listing.phone}`;
@@ -17,10 +20,18 @@ const ListingCard = ({ data: listing }) => {
     }
   };
 
-  const mainImage = getImagesPath() + listing.photos[0] || null
+  const handleCardClick = () => {
+    router.push(`/escorts/${province}/${listing._id}`);
+  };
+
+  const mainImage = getImagesPath() + listing.photos[0] || null;
 
   return (
-    <div className="listing-card-container">
+    <div
+      className="listing-card-container"
+      onClick={handleCardClick}
+      style={{ cursor: "pointer" }}
+    >
       <div className="listing-card">
         <div className="listing-card-content">
           <img
