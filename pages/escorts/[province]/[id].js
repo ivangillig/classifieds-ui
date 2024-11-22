@@ -60,6 +60,14 @@ const ListingDetailsPage = () => {
     <div className="listing-details-page">
       {/* Image Gallery */}
       <div className="image-gallery">
+        {images.length > 3 && (
+          <Button
+            icon="pi pi-th-large"
+            label="Ver todas las fotos"
+            className="view-all-button"
+            onClick={() => alert("Show all photos")}
+          />
+        )}
         <div className="main-image">
           <img
             src={getImagesPath() + images[0]?.src || "/placeholder.jpg"}
@@ -83,19 +91,33 @@ const ListingDetailsPage = () => {
             {listingDetails.age && (
               <Chip
                 label={listingDetails.age}
-                icon={<i className="pi pi-calendar mr-1" style={{ color: "#6c757d" }}></i>}
+                icon={
+                  <i
+                    className="pi pi-calendar mr-1"
+                    style={{ color: "#6c757d" }}
+                  ></i>
+                }
                 className="p-mr-2"
-    
               />
             )}
             <Chip
               label={listingDetails.location.name}
-              icon={<i className="pi pi-map-marker mr-1" style={{ color: "#dc3545" }}></i>}
+              icon={
+                <i
+                  className="pi pi-map-marker mr-1"
+                  style={{ color: "#dc3545" }}
+                ></i>
+              }
               className="p-mr-2"
             />
             <Chip
               label={`${listingDetails.price}`}
-              icon={<i className="pi pi-dollar mr-1" style={{ color: "#28a745" }}></i>}
+              icon={
+                <i
+                  className="pi pi-dollar mr-1"
+                  style={{ color: "#28a745" }}
+                ></i>
+              }
               className="p-mr-2"
             />
           </div>
