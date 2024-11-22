@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchListingDetailsRequest } from "@/actions/listingActions";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { Chip } from "primereact/chip";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { getImagesPath } from "@/utils/listingsUtils";
+import { useTranslation } from "react-i18next";
 
 const ListingDetailsPage = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { id } = router.query;
 
   const dispatch = useDispatch();
@@ -76,31 +79,39 @@ const ListingDetailsPage = () => {
       <div className="info-section">
         <Card className="listing-card-details">
           <h2>{listingDetails.title}</h2>
-          <p>
-            <strong>Age:</strong> {listingDetails.age || "N/A"}
-          </p>
-          <p>
-            <strong>Location:</strong> {listingDetails.location.name}
-          </p>
-          <p>
-            <strong>Price:</strong> ${listingDetails.price}
-          </p>
+          <div className="info-chips">
+            {listingDetails.age && (
+              <Chip
+                label={listingDetails.age}
+                icon={<i className="pi pi-calendar mr-1" style={{ color: "#6c757d" }}></i>}
+                className="p-mr-2"
+    
+              />
+            )}
+            <Chip
+              label={listingDetails.location.name}
+              icon={<i className="pi pi-map-marker mr-1" style={{ color: "#dc3545" }}></i>}
+              className="p-mr-2"
+            />
+            <Chip
+              label={`${listingDetails.price}`}
+              icon={<i className="pi pi-dollar mr-1" style={{ color: "#28a745" }}></i>}
+              className="p-mr-2"
+            />
+          </div>
+          {listingDetails.description && (
+            <p className="listing-description">{listingDetails.description}</p>
+          )}
         </Card>
-
-        {listingDetails.description && (
-          <Card title="Description" style={{ marginTop: "16px" }}>
-            <p>{listingDetails.description}</p>
-          </Card>
-        )}
       </div>
 
       {/* Buttons Section */}
       <div className="buttons-section">
         {listingDetails.phone && (
           <Button
-            label="Call"
+            label={t("Call")}
             icon="pi pi-phone"
-            className="p-button-success"
+            className="button-phone font-medium"
             onClick={() => window.open(`tel:${listingDetails.phone}`, "_self")}
           />
         )}
@@ -108,7 +119,7 @@ const ListingDetailsPage = () => {
           <Button
             label="WhatsApp"
             icon="pi pi-whatsapp"
-            className="p-button-success"
+            className="button-whatsapp font-medium"
             onClick={() =>
               window.open(
                 `https://wa.me/${listingDetails.phone.replace(/\D/g, "")}`,
@@ -118,9 +129,9 @@ const ListingDetailsPage = () => {
           />
         )}
         <Button
-          label="Report Listing"
+          label={t("Report Listing")}
           icon="pi pi-exclamation-triangle"
-          className="p-button-danger"
+          className="p-button-danger font-medium"
           onClick={() => alert("Report submitted")}
         />
       </div>
