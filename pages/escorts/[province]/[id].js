@@ -5,7 +5,6 @@ import { fetchListingDetailsRequest } from "@/actions/listingActions";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { Galleria } from "primereact/galleria";
 import { getImagesPath } from "@/utils/listingsUtils";
 
 const ListingDetailsPage = () => {
@@ -50,59 +49,33 @@ const ListingDetailsPage = () => {
   }
 
   const images = listingDetails.photos.map((photo) => ({
-    itemImageSrc: getImagesPath() + photo,
-    thumbnailImageSrc: getImagesPath() + photo,
+    src: photo,
     alt: listingDetails.title,
   }));
 
-  const responsiveOptions = [
-    { breakpoint: "1024px", numVisible: 5 },
-    { breakpoint: "768px", numVisible: 3 },
-    { breakpoint: "560px", numVisible: 1 },
-  ];
-
-  const itemTemplate = (item) => (
-    <div className="galleria-item-container">
-      <img src={item.itemImageSrc} alt={item.alt} />
-    </div>
-  );
-
-  const thumbnailTemplate = (item) => (
-    <div className="galleria-thumbnail-container">
-      <img src={item.thumbnailImageSrc} alt={item.alt} />
-    </div>
-  );
-
   return (
-    <div
-      className="listing-details-page"
-      style={{ display: "flex", gap: "16px" }}
-    >
-      {/* Left Column (80%) */}
-      <div style={{ flex: "4" }}>
-        {/* Gallery Card */}
-        <Card className="listing-card-details">
-          <Galleria
-            value={images}
-            responsiveOptions={responsiveOptions}
-            numVisible={5}
-            circular
-            style={{ maxWidth: "640px" }}
-            showItemNavigators
-            item={itemTemplate}
-            thumbnail={thumbnailTemplate}
+    <div className="listing-details-page">
+      {/* Image Gallery */}
+      <div className="image-gallery">
+        <div className="main-image">
+          <img
+            src={getImagesPath() + images[0]?.src || "/placeholder.jpg"}
+            alt={images[0]?.alt || "Main"}
           />
-        </Card>
+        </div>
+        <div className="side-images">
+          {images.slice(1, 3).map((img, idx) => (
+            <div key={idx} className="side-image">
+              <img src={getImagesPath() + img.src} alt={img.alt} />
+            </div>
+          ))}
+        </div>
+      </div>
 
-        {/* Info Card */}
-        <Card
-          title="Information"
-          style={{ marginTop: "16px" }}
-          className="listing-card-details"
-        >
-          <p>
-            <strong>Name:</strong> {listingDetails.title}
-          </p>
+      {/* Info Section */}
+      <div className="info-section">
+        <Card className="listing-card-details">
+          <h2>{listingDetails.title}</h2>
           <p>
             <strong>Age:</strong> {listingDetails.age || "N/A"}
           </p>
@@ -114,7 +87,6 @@ const ListingDetailsPage = () => {
           </p>
         </Card>
 
-        {/* Description Card */}
         {listingDetails.description && (
           <Card title="Description" style={{ marginTop: "16px" }}>
             <p>{listingDetails.description}</p>
@@ -122,16 +94,8 @@ const ListingDetailsPage = () => {
         )}
       </div>
 
-      {/* Right Column (20%) */}
-      <div
-        style={{
-          flex: "1",
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-        }}
-      >
-        {/* Contact Buttons */}
+      {/* Buttons Section */}
+      <div className="buttons-section">
         {listingDetails.phone && (
           <Button
             label="Call"
@@ -153,8 +117,6 @@ const ListingDetailsPage = () => {
             }
           />
         )}
-
-        {/* Report Button */}
         <Button
           label="Report Listing"
           icon="pi pi-exclamation-triangle"
