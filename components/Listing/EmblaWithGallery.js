@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { Dialog } from "primereact/dialog";
 import { getImagesPath } from "@/utils/listingsUtils";
+import Fade from 'embla-carousel-fade'
 
 const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Fade()]);
   const [thumbsRef, thumbsApi] = useEmblaCarousel({
     loop: false,
     containScroll: "keepSnaps",

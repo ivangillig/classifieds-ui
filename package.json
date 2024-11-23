@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
     "embla-carousel": "^8.5.1",
+    "embla-carousel-fade": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
     "filepond": "^4.31.2",
     "filepond-plugin-file-encode": "^2.1.14",
