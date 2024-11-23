@@ -87,7 +87,7 @@ const ListingDetailsPage = () => {
         </div>
         <div className="side-images">
           {images.slice(1, 3).map((img, idx) => (
-            <div key={idx} className="side-image" style={{ marginTop: "10px" }}>
+            <div key={idx} className="side-image">
               <img
                 onClick={() => openGallery(idx+1)}
                 src={getImagesPath() + img.src}

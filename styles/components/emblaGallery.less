@@ -1,54 +1,99 @@
+/* General Embla Styles */
+.gallery-modal{
+  .p-dialog-header {
+    display: none !important;
+  }
+}
+
 .embla {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  .embla__container {
-    display: flex;
-    transition: transform 0.3s ease;
-  }
-  
-  .embla__slide {
-    position: relative;
-    flex: 0 0 100%;
-    margin-right: 10px;
-  }
-  
-  .embla__image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
-  .embla--thumbs {
-    margin-top: 10px;
-  }
-  
-  .embla__container--thumbs {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-  }
-  
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.embla--main {
+  padding: 5px 0px;
+  background-color: black;
+}
+
+.embla__container {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+}
+
+.embla__image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 75%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.embla__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Thumbnail Slider Styles */
+.embla--thumbs {
+  // margin-top: 10px;
+}
+
+.embla__container--thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background-color: black;
+}
+
+.embla__slide--thumbs {
+  flex: 0 0 auto;
+  width: 20%;
+  max-width: 100px;
+  cursor: pointer;
+  padding: 5px 0px;
+}
+
+.embla__image-wrapper--thumbs {
+  width: 100%;
+  padding-top: 75%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.embla__image--thumbs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.embla__image--thumbs:hover {
+  opacity: 1;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
   .embla__slide--thumbs {
-    flex: 0 0 auto;
-    width: 60px;
-    cursor: pointer;
+    width: 25%;
+    max-width: 60px;
   }
-  
-  .embla__image--thumbs {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    object-fit: cover;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-  
-  .embla__image--thumbs:hover {
-    opacity: 1;
-  }
-  
+}
