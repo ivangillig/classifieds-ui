@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchListingDetailsRequest } from "@/actions/listingActions";
@@ -6,6 +6,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Chip } from "primereact/chip";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
+import SwiperWithGallery from "@/components/Listing/SwiperWithGallery";
 import { getImagesPath } from "@/utils/listingsUtils";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +19,8 @@ const ListingDetailsPage = () => {
   const { listingDetails, isLoading, error } = useSelector(
     (state) => state.listing
   );
+
+  const [isGalleryOpen, setGalleryOpen] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -65,19 +68,24 @@ const ListingDetailsPage = () => {
             icon="pi pi-th-large"
             label="Ver todas las fotos"
             className="view-all-button"
-            onClick={() => alert("Show all photos")}
+            onClick={() => setGalleryOpen(true)}
           />
         )}
         <div className="main-image">
           <img
             src={getImagesPath() + images[0]?.src || "/placeholder.jpg"}
             alt={images[0]?.alt || "Main"}
+            style={{ width: "100%", borderRadius: "8px" }}
           />
         </div>
         <div className="side-images">
           {images.slice(1, 3).map((img, idx) => (
-            <div key={idx} className="side-image">
-              <img src={getImagesPath() + img.src} alt={img.alt} />
+            <div key={idx} className="side-image" style={{ marginTop: "10px" }}>
+              <img
+                src={getImagesPath() + img.src}
+                alt={img.alt}
+                style={{ width: "100%", borderRadius: "8px" }}
+              />
             </div>
           ))}
         </div>
@@ -157,6 +165,13 @@ const ListingDetailsPage = () => {
           onClick={() => alert("Report submitted")}
         />
       </div>
+
+      {/* Swiper Gallery */}
+      <SwiperWithGallery
+        images={images}
+        isOpen={isGalleryOpen}
+        onClose={() => setGalleryOpen(false)}
+      />
     </div>
   );
 };
