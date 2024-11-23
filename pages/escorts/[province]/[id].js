@@ -21,6 +21,7 @@ const ListingDetailsPage = () => {
   );
 
   const [isGalleryOpen, setGalleryOpen] = useState(false);
+  const [initialIndex, setInitialIndex] = useState(0);
 
   useEffect(() => {
     if (id) {
@@ -59,6 +60,11 @@ const ListingDetailsPage = () => {
     alt: listingDetails.title,
   }));
 
+  const openGallery = (index) => {
+    setInitialIndex(index);
+    setGalleryOpen(true);
+  };
+
   return (
     <div className="listing-details-page">
       {/* Image Gallery */}
@@ -68,7 +74,7 @@ const ListingDetailsPage = () => {
             icon="pi pi-th-large"
             label="Ver todas las fotos"
             className="view-all-button"
-            onClick={() => setGalleryOpen(true)}
+            onClick={() => openGallery(0)}
           />
         )}
         <div className="main-image">
@@ -76,12 +82,14 @@ const ListingDetailsPage = () => {
             src={getImagesPath() + images[0]?.src || "/placeholder.jpg"}
             alt={images[0]?.alt || "Main"}
             style={{ width: "100%", borderRadius: "8px" }}
+            onClick={() => openGallery(0)}
           />
         </div>
         <div className="side-images">
           {images.slice(1, 3).map((img, idx) => (
             <div key={idx} className="side-image" style={{ marginTop: "10px" }}>
               <img
+                onClick={() => openGallery(idx+1)}
                 src={getImagesPath() + img.src}
                 alt={img.alt}
                 style={{ width: "100%", borderRadius: "8px" }}
@@ -171,6 +179,7 @@ const ListingDetailsPage = () => {
         images={images}
         isOpen={isGalleryOpen}
         onClose={() => setGalleryOpen(false)}
+        initialIndex={initialIndex}
       />
     </div>
   );

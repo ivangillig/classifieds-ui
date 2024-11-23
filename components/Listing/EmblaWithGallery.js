@@ -3,24 +3,25 @@ import useEmblaCarousel from "embla-carousel-react";
 import { Dialog } from "primereact/dialog";
 import { getImagesPath } from "@/utils/listingsUtils";
 
-const EmblaWithGallery = ({ images, isOpen, onClose }) => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, startIndex: initialIndex });
   const [thumbsRef, thumbsApi] = useEmblaCarousel({
     loop: false,
     containScroll: "keepSnaps",
     dragFree: true,
   });
 
-  const onThumbClick = useCallback(
-    (index) => {
-      if (!emblaApi || !thumbsApi) return;
-      emblaApi.scrollTo(index);
-    },
-    [emblaApi, thumbsApi]
-  );
+  React.useEffect(() => {
+    if (emblaApi) {
+      emblaApi.scrollTo(initialIndex, true);
+    }
+  }, [initialIndex, emblaApi]);
 
   return (
     <Dialog
+      closable={false}
+      closeOnEscape={true}
+      dismissableMask={true}
       visible={isOpen}
       onHide={onClose}
       style={{ width: "90vw", maxWidth: "900px" }}
@@ -47,7 +48,7 @@ const EmblaWithGallery = ({ images, isOpen, onClose }) => {
             <div
               className="embla__slide embla__slide--thumbs"
               key={idx}
-              onClick={() => onThumbClick(idx)}
+              onClick={() => emblaApi?.scrollTo(idx)}
             >
               <img
                 src={getImagesPath() + img.src}
