@@ -6,7 +6,7 @@ import { ProgressSpinner } from "primereact/progressspinner";
 import { Chip } from "primereact/chip";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import SwiperWithGallery from "@/components/Listing/SwiperWithGallery";
+import EmblaWithGallery from "@/components/Listing/EmblaWithGallery";
 import { getImagesPath } from "@/utils/listingsUtils";
 import { useTranslation } from "react-i18next";
 
@@ -167,7 +167,7 @@ const ListingDetailsPage = () => {
       </div>
 
       {/* Swiper Gallery */}
-      <SwiperWithGallery
+      <EmblaWithGallery
         images={images}
         isOpen={isGalleryOpen}
         onClose={() => setGalleryOpen(false)}
