@@ -5,11 +5,13 @@ import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
+import { InputTextarea } from "primereact/InputTextarea";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ImageUploader from "../components/Listing/ImageUploader";
+import { Tooltip } from "primereact/tooltip";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -56,7 +58,12 @@ const CreateListing = () => {
   }, [listingState.listingCreated, dispatch, router, t]);
 
   const validationSchema = Yup.object({
-    title: Yup.string().required(t("ERROR_TITLE_REQUIRED")),
+    title: Yup.string()
+      .matches(/^[a-zA-Z]+$/, t("ERROR_INVALID_NAME"))
+      .required(t("ERROR_TITLE_REQUIRED")),
+    age: Yup.number()
+      .min(18, t("ERROR_AGE_MIN"))
+      .required(t("ERROR_AGE_REQUIRED")),
     province: Yup.string().required(t("ERROR_PROVINCE_REQUIRED")),
     city: Yup.string().required(t("ERROR_CITY_REQUIRED")),
     price: Yup.number().required(t("ERROR_PRICE_REQUIRED")),
@@ -67,6 +74,7 @@ const CreateListing = () => {
     const newListing = {
       ...values,
       location: values.city,
+      age: values.age.toString(),
     };
     dispatch(createListingRequest({ ...newListing, files: values.photos }));
   };
@@ -79,6 +87,8 @@ const CreateListing = () => {
         <Formik
           initialValues={{
             title: "",
+            description: "",
+            age: "",
             province: null,
             city: null,
             photos: [],
@@ -133,19 +143,81 @@ const CreateListing = () => {
               <div className="form-section">
                 <h2>{t("listing.ad_text")}</h2>
                 <div className="p-field full-width">
-                  <label htmlFor="title">{t("listing.title")}</label>
+                  <label htmlFor="title">
+                    {t("listing.title")}
+                    <i
+                      id="title-tooltip"
+                      className="pi pi-info-circle ml-2"
+                      style={{
+                        fontSize: "1rem",
+                        cursor: "pointer",
+                        color: "#6c757d",
+                      }}
+                    />
+                  </label>
                   <InputText
                     id="title"
                     value={values.title}
-                    onChange={(e) => setFieldValue("title", e.target.value)}
-                    className={
-                      touched.title && errors.title ? "p-invalid" : ""
-                    }
+                    keyfilter={'alpha'}
+                    onChange={(e) => {
+                        setFieldValue("title", e.target.value);
+                    }}
+                    className={touched.title && errors.title ? "p-invalid" : ""}
+                    placeholder={t("listing.title_placeholder")}
+                    maxLength={20}
                   />
                   {touched.title && errors.title && (
                     <small className="p-error">{errors.title}</small>
                   )}
+
+                  {/* Tooltip */}
+                  <Tooltip
+                    target="#title-tooltip"
+                    content={t("listing.name_hint")}
+                    position="top"
+                  />
                 </div>
+                <div className="p-field full-width">
+                  <label htmlFor="description">
+                    {t("listing.description")}
+                  </label>
+                  <InputTextarea
+                    id="description"
+                    rows={3}
+                    value={values.description}
+                    onChange={(e) =>
+                      setFieldValue("description", e.target.value)
+                    }
+                    className={
+                      touched.description && errors.description
+                        ? "p-invalid"
+                        : ""
+                    }
+                    autoResize
+                    placeholder={t("listing.enterDescription")}
+                  />
+                  {touched.description && errors.description && (
+                    <small className="p-error">{errors.description}</small>
+                  )}
+                </div>
+
+                <div className="p-field full-width">
+                  <label htmlFor="age">{t("listing.age")}</label>
+                  <InputNumber
+                    id="age"
+                    value={values.age}
+                    onChange={(e) => setFieldValue("age", e.value)}
+                    min={18}
+                    max={99}
+                    showButtons
+                    placeholder={t("listing.age_placeholder")}
+                    className={touched.age && errors.age ? "p-invalid" : ""}
+                  />
+                  {touched.age && errors.age && (
+                    <small className="p-error">{errors.age}</small>
+                  )}
+                </div>
+
                 <div className="p-field full-width">
                   <label htmlFor="price">{t("listing.price")}</label>
                   <InputNumber
@@ -156,9 +228,7 @@ const CreateListing = () => {
                     currency="ARS"
                     locale="es-AR"
                     placeholder={t("listing.price_placeholder")}
-                    className={
-                      touched.price && errors.price ? "p-invalid" : ""
-                    }
+                    className={touched.price && errors.price ? "p-invalid" : ""}
                   />
                   {touched.price && errors.price && (
                     <small className="p-error">{errors.price}</small>
@@ -183,9 +253,7 @@ const CreateListing = () => {
                     value={values.phone}
                     onChange={(e) => setFieldValue("phone", e.target.value)}
                     placeholder={t("listing.phone_placeholder")}
-                    className={
-                      touched.phone && errors.phone ? "p-invalid" : ""
-                    }
+                    className={touched.phone && errors.phone ? "p-invalid" : ""}
                   />
                   {touched.phone && errors.phone && (
                     <small className="p-error">{errors.phone}</small>
