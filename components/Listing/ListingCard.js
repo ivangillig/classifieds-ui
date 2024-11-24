@@ -21,7 +21,7 @@ const ListingCard = ({ data: listing }) => {
   };
 
   const handleCardClick = () => {
-    router.push(`/escorts/${province}/${listing._id}`);
+    router.push(`/${province}/${listing._id}`);
   };
 
   const mainImage = getImagesPath() + listing.photos[0] || null;
