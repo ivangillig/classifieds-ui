@@ -88,7 +88,7 @@ const CreateListing = () => {
           initialValues={{
             title: "",
             description: "",
-            age: "",
+            age: 18,
             province: null,
             city: null,
             photos: [],
