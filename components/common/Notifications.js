@@ -1,29 +1,28 @@
 // components/Notifications.js
-import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { Toast } from 'primereact/toast';
-import { useTranslation } from 'react-i18next';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { notification } from "antd";
+import { useTranslation } from "react-i18next";
 
 const Notifications = () => {
   const { t } = useTranslation();
-  const messages = useSelector(state => state.notifications || []);
-  const toast = useRef(null);
+  const messages = useSelector((state) => state.notifications || []);
 
   useEffect(() => {
     if (messages.length > 0) {
-      messages.forEach(msg => {
+      messages.forEach((msg) => {
         if (msg.summary || msg.detail) {
-          toast.current.show({
-            ...msg,
-            summary: t(msg.summary),
-            detail: t(msg.detail),
+          notification.open({
+            message: t(msg.summary),
+            description: t(msg.detail),
+            type: msg.type || "info",
           });
         }
       });
     }
   }, [messages, t]);
 
-  return <Toast ref={toast} />;
+  return null;
 };
 
 export default Notifications;

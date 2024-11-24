@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchListingDetailsRequest } from "@/actions/listingActions";
-import { ProgressSpinner } from "primereact/progressspinner";
-import { Chip } from "primereact/chip";
-import { Card } from "primereact/card";
-import { Button } from "primereact/button";
+import { Spin, Tag, Card, Button } from "antd";
+import {
+  CalendarOutlined,
+  EnvironmentOutlined,
+  DollarOutlined,
+  PhoneOutlined,
+  WhatsAppOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 import EmblaWithGallery from "@/components/Listing/EmblaWithGallery";
 import { getImagesPath } from "@/utils/listingsUtils";
 import { useTranslation } from "react-i18next";
@@ -32,7 +37,7 @@ const ListingDetailsPage = () => {
   if (isLoading) {
     return (
       <div className="loading-container">
-        <ProgressSpinner />
+        <Spin size="large" />
       </div>
     );
   }
@@ -41,7 +46,9 @@ const ListingDetailsPage = () => {
     return (
       <div className="error-container">
         <h2>Error: {error}</h2>
-        <Button label="Go Back" onClick={() => router.back()} />
+        <Button type="primary" onClick={() => router.back()}>
+          {t("Go Back")}
+        </Button>
       </div>
     );
   }
@@ -49,8 +56,10 @@ const ListingDetailsPage = () => {
   if (!listingDetails) {
     return (
       <div className="not-found-container">
-        <h2>Listing not found</h2>
-        <Button label="Go Back" onClick={() => router.back()} />
+        <h2>{t("Listing not found")}</h2>
+        <Button type="primary" onClick={() => router.back()}>
+          {t("Go Back")}
+        </Button>
       </div>
     );
   }
@@ -71,11 +80,13 @@ const ListingDetailsPage = () => {
       <div className="image-gallery">
         {images.length > 3 && (
           <Button
-            icon="pi pi-th-large"
-            label="Ver todas las fotos"
+            type="primary"
+            icon={<ExclamationCircleOutlined />}
             className="view-all-button"
             onClick={() => openGallery(0)}
-          />
+          >
+            {t("Show all photos")}
+          </Button>
         )}
         <div className="main-image">
           <img
@@ -89,7 +100,7 @@ const ListingDetailsPage = () => {
           {images.slice(1, 3).map((img, idx) => (
             <div key={idx} className="side-image">
               <img
-                onClick={() => openGallery(idx+1)}
+                onClick={() => openGallery(idx + 1)}
                 src={getImagesPath() + img.src}
                 alt={img.alt}
                 style={{ width: "100%", borderRadius: "8px" }}
@@ -103,39 +114,18 @@ const ListingDetailsPage = () => {
       <div className="info-section">
         <Card className="listing-card-details">
           <h2>{listingDetails.title}</h2>
-          <div className="info-chips">
+          <div className="info-tags">
             {listingDetails.age && (
-              <Chip
-                label={listingDetails.age}
-                icon={
-                  <i
-                    className="pi pi-calendar mr-1"
-                    style={{ color: "#6c757d" }}
-                  ></i>
-                }
-                className="p-mr-2"
-              />
+              <Tag icon={<CalendarOutlined />} color="default">
+                {listingDetails.age}
+              </Tag>
             )}
-            <Chip
-              label={listingDetails.location.name}
-              icon={
-                <i
-                  className="pi pi-map-marker mr-1"
-                  style={{ color: "#dc3545" }}
-                ></i>
-              }
-              className="p-mr-2"
-            />
-            <Chip
-              label={`${listingDetails.price}`}
-              icon={
-                <i
-                  className="pi pi-dollar mr-1"
-                  style={{ color: "#28a745" }}
-                ></i>
-              }
-              className="p-mr-2"
-            />
+            <Tag icon={<EnvironmentOutlined />} color="red">
+              {listingDetails.location.name}
+            </Tag>
+            <Tag icon={<DollarOutlined />} color="green">
+              {listingDetails.price}
+            </Tag>
           </div>
           {listingDetails.description && (
             <p className="listing-description">{listingDetails.description}</p>
@@ -147,16 +137,18 @@ const ListingDetailsPage = () => {
       <div className="buttons-section">
         {listingDetails.phone && (
           <Button
-            label={t("Call")}
-            icon="pi pi-phone"
+            type="primary"
+            icon={<PhoneOutlined />}
             className="button-phone font-medium"
             onClick={() => window.open(`tel:${listingDetails.phone}`, "_self")}
-          />
+          >
+            {t("Call")}
+          </Button>
         )}
         {listingDetails.useWhatsApp && (
           <Button
-            label="WhatsApp"
-            icon="pi pi-whatsapp"
+            type="primary"
+            icon={<WhatsAppOutlined />}
             className="button-whatsapp font-medium"
             onClick={() =>
               window.open(
@@ -164,14 +156,18 @@ const ListingDetailsPage = () => {
                 "_blank"
               )
             }
-          />
+          >
+            WhatsApp
+          </Button>
         )}
         <Button
-          label={t("Report Listing")}
-          icon="pi pi-exclamation-triangle"
+          danger
+          icon={<ExclamationCircleOutlined />}
           className="p-button-danger font-medium"
           onClick={() => alert("Report submitted")}
-        />
+        >
+          {t("Report Listing")}
+        </Button>
       </div>
 
       {/* Swiper Gallery */}

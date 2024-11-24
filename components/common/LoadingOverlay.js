@@ -1,11 +1,11 @@
 // app/components/LoadingOverlay.js
 import React from 'react';
-import { ProgressSpinner } from 'primereact/progressspinner';
+import { Spin } from 'antd';
 
 const LoadingOverlay = () => {
   return (
     <div style={styles.overlay}>
-      <ProgressSpinner />
+      <Spin size='large' />
     </div>
   );
 };

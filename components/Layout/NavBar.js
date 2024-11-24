@@ -1,67 +1,76 @@
 // components/NavBar.js
-import React, { useEffect, useState } from 'react';
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-import { Menubar } from 'primereact/menubar';
+import React, { useEffect, useState } from "react";
+import { Input, Button, Space } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { useTranslation } from "next-i18next";
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import UserMenu from '../UserMenu';
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import UserMenu from "../UserMenu";
+
+const { Search } = Input;
 
 const NavBar = () => {
-    const { t } = useTranslation();
-    const appName = process.env.NEXT_PUBLIC_APP_NAME;
-    const router = useRouter();
-    const user = useSelector((state) => state.auth.user);
-    const [isMounted, setIsMounted] = useState(false);
+  const { t } = useTranslation();
+  const appName = process.env.NEXT_PUBLIC_APP_NAME;
+  const router = useRouter();
+  const user = useSelector((state) => state.auth.user);
+  const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-    const handleLoginClick = () => {
-        router.push('/login');
-    };
+  const handleLoginClick = () => {
+    router.push("/login");
+  };
 
-    const handlePostAdClick = () => {
-        router.push('/createListing');
-    };
+  const handlePostAdClick = () => {
+    router.push("/createListing");
+  };
 
-    if (!isMounted) {
-        return null; 
-    }
+  if (!isMounted) {
+    return null;
+  }
 
-    const start = (
-        <div className="navbar-start">
+  return (
+    <div className="navbar-container">
+      <div className="main-container">
+        <div className="navbar">
+          {/* Logo and search bar */}
+          <div className="navbar-start">
             <a href="/" className="navbar-logo">
-                {appName}
+              {appName}
             </a>
-            <div className="navbar-search">
-                <InputText placeholder={t('search_placeholder')} />
-                <Button icon="pi pi-search" className="p-button-primary" style={{ marginLeft: '0.5rem' }} />
-            </div>
-        </div>
-    );
+            <Space>
+              <Search
+                placeholder={t("search_placeholder")}
+                enterButton={
+                  <Button icon={<SearchOutlined />} type={"primary"} />
+                }
+              />
+            </Space>
+          </div>
 
-    const end = (
-        <div className="navbar-end">
+          {/* Buttons and user menu */}
+          <div className="navbar-end">
             {!user && (
-                <Button label={t('login')} onClick={handleLoginClick} />
+              <Button type="default" onClick={handleLoginClick}>
+                {t("login")}
+              </Button>
             )}
-            <Button label={t('post_ad')} onClick={handlePostAdClick} className="p-button-primary button-publish" />
-            {user && (
-                <UserMenu user={user} />
-            )}
+            <Button
+              type="primary"
+              onClick={handlePostAdClick}
+              className="button-publish"
+            >
+              {t("post_ad")}
+            </Button>
+            {user && <UserMenu user={user} />}
+          </div>
         </div>
-    );
-
-    return (
-        <div className="navbar-container">
-            <div className="main-container">
-                <Menubar start={start} end={end} />
-            </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default NavBar;

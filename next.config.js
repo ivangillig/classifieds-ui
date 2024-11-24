@@ -1,5 +1,4 @@
 const withLess = require("next-less");
-const withTM = require("next-transpile-modules")(["antd", "@ant-design/icons"]);
 
 const nextConfig = {
   i18n: {
@@ -19,7 +18,7 @@ const nextConfig = {
       javascriptEnabled: true,
     },
   },
+  transpilePackages: [ "antd", "@ant-design", "rc-util", "rc-pagination", "rc-picker", "rc-notification", "rc-tooltip", "rc-tree", "rc-table", "rc-input" ]
 };
 
-// Combina `next-less` y `next-transpile-modules`
-module.exports = withTM(withLess(nextConfig));
+module.exports = withLess(nextConfig);
