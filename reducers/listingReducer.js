@@ -18,6 +18,7 @@ import {
 const initialState = {
   listings: [],
   listingDetails: null,
+  pagination: null,
   isLoading: false,
   error: null,
   listingCreated: false,
@@ -88,7 +89,8 @@ export default function listingReducer(state = initialState, action) {
     case FETCH_LISTINGS_BY_PROVINCE_SUCCESS:
       return {
         ...state,
-        listings: action.payload,
+        listings: action.payload.data,
+        pagination: action.payload.meta,
         isLoading: false,
       };
     case FETCH_LISTINGS_BY_PROVINCE_ERROR:

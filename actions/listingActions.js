@@ -49,9 +49,9 @@ export const fetchListingsError = (error) => ({
   payload: error,
 });
 
-export const fetchListingsByProvinceRequest = (province) => ({
+export const fetchListingsByProvinceRequest = (params) => ({
   type: FETCH_LISTINGS_BY_PROVINCE_REQUEST,
-  payload: { province },
+  payload: params ,
 });
 
 export const fetchListingsByProvinceSuccess = (listings) => ({

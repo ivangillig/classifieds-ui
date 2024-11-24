@@ -13,12 +13,12 @@ import listingReducer from "@/reducers/listingReducer";
 const ProvincePage = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { province } = router.query; // Get province name from url
+  const { province, page = 1, limit = 4 } = router.query;
 
   const { t } = useTranslation();
 
   const [layout, setLayout] = useState("grid");
-  const { listings, isLoading } = useSelector((state) => state.listing);
+  const { listings, pagination, isLoading } = useSelector((state) => state.listing);
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
   const [sortField, setSortField] = useState(null);
@@ -43,13 +43,27 @@ const ProvincePage = () => {
 
   useEffect(() => {
     if (province) {
-      dispatch(fetchListingsByProvinceRequest(province));
+      dispatch(
+        fetchListingsByProvinceRequest({
+          province,
+          page: parseInt(page, 10),
+          limit: parseInt(limit, 10),
+        })
+      );
     }
-  }, [dispatch, province]);
+  }, [dispatch, province, page, limit]);
 
   if (isLoading) {
     return <LoadingOverlay />;
   }
+
+  const onPageChange = (event) => {
+    const newPage = event.page + 1;
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: newPage, limit },
+    });
+  };
 
   const itemTemplate = (listing, layout) => {
     if (!listing) return null;
@@ -92,12 +106,15 @@ const ProvincePage = () => {
               <strong>{t("escorts_not_found")}</strong>
             </div>
           }
-          value={listings}
+          value={Array.isArray(listings) ? listings : []}
           layout={layout}
           header={renderHeader()}
           itemTemplate={itemTemplate}
           paginator
-          rows={9}
+          rows={parseInt(limit, 10)}
+          first={(parseInt(page, 10) - 1) * parseInt(limit, 10)}
+          totalRecords={pagination?.total || 0}
+          onPage={onPageChange}
         />
       </div>
     </div>

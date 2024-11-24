@@ -87,11 +87,13 @@ function* fetchListingDetailsSaga({ payload }) {
 
 function* fetchListingsByProvinceSaga(action) {
   try {
-    const listings = yield call(
-      fetchListingsByProvinceApi,
-      action.payload.province
-    );
-    yield put(fetchListingsByProvinceSuccess(listings));
+    const { province, page, limit } = action.payload;
+    const response = yield call(fetchListingsByProvinceApi, {
+      province,
+      page,
+      limit,
+    });
+    yield put(fetchListingsByProvinceSuccess(response));
   } catch (error) {
     yield put(fetchListingsByProvinceError(error.message));
   }
@@ -121,6 +123,6 @@ export default function* rootLocationSaga() {
     fork(watchCreateListingSaga),
     fork(watchFetchListingsSaga),
     fork(watchFetchListingsByProvinceSaga),
-    fork(watchFetchListingDetailsSaga)
+    fork(watchFetchListingDetailsSaga),
   ]);
 }

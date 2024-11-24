@@ -46,13 +46,19 @@ export const fetchListingsApi = async (filters) => {
   return response.data.data;
 };
 
-export const fetchListingsByProvinceApi = async (province) => {
+export const fetchListingsByProvinceApi = async ({ province, page, limit }) => {
   try {
     const response = await axios.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/listings`,
-      { params: { province } }
+      {
+        params: {
+          province,
+          page,
+          limit,
+        },
+      }
     );
-    return response.data.data;
+    return response.data;
   } catch (error) {
     throw error;
   }
