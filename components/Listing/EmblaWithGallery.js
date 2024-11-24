@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { Dialog } from "primereact/dialog";
+import { Modal } from "antd";
 import { getImagesPath } from "@/utils/listingsUtils";
-import Fade from 'embla-carousel-fade'
+import Fade from "embla-carousel-fade";
 
 const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Fade()]);
@@ -19,19 +19,17 @@ const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
   }, [isOpen, initialIndex, emblaApi]);
 
   return (
-    <Dialog
-      className="gallery-modal"
-      closable={false}
-      closeOnEscape={true}
-      dismissableMask={true}
-      visible={isOpen}
-      onHide={onClose}
-      style={{
-        width: "90vw",
-        maxWidth: "900px",
+    <Modal
+      open={isOpen}
+      onCancel={onClose}
+      footer={null} // Sin botones en el pie de modal
+      width="90%"
+      bodyStyle={{
+        padding: 0,
         overflow: "hidden",
+        maxWidth: "900px",
+        margin: "0 auto",
       }}
-      contentStyle={{ padding: 0 }}
     >
       {/* Main Slider */}
       <div className="embla embla--main" ref={emblaRef}>
@@ -70,7 +68,7 @@ const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
           ))}
         </div>
       </div>
-    </Dialog>
+    </Modal>
   );
 };
 
