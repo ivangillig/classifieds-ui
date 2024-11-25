@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { fetchListingsByProvinceRequest } from "../actions/listingActions";
-import LoadingOverlay from "../components/common/LoadingOverlay";
-import ListingCard from "../components/Listing/ListingCard";
-import ListingList from "../components/Listing/ListingList";
+import { fetchListingsByProvinceRequest } from "../../actions/listingActions";
+import LoadingOverlay from "../../components/common/LoadingOverlay";
+import ListingCard from "../../components/Listing/ListingCard";
+import ListingList from "../../components/Listing/ListingList";
 import { useTranslation } from "next-i18next";
 import { List, Pagination, Radio } from "antd";
 
