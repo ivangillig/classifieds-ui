@@ -4,7 +4,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../actions/authActions";
-import { Button } from "primereact/button";
+import { Button } from "antd";
+import { GoogleOutlined } from "@ant-design/icons";
 
 const GoogleLoginButton = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,13 @@ const GoogleLoginButton = () => {
 
   return (
     <Button
-      label="Login with Google"
-      icon="pi pi-google"
+      type="primary"
+      icon={<GoogleOutlined />}
       className="login-button"
       onClick={handleLogin}
-    />
+    >
+      Login with Google
+    </Button>
   );
 };
 

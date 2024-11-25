@@ -1,32 +1,33 @@
-// components/PanelMenuComponent.js
-import React from 'react';
-import { PanelMenu } from 'primereact/panelmenu';
-import { useTranslation } from 'next-i18next';
+import React from "react";
+import { Menu } from "antd";
+import { useTranslation } from "next-i18next";
 
 const PanelMenuComponent = () => {
   const { t } = useTranslation();
 
   const items = [
     {
-      label: t('user.my_ads'),
-      items: [
-        { label: t('private.activeAds') },
-        { label: t('private.underReviewAds') },
-        { label: t('private.pausedAds') },
-        { label: t('private.expiredAds') },
+      key: "ads",
+      label: t("user.my_ads"),
+      children: [
+        { key: "active", label: t("private.activeAds") },
+        { key: "underReview", label: t("private.underReviewAds") },
+        { key: "paused", label: t("private.pausedAds") },
+        { key: "expired", label: t("private.expiredAds") },
       ],
     },
     {
-      label: t('user.my_profile'),
-      items: [
-        { label: t('private.generalInfo') },
-        { label: t('private.security') },
-        { label: t('private.notifications') },
+      key: "profile",
+      label: t("user.my_profile"),
+      children: [
+        { key: "generalInfo", label: t("private.generalInfo") },
+        { key: "security", label: t("private.security") },
+        { key: "notifications", label: t("private.notifications") },
       ],
     },
   ];
 
-  return <PanelMenu model={items} style={{ width: '300px' }} />;
+  return <Menu mode="inline" items={items} style={{ width: "300px" }} />;
 };
 
 export default PanelMenuComponent;

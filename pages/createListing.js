@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import DefaultLayout from "../components/Layout/DefaultLayout";
-import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from "primereact/inputnumber";
-import { Checkbox } from "primereact/checkbox";
-import { Button } from "primereact/button";
-import { InputTextarea } from "primereact/InputTextarea";
+import {
+  Input,
+  Select,
+  InputNumber,
+  Checkbox,
+  Button,
+  Tooltip,
+} from "antd";
+import { InfoCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ImageUploader from "../components/Listing/ImageUploader";
-import { Tooltip } from "primereact/tooltip";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -23,6 +25,9 @@ import {
   clearListingState,
 } from "../actions/listingActions";
 import { showMessage } from "../actions/notificationActions";
+
+const { TextArea } = Input;
+const { Option } = Select;
 
 const CreateListing = () => {
   const { t } = useTranslation("common");
@@ -59,7 +64,7 @@ const CreateListing = () => {
 
   const validationSchema = Yup.object({
     title: Yup.string()
-      .matches(/^[a-zA-Z]+$/, t("ERROR_INVALID_NAME"))
+    .matches(/^[a-zA-Z]+$/, t("ERROR_INVALID_NAME"))
       .required(t("ERROR_TITLE_REQUIRED")),
     age: Yup.number()
       .min(18, t("ERROR_AGE_MIN"))
@@ -104,37 +109,49 @@ const CreateListing = () => {
               <div className="form-section">
                 <h2>{t("listing.ad_location")}</h2>
                 <div className="location-fields">
-                  <div className="p-field half-width">
-                    <Dropdown
+                  <div className="form-field half-width">
+                    <Select
                       id="province"
                       value={values.province}
-                      options={provinces}
-                      onChange={(e) => {
-                        setFieldValue("province", e.value);
+                      onChange={(value) => {
+                        setFieldValue("province", value);
                         setFieldValue("city", null); // Reset city when province changes
-                        dispatch(fetchCitiesRequest(e.value));
+                        dispatch(fetchCitiesRequest(value));
                       }}
                       placeholder={t("listing.select_province")}
                       className={
-                        touched.province && errors.province ? "p-invalid" : ""
+                        touched.province && errors.province ? "invalid" : ""
                       }
-                    />
+                    >
+                      {provinces.map((province) => (
+                        <Option key={province} value={province}>
+                          {province}
+                        </Option>
+                      ))}
+                    </Select>
                     {touched.province && errors.province && (
-                      <small className="p-error">{errors.province}</small>
+                      <small className="error">{errors.province}</small>
                     )}
                   </div>
-                  <div className="p-field half-width">
-                    <Dropdown
+                  <div className="form-field half-width">
+                    <Select
                       id="city"
                       value={values.city}
-                      options={cityOptions}
-                      onChange={(e) => setFieldValue("city", e.value)}
+                      onChange={(value) => setFieldValue("city", value)}
                       placeholder={t("listing.select_city")}
                       disabled={!values.province}
-                      className={touched.city && errors.city ? "p-invalid" : ""}
-                    />
+                      className={
+                        touched.city && errors.city ? "invalid" : ""
+                      }
+                    >
+                      {cityOptions.map((city) => (
+                        <Option key={city.value} value={city.value}>
+                          {city.label}
+                        </Option>
+                      ))}
+                    </Select>
                     {touched.city && errors.city && (
-                      <small className="p-error">{errors.city}</small>
+                      <small className="error">{errors.city}</small>
                     )}
                   </div>
                 </div>
@@ -142,46 +159,45 @@ const CreateListing = () => {
 
               <div className="form-section">
                 <h2>{t("listing.ad_text")}</h2>
-                <div className="p-field full-width">
+                <div className="form-field full-width">
                   <label htmlFor="title">
                     {t("listing.title")}
-                    <i
-                      id="title-tooltip"
-                      className="pi pi-info-circle ml-2"
-                      style={{
-                        fontSize: "1rem",
-                        cursor: "pointer",
-                        color: "#6c757d",
-                      }}
-                    />
+                    <Tooltip
+                      title={t("listing.name_hint")}
+                      placement="top"
+                    >
+                      <InfoCircleOutlined
+                        style={{
+                          fontSize: "1rem",
+                          cursor: "pointer",
+                          color: "#6c757d",
+                          marginLeft: "8px",
+                        }}
+                      />
+                    </Tooltip>
                   </label>
-                  <InputText
+                  <Input
                     id="title"
                     value={values.title}
-                    keyfilter={'alpha'}
                     onChange={(e) => {
+                      const regex = /^[a-zA-Z\s]*$/;
+                      if (regex.test(e.target.value)) {
                         setFieldValue("title", e.target.value);
+                      }
                     }}
-                    className={touched.title && errors.title ? "p-invalid" : ""}
+                    className={touched.title && errors.title ? "invalid" : ""}
                     placeholder={t("listing.title_placeholder")}
                     maxLength={20}
                   />
                   {touched.title && errors.title && (
-                    <small className="p-error">{errors.title}</small>
+                    <small className="error">{errors.title}</small>
                   )}
-
-                  {/* Tooltip */}
-                  <Tooltip
-                    target="#title-tooltip"
-                    content={t("listing.name_hint")}
-                    position="top"
-                  />
                 </div>
-                <div className="p-field full-width">
+                <div className="form-field full-width">
                   <label htmlFor="description">
                     {t("listing.description")}
                   </label>
-                  <InputTextarea
+                  <TextArea
                     id="description"
                     rows={3}
                     value={values.description}
@@ -190,48 +206,49 @@ const CreateListing = () => {
                     }
                     className={
                       touched.description && errors.description
-                        ? "p-invalid"
+                        ? "invalid"
                         : ""
                     }
-                    autoResize
                     placeholder={t("listing.enterDescription")}
                   />
                   {touched.description && errors.description && (
-                    <small className="p-error">{errors.description}</small>
+                    <small className="error">{errors.description}</small>
                   )}
                 </div>
 
-                <div className="p-field full-width">
+                <div className="form-field full-width">
                   <label htmlFor="age">{t("listing.age")}</label>
                   <InputNumber
                     id="age"
                     value={values.age}
-                    onChange={(e) => setFieldValue("age", e.value)}
+                    onChange={(value) => setFieldValue("age", value)}
                     min={18}
                     max={99}
-                    showButtons
                     placeholder={t("listing.age_placeholder")}
-                    className={touched.age && errors.age ? "p-invalid" : ""}
+                    className={touched.age && errors.age ? "invalid" : ""}
+                    style={{ width: "100%" }}
                   />
                   {touched.age && errors.age && (
-                    <small className="p-error">{errors.age}</small>
+                    <small className="error">{errors.age}</small>
                   )}
                 </div>
 
-                <div className="p-field full-width">
+                <div className="form-field full-width">
                   <label htmlFor="price">{t("listing.price")}</label>
                   <InputNumber
                     id="price"
                     value={values.price}
-                    onChange={(e) => setFieldValue("price", e.value)}
-                    mode="currency"
-                    currency="ARS"
-                    locale="es-AR"
+                    onChange={(value) => setFieldValue("price", value)}
+                    formatter={(value) =>
+                      `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    }
+                    parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
                     placeholder={t("listing.price_placeholder")}
-                    className={touched.price && errors.price ? "p-invalid" : ""}
+                    className={touched.price && errors.price ? "invalid" : ""}
+                    style={{ width: "100%" }}
                   />
                   {touched.price && errors.price && (
-                    <small className="p-error">{errors.price}</small>
+                    <small className="error">{errors.price}</small>
                   )}
                 </div>
               </div>
@@ -246,21 +263,30 @@ const CreateListing = () => {
 
               <div className="form-section">
                 <h2>{t("listing.contact_information")}</h2>
-                <div className="p-inputgroup">
-                  <span className="p-inputgroup-addon">+54</span>
-                  <InputText
+                <div className="input-group">
+                  <Input
+                    addonBefore="+54"
                     id="phone"
                     value={values.phone}
                     onChange={(e) => setFieldValue("phone", e.target.value)}
                     placeholder={t("listing.phone_placeholder")}
-                    className={touched.phone && errors.phone ? "p-invalid" : ""}
+                    className={
+                      touched.phone && errors.phone ? "invalid" : ""
+                    }
                   />
-                  {touched.phone && errors.phone && (
-                    <small className="p-error">{errors.phone}</small>
-                  )}
                 </div>
-                <div className="p-field full-width">
-                  <label htmlFor="useWhatsApp" className="whatsapp-label">
+                {touched.phone && errors.phone && (
+                  <small className="error">{errors.phone}</small>
+                )}
+                <div className="form-field full-width">
+                  <Checkbox
+                    id="useWhatsApp"
+                    checked={values.useWhatsApp}
+                    onChange={(e) =>
+                      setFieldValue("useWhatsApp", e.target.checked)
+                    }
+                    className="whatsapp-checkbox"
+                  >
                     <div className="whatsapp-content">
                       <img
                         src="/static/whatsapp.svg"
@@ -269,23 +295,18 @@ const CreateListing = () => {
                       />
                       <span className="whatsapp-text">WhatsApp</span>
                     </div>
-                    <Checkbox
-                      id="useWhatsApp"
-                      checked={values.useWhatsApp}
-                      onChange={(e) => setFieldValue("useWhatsApp", e.checked)}
-                      className="whatsapp-checkbox"
-                    />
-                  </label>
+                  </Checkbox>
                 </div>
               </div>
 
               <div className="form-actions">
                 <Button
-                  type="submit"
-                  label={t("Publish")}
-                  icon="pi pi-check"
-                  className="p-button-primary button-publish"
-                />
+                  type="primary"
+                  htmlType="submit"
+                  className="button-publish"
+                >
+                  {t("Publish")}
+                </Button>
               </div>
             </Form>
           )}

@@ -3,8 +3,6 @@
 .create-listing-form {
   align-self: center;
   width: 80%;
-    
-  // margin: 0 auto;
   padding: 20px 0px;
 
   .form-title {
@@ -22,7 +20,7 @@
       color: #333;
     }
 
-    .p-field {
+    .form-field {
       margin-bottom: 1.5rem;
 
       label {
@@ -33,20 +31,22 @@
       }
 
       input,
-      .p-dropdown,
-      .p-autocomplete,
-      textarea.p-inputtextarea {
+      .ant-select,
+      textarea {
         width: 100%;
-        box-shadow: none;
         border-radius: 4px;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
       }
 
-      input:not(.p-invalid), 
-      .p-dropdown:not(.p-invalid), 
-      .p-autocomplete:not(.p-invalid) {
-        border: 1px solid #ccc;
+      input:not(.invalid),
+      .ant-select:not(.invalid),
+      textarea:not(.invalid) {
+        border-color: #ccc;
+      }
+
+      input.invalid,
+      .ant-select.invalid .ant-select-selector,
+      textarea.invalid {
+        border-color: #ff4d4f;
       }
 
       &.half-width {
@@ -57,6 +57,11 @@
       &.full-width {
         width: 100%;
       }
+
+      .error {
+        color: #ff4d4f;
+        font-size: 12px;
+      }
     }
 
     p {
@@ -65,99 +70,76 @@
       font-size: 0.875rem;
     }
 
-    .whatsapp-label {
-      background-color: #48c857;
-      border-color: #34a853;
-      border: 2px solid #48c857; 
-      border-radius: 8px; 
-      display: flex !important;
-      flex-wrap: nowrap;
-      justify-content: space-between;
+    .whatsapp-checkbox {
+      display: flex;
       align-items: center;
-      padding: 5px 15px;
-      width: 100%;
-      transition: all 0.3s ease;
-      cursor: pointer;
+      margin-top: 10px;
 
-      &:hover {
-        transform: scale(1.02); /* Aumenta ligeramente el tamaño al pasar el mouse */
-        background-color: #34a853; /* Cambia el fondo al hacer hover */
-        border-color: #2e7d32;
+      .ant-checkbox {
+        display: none;
+      }
+
+      .whatsapp-content {
+        background-color: #48c857;
+        border: 2px solid #48c857;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        padding: 5px 15px;
+        width: 100%;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.02);
+          background-color: #34a853;
+          border-color: #2e7d32;
+        }
+
+        .whatsapp-icon {
+          margin-right: 10px;
+        }
+
+        .whatsapp-text {
+          color: #fff;
+          font-weight: 500;
+          font-size: 16px;
+        }
       }
     }
-    
-    .whatsapp-content {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      transition: all 0.3s ease;
-    }
-    
-    .whatsapp-icon {
-      margin-right: 10px;
-      transition: all 0.3s ease;
-    }
-    
-    .whatsapp-text {
-      color: #fff;
-      font-weight: 500;
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-    
-    .p-checkbox {
-      display: flex;
-      align-items: center;
-      transition: all 0.3s ease;
-  
-      .p-checkbox-box {
-        background-color: #fff;
-        border-color: #48c857;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-      }
-  
-      &.p-highlight .p-checkbox-box {
-        background-color: #48c857 !important;
-        border-color: #42c951 !important;
-      }
-    }
-    
-    .p-inputgroup {
+
+    .input-group {
       margin-bottom: 1rem;
+
+      .ant-input-group-addon {
+        background-color: #f5f5f5;
+        border: 1px solid #d9d9d9;
+      }
+
+      .ant-input {
+        border-radius: 0 4px 4px 0;
+      }
     }
 
-    .p-button {
-      &-primary {
-        background-color: #6200ea;
-        border-color: #6200ea;
-      }
-
-      &-secondary {
-        background-color: #e0e0e0;
-        border-color: #e0e0e0;
-        color: #333;
-      }
-
-      &-success {
-        background-color: #34a853;
-        border-color: #34a853;
-      }
-
+    .ant-btn {
       margin-right: 1rem;
     }
 
-    .p-fileupload {
-      .p-button {
-        width: 100%;
-        margin-bottom: 0.5rem;
-      }
+    .ant-btn-primary {
+      background-color: #6200ea;
+      border-color: #6200ea;
+    }
+
+    .ant-btn-primary:hover {
+      background-color: #7e33e0;
+      border-color: #7e33e0;
     }
   }
 
   .form-actions {
     text-align: right;
 
-    .p-button {
+    .ant-btn {
       min-width: 150px;
     }
   }
