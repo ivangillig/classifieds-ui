@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { fetchProvincesRequest } from "../actions/locationsActions";
 import LoadingOverlay from "../components/common/LoadingOverlay";
 import ProvinceCard from "../components/ProvinceCard";
+import { Row, Col } from "antd";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const HomePage = () => {
   }, [dispatch]);
 
   const handleProvinceClick = (province) => {
-    // Use the province name just like it came from state
     router.push(`/${encodeURIComponent(province)}`);
   };
 
@@ -28,18 +28,18 @@ const HomePage = () => {
   }
 
   return (
-    <div className="grid">
+    <Row gutter={[16, 16]}>
       {provinces.map((province, index) => (
-        <div key={province || index} className="col-12 md:col-4">
+        <Col key={province || index} xs={24} sm={12} lg={8}>
           <ProvinceCard
             province={province}
             index={index}
             isLoading={isLoading}
             onClick={() => handleProvinceClick(province)}
           />
-        </div>
+        </Col>
       ))}
-    </div>
+    </Row>
   );
 };
 
