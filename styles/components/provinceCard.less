@@ -5,12 +5,13 @@
   color: white;
   text-align: left;
   width: 100%;
-  padding-top: 50%; // Mantén la proporción 2:1 (altura:ancho)
+  padding-top: 50%; // proporción 2:1 (altura:ancho)
   overflow: hidden;
-  border-radius: 10px; // Redondea un poco más las esquinas
+  border-radius: 8px;
   margin: 0 auto; // Center the card in its column
   box-sizing: border-box; // Ensure padding and borders are included in the total width and height
   transition: transform 0.3s ease; // Smooth scaling effect
+  text-transform: uppercase;
 
   .province-image {
     position: absolute;
@@ -20,7 +21,7 @@
     height: 100%;
     object-fit: cover;
     filter: brightness(0.7); // Darkens the image for better text visibility
-    border-radius: inherit; // Mantiene las esquinas redondeadas
+    border-radius: inherit;
     transition: filter 0.3s ease; // Smooth transition for brightness
   }
 
@@ -44,39 +45,41 @@
   }
 
   &:hover {
-    transform: scale(1.05); // Slightly enlarge the card on hover
+    transform: scale(1.02); // Slightly enlarge the card on hover
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border: none;
     .province-image {
       filter: brightness(0.5); // Darken the image further on hover
     }
   }
 }
 
-@media (max-width: 576px) { // Extra Small devices (phones)
+@media (max-width: 576px) {
   .province-card {
     padding-top: 55%; // Slightly taller for very small screens
     margin: 0 15px; // Adds lateral margin on small screens
   }
 }
 
-@media (min-width: 576px) { // Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
   .province-card {
     padding-top: 45%; // Slightly taller aspect ratio
   }
 }
 
-@media (min-width: 768px) { // Medium devices (tablets, 768px and up)
+@media (min-width: 768px){
   .province-card {
     padding-top: 40%; // Slightly taller aspect ratio for tablets
   }
 }
 
-@media (min-width: 992px) { // Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
   .province-card {
     padding-top: 35%; // Taller aspect ratio for larger screens
   }
 }
 
-@media (min-width: 1200px) { // Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
   .province-card {
     padding-top: 30%; // Adjusted aspect ratio for very large screens
   }
