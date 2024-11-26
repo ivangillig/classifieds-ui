@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchListingDetailsRequest } from "@/actions/listingActions";
-import { Spin, Tag, Card, Button } from "antd";
+import { Spin, Tag, Card, Button, Breadcrumb } from "antd";
 import {
-  CalendarOutlined,
+  HomeOutlined,
   EnvironmentOutlined,
+  CalendarOutlined,
   DollarOutlined,
   PhoneOutlined,
   WhatsAppOutlined,
@@ -18,7 +19,7 @@ import { useTranslation } from "react-i18next";
 const ListingDetailsPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
-  const { id } = router.query;
+  const { province, listingId } = router.query;
 
   const dispatch = useDispatch();
   const { listingDetails, isLoading, error } = useSelector(
@@ -29,10 +30,10 @@ const ListingDetailsPage = () => {
   const [initialIndex, setInitialIndex] = useState(0);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchListingDetailsRequest(id));
+    if (listingId) {
+      dispatch(fetchListingDetailsRequest(listingId));
     }
-  }, [dispatch, id]);
+  }, [dispatch, listingId]);
 
   if (isLoading) {
     return (
@@ -74,8 +75,26 @@ const ListingDetailsPage = () => {
     setGalleryOpen(true);
   };
 
+  console.log(province);
+
   return (
     <div className="listing-details-page">
+      {/* Breadcrumb Section */}
+      <div style={{ marginBottom: "16px", textAlign: "left" }}>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">
+            <HomeOutlined />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href={`/${province}`}>
+            <EnvironmentOutlined />
+            <span>{listingDetails.location.subcountry}</span>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <span>{listingDetails.title}</span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
+      </div>
+
       {/* Image Gallery */}
       <div className="image-gallery">
         {images.length > 3 && (

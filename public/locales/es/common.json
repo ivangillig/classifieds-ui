@@ -3,6 +3,8 @@
     "welcome_message": "Bienvenido a la App de Clasificados",
     "go_to_login": "Ir al login",
     "go_to_main": "Ir al home",
+    "page": "Página",
+    "items_per_page": "/pag",
     "search_placeholder": "Buscar...",
     "login": "Iniciar Sesión",
     "post_ad": "Publicar Anuncio",

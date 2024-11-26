@@ -85,14 +85,14 @@ const ProvincePage = () => {
             ),
           }}
         />
-        <Pagination
-          style={{ marginTop: 16, textAlign: "center" }}
-          current={parseInt(page, 10)}
-          pageSize={parseInt(limit, 10)}
-          total={pagination?.total || 0}
-          onChange={onPageChange}
-          showSizeChanger
-        />
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+          <Pagination
+            current={parseInt(page, 10)}
+            pageSize={parseInt(limit, 10)}
+            total={pagination?.total || 0}
+            onChange={onPageChange}
+          />
+        </div>
       </div>
     </div>
   );
