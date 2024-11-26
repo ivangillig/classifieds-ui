@@ -75,12 +75,10 @@ const ListingDetailsPage = () => {
     setGalleryOpen(true);
   };
 
-  console.log(province);
-
   return (
     <div className="listing-details-page">
       {/* Breadcrumb Section */}
-      <div style={{ marginBottom: "16px", textAlign: "left" }}>
+      <div className="breadcrumb-report-section">
         <Breadcrumb>
           <Breadcrumb.Item href="/">
             <HomeOutlined />
@@ -93,6 +91,14 @@ const ListingDetailsPage = () => {
             <span>{listingDetails.title}</span>
           </Breadcrumb.Item>
         </Breadcrumb>
+        <Button
+          danger
+          icon={<ExclamationCircleOutlined />}
+          className="report-button font-medium"
+          onClick={() => alert("Report submitted")}
+        >
+          {t("Report Listing")}
+        </Button>
       </div>
 
       {/* Image Gallery */}
@@ -179,14 +185,6 @@ const ListingDetailsPage = () => {
             WhatsApp
           </Button>
         )}
-        <Button
-          danger
-          icon={<ExclamationCircleOutlined />}
-          className="p-button-danger font-medium"
-          onClick={() => alert("Report submitted")}
-        >
-          {t("Report Listing")}
-        </Button>
       </div>
 
       {/* Swiper Gallery */}

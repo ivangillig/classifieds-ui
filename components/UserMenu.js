@@ -1,6 +1,10 @@
 import React from "react";
-import { Avatar, Dropdown, Menu } from "antd";
-import { UserOutlined, UnorderedListOutlined, LogoutOutlined } from "@ant-design/icons";
+import { Dropdown, Menu, Button, Space } from "antd";
+import {
+  UserOutlined,
+  UnorderedListOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -39,12 +43,18 @@ const UserMenu = ({ user }) => {
 
   return (
     <div className="user-menu">
-      <Dropdown overlay={menuItems} trigger={["click"]} placement="bottomRight">
-        <Avatar
-          src={user.profilePhoto}
-          alt={t("user.avatar")}
-          style={{ cursor: "pointer" }}
-        />
+      <Dropdown
+        overlay={menuItems}
+        trigger={["click"]}
+        placement="bottomRight"
+        arrow
+      >
+        <Button type="text" className="user-menu-button">
+          <Space>
+            <span className="user-menu-text">{t("account")}</span>
+            <UserOutlined className="user-menu-icon" />
+          </Space>
+        </Button>
       </Dropdown>
     </div>
   );
