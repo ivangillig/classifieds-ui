@@ -11,7 +11,6 @@ const { Search } = Input;
 
 const NavBar = () => {
   const { t } = useTranslation();
-  const appName = process.env.NEXT_PUBLIC_APP_NAME;
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
   const [isMounted, setIsMounted] = useState(false);
@@ -53,9 +52,12 @@ const NavBar = () => {
         <div className="navbar">
           {/* Logo and search bar */}
           <div className="navbar-start">
-            <a href="/" className="navbar-logo">
-              {appName}
-            </a>
+            <div className="navbar-logo">
+              <a href="/" className="navbar-logo" title="Prime Escorts">
+                <span className="logo-primary">PRIME</span>
+                <span className="logo-hover">ESCORTS</span>
+              </a>
+            </div>
             <Space>
               <SearchBox />
             </Space>
