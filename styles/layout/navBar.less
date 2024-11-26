@@ -41,11 +41,11 @@
 
         .ant-btn-primary {
           border-radius: 24px;
-          background-color: var(--purple);
+          background-color: var(--primary-color);
           border: none;
 
           &:hover {
-            background-color: var(--light-purple);
+            background-color: var(--hover-color);
           }
         }
       }
@@ -87,4 +87,9 @@
       }
     }
   }
+}
+
+.navbar-container.scrolled {
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Border shadow when scrolled */
 }

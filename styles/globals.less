@@ -4,9 +4,9 @@
   --background-end-rgb: 255, 255, 255;
   --main-white: #f8f9fa;
 
-  --purple: #5d40dd;
-  --light-purple: #7b63e6;
-  --light-purple-hover: #6a5cd8;
+  --primary-color: #5d40dd;
+  --secondary-color: #7b63e6;
+  --hover-color: #6a5cd8;
 }
 
 // @media (prefers-color-scheme: dark) {
@@ -42,21 +42,30 @@ body {
   background-size: cover;
 }
 
+.ant-btn {
+  font-family: "Wotfard", sans-serif;
+}
+
+.ant-btn-color-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
 .p-button-primary {
-  background-color: var(--purple);
+  background-color: var(--primary-color);
   border-radius: 4px;
   color: #fff;
   font-weight: 700;
 }
 
 .button-publish {
-  background-color: var(--purple);
+  background-color: var(--primary-color);
   text-transform: uppercase;
   font-size: 1.1rem;
   border-radius: 0.5rem !important;
 
   &:hover {
-    background-color: #6a5cd8 !important;
+    background-color: var(--hover-color) !important;
   }
 }
 
@@ -74,6 +83,14 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+}
+
+.ant-back-top-icon {
+  background-color: var(--primary-color);
+
+  &:hover {
+    background-color: var(--secondary-color);
+  }
 }
 
 @media (min-width: 576px) {

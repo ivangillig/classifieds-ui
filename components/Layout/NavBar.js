@@ -16,6 +16,22 @@ const NavBar = () => {
   const user = useSelector((state) => state.auth.user);
   const [isMounted, setIsMounted] = useState(false);
 
+  
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -31,9 +47,9 @@ const NavBar = () => {
   if (!isMounted) {
     return null;
   }
-
+  
   return (
-    <div className="navbar-container">
+    <div className={`navbar-container ${isScrolled ? "scrolled" : ""}`}>
       <div className="main-container">
         <div className="navbar">
           {/* Logo and search bar */}

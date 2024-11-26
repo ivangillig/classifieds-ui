@@ -1,6 +1,5 @@
-// components/DefaultLayout.js
 import React from "react";
-import { Layout } from "antd";
+import { Layout, BackTop } from "antd";
 import Head from "./Head";
 import AppFooter from "./Footer";
 import NavBar from "./NavBar";
@@ -34,6 +33,9 @@ const DefaultLayout = ({ children, title }) => {
       <Footer style={{ flexShrink: 0 }}>
         <AppFooter />
       </Footer>
+
+      {/* Back to Top */}
+      <BackTop visibilityHeight={400} duration={10} />
     </div>
   );
 };
