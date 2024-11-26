@@ -43,6 +43,7 @@ const NavBar = () => {
             </a>
             <Space>
               <Search
+                className="navbar-search"
                 placeholder={t("search_placeholder")}
                 enterButton={
                   <Button icon={<SearchOutlined />} type={"primary"} />
