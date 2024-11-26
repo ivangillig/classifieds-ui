@@ -66,7 +66,7 @@ const ProvincePage = () => {
     );
 
   return (
-    <div className="dataview-listings">
+    <div>
       <div className="card">
         {renderHeader()}
         <List
