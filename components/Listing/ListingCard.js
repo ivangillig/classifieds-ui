@@ -2,11 +2,7 @@ import React from "react";
 import { Button, Card } from "antd";
 import { getImagesPath } from "@/utils/listingsUtils";
 import { useRouter } from "next/router";
-import {
-  PhoneOutlined,
-  WhatsAppOutlined,
-  EnvironmentOutlined,
-} from "@ant-design/icons";
+import { PhoneOutlined, WhatsAppOutlined, EnvironmentOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
@@ -40,11 +36,10 @@ const ListingCard = ({ data: listing }) => {
         hoverable
         onClick={handleCardClick}
         cover={
-          <div style={{ position: "relative" }}>
+          <div className="listing-card-image-wrapper">
             <img
               src={mainImage}
               alt={listing.title}
-              style={{ objectFit: "cover", height: "200px", width: "100%" }}
               onError={(e) =>
                 (e.target.src = "/static/images/image_not_available.webp")
               }
@@ -52,35 +47,13 @@ const ListingCard = ({ data: listing }) => {
             <span className="listing-card-price">${listing.price}</span>
           </div>
         }
-        style={{
-          width: 210,
-          margin: "0.3rem",
-          border: "1px solid var(--surface-border)",
-          position: "relative",
-        }}
       >
         <Meta
-          title={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <span>{listing.title}</span>
-            </div>
-          }
+          title={<span className="listing-card-title">{listing.title}</span>}
           description={
             <>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  marginBottom: "0.4rem",
-                }}
-              >
-                <EnvironmentOutlined style={{ marginRight: "0.3rem" }} />
+              <div className="listing-card-location">
+                <EnvironmentOutlined className="listing-category-icon" />
                 <span>{listing.location.name}</span>
               </div>
               <Button
@@ -88,11 +61,9 @@ const ListingCard = ({ data: listing }) => {
                 icon={
                   listing.useWhatsApp ? <WhatsAppOutlined /> : <PhoneOutlined />
                 }
-                className={
-                  listing.useWhatsApp
-                    ? "button-contact whatsapp"
-                    : "button-contact phone"
-                }
+                className={`button-contact ${
+                  listing.useWhatsApp ? "whatsapp" : "phone"
+                }`}
                 onClick={handleButtonClick}
                 block
               >
