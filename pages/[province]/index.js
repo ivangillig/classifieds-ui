@@ -6,7 +6,7 @@ import LoadingOverlay from "../../components/common/LoadingOverlay";
 import ListingCard from "../../components/Listing/ListingCard";
 import ListingList from "../../components/Listing/ListingList";
 import { useTranslation } from "next-i18next";
-import { List, Pagination, Radio, Breadcrumb } from "antd";
+import { List, Pagination, Radio, Breadcrumb, Card } from "antd";
 import { HomeOutlined, EnvironmentOutlined } from "@ant-design/icons";
 
 const ProvincePage = () => {
@@ -80,15 +80,17 @@ const ProvincePage = () => {
         }}
       >
         {/* Breadcrumb */}
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">
-            <HomeOutlined />
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <EnvironmentOutlined />
-            <span>{province}</span>
-          </Breadcrumb.Item>
-        </Breadcrumb>
+        <Card className="breadcrumb-card">
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">
+              <HomeOutlined />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <EnvironmentOutlined />
+              <span>{province}</span>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Card>
 
         {/* View Selector */}
         <Radio.Group
@@ -130,7 +132,9 @@ const ProvincePage = () => {
             ),
           }}
         />
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: 16 }}
+        >
           <Pagination
             current={parseInt(page, 10)}
             pageSize={parseInt(limit, 10)}

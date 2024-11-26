@@ -79,18 +79,20 @@ const ListingDetailsPage = () => {
     <div className="listing-details-page">
       {/* Breadcrumb Section */}
       <div className="breadcrumb-report-section">
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">
-            <HomeOutlined />
-          </Breadcrumb.Item>
-          <Breadcrumb.Item href={`/${province}`}>
-            <EnvironmentOutlined />
-            <span>{listingDetails.location.subcountry}</span>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item>
-            <span>{listingDetails.title}</span>
-          </Breadcrumb.Item>
-        </Breadcrumb>
+        <Card className="breadcrumb-card">
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">
+              <HomeOutlined />
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href={`/${province}`}>
+              <EnvironmentOutlined />
+              <span>{listingDetails.location.subcountry}</span>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <span>{listingDetails.title}</span>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </Card>
         <Button
           danger
           icon={<ExclamationCircleOutlined />}
