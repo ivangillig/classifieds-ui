@@ -14,14 +14,11 @@ const DefaultLayout = ({ children, title }) => {
 
       {/* Header/NavBar */}
       <Header
-        className="navbar-header"
         style={{
           position: "sticky",
           top: 0,
           zIndex: 10,
           width: "100%",
-          height: "20px",
-          lineHeight: "30px",
           padding: "0",
         }}
       >
@@ -29,7 +26,7 @@ const DefaultLayout = ({ children, title }) => {
       </Header>
 
       {/* Main Content */}
-      <Content style={{ flex: "1 0 auto", padding: "24px", marginTop: "50px" }}>
+      <Content style={{ flex: "1 0 auto", padding: "24px" }}>
         <main className="main-container">{children}</main>
       </Content>
 
