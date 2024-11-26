@@ -1,6 +1,5 @@
 import React from "react";
-import { Button } from "antd";
-import { useTranslation } from "react-i18next";
+import { Button, Card } from "antd";
 import { getImagesPath } from "@/utils/listingsUtils";
 import { useRouter } from "next/router";
 import {
@@ -9,15 +8,17 @@ import {
   EnvironmentOutlined,
 } from "@ant-design/icons";
 
+const { Meta } = Card;
+
 const ListingCard = ({ data: listing }) => {
-  const { t } = useTranslation();
   const router = useRouter();
   const { province } = router.query;
 
   const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, "")}`;
   const callLink = `tel:${listing.phone}`;
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (e) => {
+    e.stopPropagation();
     if (listing.useWhatsApp) {
       window.open(whatsappLink, "_blank");
     } else {
@@ -29,50 +30,78 @@ const ListingCard = ({ data: listing }) => {
     router.push(`/${province}/${listing._id}`);
   };
 
-  const mainImage = getImagesPath() + listing.photos[0] || null;
+  const mainImage =
+    getImagesPath() + listing.photos[0] ||
+    "/static/images/image_not_available.webp";
 
   return (
-    <div
-      className="listing-card-container"
-      onClick={handleCardClick}
-      style={{ cursor: "pointer" }}
-    >
-      <div className="listing-card">
-        <div className="listing-card-content">
-          <img
-            src={mainImage}
-            onError={(e) =>
-              (e.target.src = "/static/images/image_not_available.webp")
-            }
-            alt={listing.title}
-          />
-          <span className="listing-card-price">${listing.price}</span>
-
-          <div className="listing-card-info">
-            <div className="listing-card-name">{listing.title}</div>
-            <div className="listing-card-location">
-              <EnvironmentOutlined className="listing-category-icon" />
-              <span className="listing-card-location-name">
-                {listing.location.name}
-              </span>
+    <div className="listing-card-container">
+      <Card
+        hoverable
+        onClick={handleCardClick}
+        cover={
+          <div style={{ position: "relative" }}>
+            <img
+              src={mainImage}
+              alt={listing.title}
+              style={{ objectFit: "cover", height: "200px", width: "100%" }}
+              onError={(e) =>
+                (e.target.src = "/static/images/image_not_available.webp")
+              }
+            />
+            <span className="listing-card-price">${listing.price}</span>
+          </div>
+        }
+        style={{
+          width: 210,
+          margin: "0.3rem",
+          border: "1px solid var(--surface-border)",
+          position: "relative",
+        }}
+      >
+        <Meta
+          title={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span>{listing.title}</span>
             </div>
-            <div className="listing-card-item-bottom">
+          }
+          description={
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "0.4rem",
+                }}
+              >
+                <EnvironmentOutlined style={{ marginRight: "0.3rem" }} />
+                <span>{listing.location.name}</span>
+              </div>
               <Button
-                type={listing.useWhatsApp ? "primary" : "default"}
+                type={"primary"}
                 icon={
                   listing.useWhatsApp ? <WhatsAppOutlined /> : <PhoneOutlined />
                 }
                 className={
-                  listing.useWhatsApp ? "button-whatsapp" : "button-phone"
+                  listing.useWhatsApp
+                    ? "button-contact whatsapp"
+                    : "button-contact phone"
                 }
                 onClick={handleButtonClick}
+                block
               >
                 {listing.phone}
               </Button>
-            </div>
-          </div>
-        </div>
-      </div>
+            </>
+          }
+        />
+      </Card>
     </div>
   );
 };
