@@ -16,9 +16,30 @@ const ProvincePage = () => {
   const { t } = useTranslation();
 
   const [layout, setLayout] = useState("grid");
+  const [isMobile, setIsMobile] = useState(false);
+
   const { listings, pagination, isLoading } = useSelector(
     (state) => state.listing
   );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 576);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setLayout("grid");
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (province) {
@@ -43,20 +64,25 @@ const ProvincePage = () => {
     });
   };
 
-  const renderHeader = () => (
-    <div className="grid grid-nogutter">
-      <div className="col-6" style={{ textAlign: "left" }}>
-        <Radio.Group
-          value={layout}
-          onChange={(e) => setLayout(e.target.value)}
-          buttonStyle="solid"
-        >
-          <Radio.Button value="grid">{t("Grid")}</Radio.Button>
-          <Radio.Button value="list">{t("List")}</Radio.Button>
-        </Radio.Group>
+  const renderHeader = () => {
+    // Shows the view options in big screens only
+    if (isMobile) return null;
+
+    return (
+      <div className="grid grid-nogutter">
+        <div className="col-6" style={{ textAlign: "left" }}>
+          <Radio.Group
+            value={layout}
+            onChange={(e) => setLayout(e.target.value)}
+            buttonStyle="solid"
+          >
+            <Radio.Button value="grid">{t("Grid")}</Radio.Button>
+            <Radio.Button value="list">{t("List")}</Radio.Button>
+          </Radio.Group>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderItem = (item) =>
     layout === "list" ? (
