@@ -1,6 +1,6 @@
-const withLess = require("next-less");
+const withLess = require("next-with-less");
 
-const nextConfig = {
+module.exports = withLess({
   i18n: {
     locales: ["es", "en"],
     defaultLocale: "es",
@@ -16,9 +16,14 @@ const nextConfig = {
   lessLoaderOptions: {
     lessOptions: {
       javascriptEnabled: true,
+      // TODO: This is not working
+      modifyVars: {
+        '@primary-color': '#5d40dd', 
+        '@link-color': '#7b63e6',
+        '@font-size-base': '14px',
+        '@border-radius-base': '4px',
+      },
     },
   },
   transpilePackages: [ "antd", "@ant-design", "rc-util", "rc-pagination", "rc-picker", "rc-notification", "rc-tooltip", "rc-tree", "rc-table", "rc-input" ]
-};
-
-module.exports = withLess(nextConfig);
+});
