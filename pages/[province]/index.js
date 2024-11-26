@@ -6,7 +6,8 @@ import LoadingOverlay from "../../components/common/LoadingOverlay";
 import ListingCard from "../../components/Listing/ListingCard";
 import ListingList from "../../components/Listing/ListingList";
 import { useTranslation } from "next-i18next";
-import { List, Pagination, Radio } from "antd";
+import { List, Pagination, Radio, Breadcrumb } from "antd";
+import { HomeOutlined, EnvironmentOutlined } from "@ant-design/icons";
 
 const ProvincePage = () => {
   const dispatch = useDispatch();
@@ -65,21 +66,39 @@ const ProvincePage = () => {
   };
 
   const renderHeader = () => {
-    // Shows the view options in big screens only
+    // Shows the view options and breadcrumb only in large screens
     if (isMobile) return null;
 
     return (
-      <div className="grid grid-nogutter">
-        <div className="col-6" style={{ textAlign: "left" }}>
-          <Radio.Group
-            value={layout}
-            onChange={(e) => setLayout(e.target.value)}
-            buttonStyle="solid"
-          >
-            <Radio.Button value="grid">{t("Grid")}</Radio.Button>
-            <Radio.Button value="list">{t("List")}</Radio.Button>
-          </Radio.Group>
-        </div>
+      <div
+        className="grid grid-nogutter"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "16px",
+        }}
+      >
+        {/* Breadcrumb */}
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">
+            <HomeOutlined />
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <EnvironmentOutlined />
+            <span>{province}</span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
+
+        {/* View Selector */}
+        <Radio.Group
+          value={layout}
+          onChange={(e) => setLayout(e.target.value)}
+          buttonStyle="solid"
+        >
+          <Radio.Button value="grid">{t("Grid")}</Radio.Button>
+          <Radio.Button value="list">{t("List")}</Radio.Button>
+        </Radio.Group>
       </div>
     );
   };
