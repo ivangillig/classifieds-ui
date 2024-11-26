@@ -1,11 +1,11 @@
 // components/NavBar.js
 import React, { useEffect, useState } from "react";
 import { Input, Button, Space } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import UserMenu from "../UserMenu";
+import SearchBox from "../common/SearchBox";
 
 const { Search } = Input;
 
@@ -16,7 +16,6 @@ const NavBar = () => {
   const user = useSelector((state) => state.auth.user);
   const [isMounted, setIsMounted] = useState(false);
 
-  
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Detect scroll
@@ -47,7 +46,7 @@ const NavBar = () => {
   if (!isMounted) {
     return null;
   }
-  
+
   return (
     <div className={`navbar-container ${isScrolled ? "scrolled" : ""}`}>
       <div className="main-container">
@@ -58,13 +57,7 @@ const NavBar = () => {
               {appName}
             </a>
             <Space>
-              <Search
-                className="navbar-search"
-                placeholder={t("search_placeholder")}
-                enterButton={
-                  <Button icon={<SearchOutlined />} type={"primary"} />
-                }
-              />
+              <SearchBox />
             </Space>
           </div>
 
