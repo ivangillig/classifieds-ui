@@ -34,7 +34,7 @@ const DefaultLayout = ({ children, title }) => {
       </Content>
 
       {/* Footer */}
-      <Footer style={{ flexShrink: 0, backgroundColor: "none" }}>
+      <Footer style={{ flexShrink: 0 }}>
         <AppFooter />
       </Footer>
     </div>
