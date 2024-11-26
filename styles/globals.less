@@ -18,9 +18,17 @@
 //   }
 // }
 
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Wotfard", sans-serif;
+}
 
-
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -35,24 +43,28 @@ body {
 }
 
 .p-button-primary {
-  background-color: var(--purple);  
+  background-color: var(--purple);
   border-radius: 4px;
-  color: #fff;  
+  color: #fff;
   font-weight: 700;
 }
 
 .button-publish {
   text-transform: uppercase;
-  font-size: 1.1rem;  
-  border-radius: .5rem !important;
+  font-size: 1.1rem;
+  border-radius: 0.5rem !important;
+
+  &:hover {
+    background-color: #6a5cd8 !important;
+  }
 }
 
 .layout {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;  
-  text-transform: uppercase;  
+  min-height: 100vh;
+  text-transform: uppercase;
   display: flex;
 }
 
@@ -80,6 +92,6 @@ body {
 
 @media (min-width: 1024px) {
   .main-container {
-    max-width: 1200px;  /* big screens */
+    max-width: 1200px; /* big screens */
   }
 }
