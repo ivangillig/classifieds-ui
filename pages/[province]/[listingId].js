@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { fetchListingDetailsRequest } from "@/actions/listingActions";
 import { Spin, Tag, Card, Button, Breadcrumb } from "antd";
+import ReportListingModal from "@/components/Listing/ReportListingModal";
 import {
   HomeOutlined,
   EnvironmentOutlined,
@@ -21,6 +22,10 @@ const ListingDetailsPage = () => {
   const router = useRouter();
   const { t } = useTranslation();
   const { province, listingId } = router.query;
+  const [isReportModalVisible, setReportModalVisible] = useState(false);
+
+  const showReportModal = () => setReportModalVisible(true);
+  const closeReportModal = () => setReportModalVisible(false);
 
   const dispatch = useDispatch();
   const { listingDetails, isLoading, error } = useSelector(
@@ -98,7 +103,7 @@ const ListingDetailsPage = () => {
           danger
           icon={<ExclamationCircleOutlined />}
           className="report-button font-medium"
-          onClick={() => alert("Report submitted")}
+          onClick={showReportModal}
         >
           {t("Report Listing")}
         </Button>
@@ -196,6 +201,12 @@ const ListingDetailsPage = () => {
         isOpen={isGalleryOpen}
         onClose={() => setGalleryOpen(false)}
         initialIndex={initialIndex}
+      />
+
+      <ReportListingModal
+        visible={isReportModalVisible}
+        onClose={closeReportModal}
+        listingId={listingId}
       />
     </div>
   );

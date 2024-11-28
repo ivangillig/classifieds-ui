@@ -13,6 +13,9 @@ import {
   FETCH_LISTING_DETAILS_REQUEST,
   FETCH_LISTING_DETAILS_SUCCESS,
   FETCH_LISTING_DETAILS_ERROR,
+  REPORT_LISTING_REQUEST,
+  REPORT_LISTING_SUCCESS,
+  REPORT_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 export const createListingRequest = (params) => ({
@@ -51,7 +54,7 @@ export const fetchListingsError = (error) => ({
 
 export const fetchListingsByProvinceRequest = (params) => ({
   type: FETCH_LISTINGS_BY_PROVINCE_REQUEST,
-  payload: params ,
+  payload: params,
 });
 
 export const fetchListingsByProvinceSuccess = (listings) => ({
@@ -91,5 +94,20 @@ export const fetchListingDetailsSuccess = (data) => ({
 
 export const fetchListingDetailsError = (error) => ({
   type: FETCH_LISTING_DETAILS_ERROR,
+  payload: error,
+});
+
+export const reportListingRequest = (params) => ({
+  type: REPORT_LISTING_REQUEST,
+  payload: params,
+});
+
+export const reportListingSuccess = (data) => ({
+  type: REPORT_LISTING_SUCCESS,
+  payload: data,
+});
+
+export const reportListingError = (error) => ({
+  type: REPORT_LISTING_ERROR,
   payload: error,
 });

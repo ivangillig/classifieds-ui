@@ -13,6 +13,9 @@ import {
   FETCH_LISTING_DETAILS_REQUEST,
   FETCH_LISTING_DETAILS_SUCCESS,
   FETCH_LISTING_DETAILS_ERROR,
+  REPORT_LISTING_REQUEST,
+  REPORT_LISTING_SUCCESS,
+  REPORT_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -22,6 +25,7 @@ const initialState = {
   isLoading: false,
   error: null,
   listingCreated: false,
+  reportSuccess: false,
 };
 
 export default function listingReducer(state = initialState, action) {
@@ -101,6 +105,25 @@ export default function listingReducer(state = initialState, action) {
       };
     case CLEAR_LISTING_STATE:
       return initialState;
+    case REPORT_LISTING_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+        reportSuccess: false,
+      };
+    case REPORT_LISTING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        reportSuccess: true,
+      };
+    case REPORT_LISTING_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
