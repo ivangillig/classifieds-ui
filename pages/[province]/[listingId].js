@@ -15,6 +15,7 @@ import {
 import EmblaWithGallery from "@/components/Listing/EmblaWithGallery";
 import { getImagesPath } from "@/utils/listingsUtils";
 import { useTranslation } from "react-i18next";
+import dayjs from "dayjs";
 
 const ListingDetailsPage = () => {
   const router = useRouter();
@@ -144,7 +145,7 @@ const ListingDetailsPage = () => {
           <div className="info-tags">
             {listingDetails.age && (
               <Tag icon={<CalendarOutlined />} color="default">
-                {listingDetails.age}
+                {dayjs(listingDetails.createdAt).format("DD/MM/YYYY")}
               </Tag>
             )}
             <Tag icon={<EnvironmentOutlined />} color="red">
