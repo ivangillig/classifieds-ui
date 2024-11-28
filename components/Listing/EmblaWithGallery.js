@@ -22,14 +22,9 @@ const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
     <Modal
       open={isOpen}
       onCancel={onClose}
-      footer={null} // Sin botones en el pie de modal
+      footer={null}
       width="90%"
-      bodyStyle={{
-        padding: 0,
-        overflow: "hidden",
-        maxWidth: "900px",
-        margin: "0 auto",
-      }}
+      className={'embla-modal'}
     >
       {/* Main Slider */}
       <div className="embla embla--main" ref={emblaRef}>

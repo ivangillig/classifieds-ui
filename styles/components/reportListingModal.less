@@ -1,36 +1,50 @@
 .custom-report-modal .formik-form {
-  padding: 16px;
-}
-
-.custom-report-modal .form-item {
-  margin-bottom: 16px;
-}
-
-.custom-report-modal .form-item label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.custom-report-modal .input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-}
-
-.custom-report-modal .input.error {
-  border-color: #ff4d4f;
-}
-
-.custom-report-modal .error-message {
-  color: #ff4d4f;
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.custom-report-modal .form-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-}
+    padding: 16px;
+  }
+  
+  .custom-report-modal .form-item {
+    margin-bottom: 16px;
+  }
+  
+  .custom-report-modal .form-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .custom-report-modal .input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+  }
+  
+  .custom-report-modal .input.error {
+    border-color: #ff4d4f;
+  }
+  
+  .custom-report-modal .error-message {
+    color: #ff4d4f;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  .custom-report-modal .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  
+  /* Responsive adjustments for mobile */
+  @media (max-width: 576px) {
+    .custom-report-modal .formik-form {
+      padding: 12px;
+    }
+  
+    .custom-report-modal .form-actions {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+  

@@ -9,6 +9,14 @@ import * as Yup from "yup";
 
 const { Option } = Select;
 
+const REPORT_REASONS = {
+  PHOTO_MISMATCH: "reason_photo_mismatch",
+  UNDERAGE_PHOTOS: "reason_underage_photos",
+  INAPPROPRIATE_LANGUAGE: "reason_inappropriate_language",
+  SCAM: "reason_scam",
+  OTHER: "reason_other",
+};
+
 const ReportListingModal = ({ visible, onClose, listingId }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -23,35 +31,32 @@ const ReportListingModal = ({ visible, onClose, listingId }) => {
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(reportListingRequest({ listingId, ...values }));
-    notification.success({
-      message: t("Success"),
-      description: t("Report submitted successfully"),
+    notification.warning({
+      message: t("Report submitted"),
+      description: t("The report will be reviewed"),
+      showProgress: true,
+      pauseOnHover: true,
     });
     resetForm();
     onClose();
   };
 
-  const reasons = [
-    t("The photo does not match the person in the ad"),
-    t("The photos appear to be of someone underage"),
-    t("The ad contains inappropriate language"),
-    t("The ad is a scam or fake"),
-    t("Other"),
-  ];
-
   return (
     <Modal
-      visible={visible}
+      open={visible}
       onCancel={onClose}
       title={
-        <span>
-          <WarningOutlined style={{ color: "#faad14", marginRight: "8px" }} />
-          {t("Report Listing")}
-        </span>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <WarningOutlined
+            style={{ color: "red", marginRight: "8px", fontSize: "25px" }}
+          />
+          <span>{t("Report Listing")}</span>
+        </div>
       }
       footer={null}
       className="custom-report-modal"
-      width={400}
+      width="90%"
+      style={{ maxWidth: "400px" }}
     >
       <Formik
         initialValues={{ reason: "", details: "", contactInfo: "" }}
@@ -67,10 +72,11 @@ const ReportListingModal = ({ visible, onClose, listingId }) => {
                 onChange={(value) => setFieldValue("reason", value)}
                 placeholder={t("Select a reason")}
                 status={errors.reason && touched.reason ? "error" : ""}
+                style={{ width: "100%" }}
               >
-                {reasons.map((reason, index) => (
-                  <Option key={index} value={reason}>
-                    {reason}
+                {Object.entries(REPORT_REASONS).map(([key, value]) => (
+                  <Option key={key} value={value}>
+                    {t(value)}
                   </Option>
                 ))}
               </Select>
@@ -117,6 +123,7 @@ const ReportListingModal = ({ visible, onClose, listingId }) => {
                 key="submit"
                 type="primary"
                 htmlType="submit"
+                className="button-danger"
                 loading={isLoading}
               >
                 {t("Submit")}
