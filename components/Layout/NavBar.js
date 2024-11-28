@@ -65,11 +65,6 @@ const NavBar = () => {
 
           {/* Buttons and user menu */}
           <div className="navbar-end">
-            {!user && (
-              <Button type="default" onClick={handleLoginClick}>
-                {t("login")}
-              </Button>
-            )}
             <Button
               type="primary"
               onClick={handlePostAdClick}
@@ -77,7 +72,17 @@ const NavBar = () => {
             >
               {t("post_ad")}
             </Button>
-            {user && <UserMenu user={user} />}
+            {user ? (
+              <UserMenu user={user} />
+            ) : (
+              <Button
+                type="default"
+                onClick={handleLoginClick}
+                className="navBar-login-button"
+              >
+                <span>{t("login")}</span>
+              </Button>
+            )}
           </div>
         </div>
       </div>
