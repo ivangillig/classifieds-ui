@@ -18,18 +18,18 @@ const UserMenu = ({ user }) => {
   const menuItems = (
     <Menu>
       <Menu.Item
-        key="profile"
-        icon={<UserOutlined />}
-        onClick={() => router.push("/user/private")}
-      >
-        {t("user.my_profile")}
-      </Menu.Item>
-      <Menu.Item
-        key="ads"
+        key="myListings"
         icon={<UnorderedListOutlined />}
-        onClick={() => router.push("/my-ads")}
+        onClick={() => router.push("/user/private/myListings")}
       >
         {t("user.my_ads")}
+      </Menu.Item>
+      <Menu.Item
+        key="myProfile"
+        icon={<UserOutlined />}
+        onClick={() => router.push("/user/private/MyProfile")}
+      >
+        {t("user.my_profile")}
       </Menu.Item>
       <Menu.Item
         key="logout"

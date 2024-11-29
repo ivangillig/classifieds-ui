@@ -10,7 +10,7 @@ import {
   PlayCircleOutlined,
   ReloadOutlined,
   DeleteOutlined,
-  EditOutlined
+  EditOutlined,
 } from "@ant-design/icons";
 
 const MyListingsComponent = ({ status }) => {
@@ -22,25 +22,10 @@ const MyListingsComponent = ({ status }) => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
 
-  const handlePause = (id) => {
-    console.log(`Pausing listing with ID: ${id}`);
-    // Call the API or dispatch an action to pause the listing
-  };
-
-  const handleReactivate = (id) => {
-    console.log(`Reactivating listing with ID: ${id}`);
-    // Call the API or dispatch an action to reactivate the listing
-  };
-
-  const handleRenew = (id) => {
-    console.log(`Renewing listing with ID: ${id}`);
-    // Call the API or dispatch an action to renew the listing
-  };
-
-  const handleDelete = (id) => {
-    console.log(`Deleting listing with ID: ${id}`);
-    // Call the API or open a confirmation modal to delete the listing
-  };
+  const handlePause = (id) => console.log(`Pausing listing with ID: ${id}`);
+  const handleReactivate = (id) => console.log(`Reactivating listing with ID: ${id}`);
+  const handleRenew = (id) => console.log(`Renewing listing with ID: ${id}`);
+  const handleDelete = (id) => console.log(`Deleting listing with ID: ${id}`);
 
   const columns = [
     {
@@ -141,10 +126,15 @@ const MyListingsComponent = ({ status }) => {
 
   return (
     <Table
-      dataSource={userListings}
-      columns={columns}
-      rowKey={(record) => record.id}
+    dataSource={userListings}
+    columns={columns}
+    rowKey={(record) => record.id}
       pagination={{ pageSize: 10 }}
+      locale={{
+        emptyText: isLoading
+          ? null
+          : t("No listings found with this status"),
+      }}
     />
   );
 };

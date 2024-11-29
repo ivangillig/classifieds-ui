@@ -39,6 +39,7 @@
   "Price": "Precio",
   "Created At": "Fecha de creación",
   "Actions": "Acciones",
+  "No listings found with this status": "No se encontraron anuncios con este estado",
   "user": {
     "my_profile": "Mi perfil",
     "my_ads": "Mis anuncios",
