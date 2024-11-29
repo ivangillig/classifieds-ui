@@ -34,16 +34,21 @@
   "Submit": "Enviar",
   "Report submitted": "Reporte enviado",
   "The report will be reviewed": "Tu reporte será revisado a la brevedad",
+  "Image": "Imagen",
+  "Title": "Título",
+  "Price": "Precio",
+  "Created At": "Fecha de creación",
+  "Actions": "Acciones",
   "user": {
     "my_profile": "Mi perfil",
     "my_ads": "Mis anuncios",
     "logout": "Cerrar sesión"
   },
   "private": {
-    "activeAds": "Activos",
-    "underReviewAds": "En revisión",
-    "pausedAds": "Pausados",
-    "expiredAds": "Caducados",
+    "activeListings": "Activos",
+    "underReviewListings": "En revisión",
+    "pausedListings": "Pausados",
+    "expiredListings": "Caducados",
     "generalInfo": "Información general",
     "security": "Seguridad",
     "notifications": "Notificaciones",
@@ -78,7 +83,19 @@
     "created_summary": "Anuncio creado",
     "created_detail": "Tu anuncio fue creado correctamente",
     "drag_and_drop_images": "Arrastrá tus fotos o ",
-    "browse": "seleccionalas desde tu dispositivo"
+    "browse": "seleccionalas desde tu dispositivo",
+    "paused": "Pausado",
+    "published": "published",
+    "underReview": "underReview",
+    "expired": "expired",
+    "blocked": "blocked"
+  },
+  "listingActions": {
+    "Pause": "Pausar",
+    "Delete": "Eliminar",
+    "Reactivate": "Reactivar",
+    "Edit": "Editar",
+    "Renew": "Renovar"
   },
   "Publish": "Publicar",
   "Ads_on": "Clasificados en",

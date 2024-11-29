@@ -20,10 +20,10 @@ const PanelMenuComponent = ({ onSelect }) => {
       label: t("user.my_ads"),
       icon: <AppstoreOutlined />,
       children: [
-        { key: "published", label: t("private.activeAds"), icon: <AppstoreOutlined /> },
-        { key: "underReview", label: t("private.underReviewAds"), icon: <AuditOutlined /> },
-        { key: "paused", label: t("private.pausedAds"), icon: <PauseCircleOutlined /> },
-        { key: "expired", label: t("private.expiredAds"), icon: <ClockCircleOutlined /> },
+        { key: "published", label: t("private.activeListings"), icon: <AppstoreOutlined /> },
+        { key: "underReview", label: t("private.underReviewListings"), icon: <AuditOutlined /> },
+        { key: "paused", label: t("private.pausedListings"), icon: <PauseCircleOutlined /> },
+        { key: "expired", label: t("private.expiredListings"), icon: <ClockCircleOutlined /> },
       ],
     },
     {

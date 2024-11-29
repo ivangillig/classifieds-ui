@@ -1,11 +1,17 @@
-// components/private/ActiveAdsComponent.js
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserListingsRequest } from "../../actions";
-import { Table, Spin } from "antd";
+import { Table, Spin, Button, Space } from "antd";
 import { useTranslation } from "next-i18next";
 import dayjs from "dayjs";
 import { getImagesPath } from "@/utils/listingsUtils";
+import {
+  PauseOutlined,
+  PlayCircleOutlined,
+  ReloadOutlined,
+  DeleteOutlined,
+  EditOutlined
+} from "@ant-design/icons";
 
 const MyListingsComponent = ({ status }) => {
   const { t } = useTranslation();
@@ -15,6 +21,26 @@ const MyListingsComponent = ({ status }) => {
   useEffect(() => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
+
+  const handlePause = (id) => {
+    console.log(`Pausing listing with ID: ${id}`);
+    // Call the API or dispatch an action to pause the listing
+  };
+
+  const handleReactivate = (id) => {
+    console.log(`Reactivating listing with ID: ${id}`);
+    // Call the API or dispatch an action to reactivate the listing
+  };
+
+  const handleRenew = (id) => {
+    console.log(`Renewing listing with ID: ${id}`);
+    // Call the API or dispatch an action to renew the listing
+  };
+
+  const handleDelete = (id) => {
+    console.log(`Deleting listing with ID: ${id}`);
+    // Call the API or open a confirmation modal to delete the listing
+  };
 
   const columns = [
     {
@@ -47,6 +73,61 @@ const MyListingsComponent = ({ status }) => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt) => dayjs(createdAt).format("DD/MM/YYYY"),
+    },
+    {
+      title: t("Actions"),
+      key: "actions",
+      render: (text, record) => {
+        const { id, status } = record;
+
+        return (
+          <Space>
+            {(status === "published" || status === "paused") && (
+              <Button
+                icon={<EditOutlined />}
+                onClick={() => console.log(`Editing listing with ID: ${id}`)}
+                type="default"
+              >
+                {t("listingActions.Edit")}
+              </Button>
+            )}
+            {status === "published" && (
+              <Button
+                icon={<PauseOutlined />}
+                onClick={() => handlePause(id)}
+                type="default"
+              >
+                {t("listingActions.Pause")}
+              </Button>
+            )}
+            {status === "paused" && (
+              <Button
+                icon={<PlayCircleOutlined />}
+                onClick={() => handleReactivate(id)}
+                type="default"
+              >
+                {t("listingActions.Reactivate")}
+              </Button>
+            )}
+            {status === "expired" && (
+              <Button
+                icon={<ReloadOutlined />}
+                onClick={() => handleRenew(id)}
+                type="default"
+              >
+                {t("listingActions.Renew")}
+              </Button>
+            )}
+            <Button
+              icon={<DeleteOutlined />}
+              onClick={() => handleDelete(id)}
+              danger
+            >
+              {t("listingActions.Delete")}
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 
