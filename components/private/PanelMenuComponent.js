@@ -11,12 +11,16 @@ import {
   BellOutlined,
 } from "@ant-design/icons";
 
-const PanelMenuComponent = ({ onSelect }) => {
+const PanelMenuComponent = ({
+  onSelect,
+  selectedCategory,
+  selectedSubCategory,
+}) => {
   const { t } = useTranslation();
 
   const items = [
     {
-      key: "ads",
+      key: "my-listings",
       label: t("user.my_ads"),
       icon: <AppstoreOutlined />,
       children: [
@@ -27,7 +31,7 @@ const PanelMenuComponent = ({ onSelect }) => {
       ],
     },
     {
-      key: "profile",
+      key: "my-profile",
       label: t("user.my_profile"),
       icon: <InfoCircleOutlined />,
       children: [
@@ -38,12 +42,20 @@ const PanelMenuComponent = ({ onSelect }) => {
     },
   ];
 
+  const handleClick = ({ keyPath }) => {
+    const subCategory = keyPath[0];
+    const category = keyPath[1] || subCategory;
+    onSelect(category, subCategory);
+  };
+
   return (
     <Menu
       mode="inline"
       items={items}
+      onClick={handleClick}
+      selectedKeys={[selectedSubCategory]}
+      defaultOpenKeys={[selectedCategory]}
       style={{ width: "100%", maxWidth: "300px" }}
-      onClick={({ key }) => onSelect(key)}
     />
   );
 };
