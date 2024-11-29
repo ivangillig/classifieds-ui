@@ -14,6 +14,8 @@ import {
   uploadImagesError,
   reportListingSuccess,
   reportListingError,
+  fetchUserListingsSuccess,
+  fetchUserListingsError,
 } from "../actions/listingActions";
 
 import {
@@ -22,6 +24,7 @@ import {
   FETCH_LISTINGS_BY_PROVINCE_REQUEST,
   FETCH_LISTING_DETAILS_REQUEST,
   REPORT_LISTING_REQUEST,
+  FETCH_USER_LISTINGS_REQUEST,
 } from "../constants/ActionsTypes";
 
 import {
@@ -32,6 +35,7 @@ import {
   uploadImagesApi,
   deleteImagesApi,
   reportListingApi,
+  fetchUserListingsApi,
 } from "../api/listingApi";
 
 function* uploadImagesSaga(files) {
@@ -112,6 +116,16 @@ function* fetchListingsByProvinceSaga(action) {
   }
 }
 
+function* fetchUserListingsSaga({ payload }) {
+  try {
+    const response = yield call(fetchUserListingsApi, payload);
+    yield put(fetchUserListingsSuccess(response));
+  } catch (error) {
+    // TODO: should handle this with middleware 
+    // yield put(fetchUserListingsError(error.message));
+  }
+}
+
 export function* watchCreateListingSaga() {
   yield takeLatest(CREATE_LISTING_REQUEST, createListingRequest);
 }
@@ -135,6 +149,10 @@ export function* watchFetchListingsByProvinceSaga() {
   );
 }
 
+export function* watchFetchUserListingsSaga() {
+  yield takeLatest(FETCH_USER_LISTINGS_REQUEST, fetchUserListingsSaga);
+}
+
 export default function* rootLocationSaga() {
   yield all([
     fork(watchCreateListingSaga),
@@ -142,5 +160,6 @@ export default function* rootLocationSaga() {
     fork(watchFetchListingsByProvinceSaga),
     fork(watchFetchListingDetailsSaga),
     fork(watchReportListingSaga),
+    fork(watchFetchUserListingsSaga),
   ]);
 }

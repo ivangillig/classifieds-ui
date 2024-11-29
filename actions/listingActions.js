@@ -16,6 +16,9 @@ import {
   REPORT_LISTING_REQUEST,
   REPORT_LISTING_SUCCESS,
   REPORT_LISTING_ERROR,
+  FETCH_USER_LISTINGS_REQUEST,
+  FETCH_USER_LISTINGS_SUCCESS,
+  FETCH_USER_LISTINGS_ERROR,
 } from "../constants/ActionsTypes";
 
 export const createListingRequest = (params) => ({
@@ -109,5 +112,20 @@ export const reportListingSuccess = (data) => ({
 
 export const reportListingError = (error) => ({
   type: REPORT_LISTING_ERROR,
+  payload: error,
+});
+
+export const fetchUserListingsRequest = (status) => ({
+  type: FETCH_USER_LISTINGS_REQUEST,
+  payload: status,
+});
+
+export const fetchUserListingsSuccess = (listings) => ({
+  type: FETCH_USER_LISTINGS_SUCCESS,
+  payload: listings,
+});
+
+export const fetchUserListingsError = (error) => ({
+  type: FETCH_USER_LISTINGS_ERROR,
   payload: error,
 });

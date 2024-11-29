@@ -1,7 +1,11 @@
-// pages/private.js
-import React, { useState } from 'react';
-import PanelMenuComponent from '../../components/private/PanelMenuComponent';
-import { useTranslation } from 'next-i18next';
+// pages/user/private.js
+import React, { useState } from "react";
+import { Layout } from "antd";
+import PanelMenuComponent from "@/components/private/PanelMenuComponent";
+import ActiveListingsComponent from "@/components/private/ActiveListingsComponent";
+import { useTranslation } from "next-i18next";
+
+const { Sider, Content } = Layout;
 
 const PrivatePage = () => {
   const { t } = useTranslation();
@@ -9,32 +13,32 @@ const PrivatePage = () => {
 
   const renderContent = () => {
     switch (selectedItem) {
-      case t('activeAds'):
-        return <div>{t('private.activeAdsContent')}</div>;
-      case t('private.underReviewAds'):
-        return <div>{t('private.underReviewAdsContent')}</div>;
-      case t('private.pausedAds'):
-        return <div>{t('private.pausedAdsContent')}</div>;
-      case t('private.expiredAds'):
-        return <div>{t('private.expiredAdsContent')}</div>;
-      case t('private.generalInfo'):
-        return <div>{t('private.generalInfoContent')}</div>;
-      case t('private.security'):
-        return <div>{t('private.securityContent')}</div>;
-      case t('private.notifications'):
-        return <div>{t('private.notificationsContent')}</div>;
+      case "activeListings":
+        return <ActiveListingsComponent />;
+      case "underReviewAds":
+        return <div>{t("private.underReviewAdsContent")}</div>;
+      case "pausedAds":
+        return <div>{t("private.pausedAdsContent")}</div>;
+      case "expiredAds":
+        return <div>{t("private.expiredAdsContent")}</div>;
+      case "generalInfo":
+        return <div>{t("private.generalInfoContent")}</div>;
+      case "security":
+        return <div>{t("private.securityContent")}</div>;
+      case "notifications":
+        return <div>{t("private.notificationsContent")}</div>;
       default:
-        return <div>{t('selectAnOption')}</div>;
+        return <div>{t("selectAnOption")}</div>;
     }
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <PanelMenuComponent onSelect={setSelectedItem} />
-      <div style={{ marginLeft: '20px', flexGrow: 1 }}>
-        {renderContent()}
-      </div>
-    </div>
+    <Layout className="private-layout">
+      <Sider width={240} className="private-sider">
+        <PanelMenuComponent onSelect={setSelectedItem} />
+      </Sider>
+      <Content className="private-content">{renderContent()}</Content>
+    </Layout>
   );
 };
 

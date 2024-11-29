@@ -92,7 +92,21 @@ export const fetchListingDetailsApi = async (id) => {
 
 export const reportListingApi = async (data) => {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/report`, data);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/report`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchUserListingsApi = async (status) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/my-listings?status=${status}`
+    );
     return response.data;
   } catch (error) {
     throw error;

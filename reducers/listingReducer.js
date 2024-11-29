@@ -13,6 +13,9 @@ import {
   FETCH_LISTING_DETAILS_REQUEST,
   FETCH_LISTING_DETAILS_SUCCESS,
   FETCH_LISTING_DETAILS_ERROR,
+  FETCH_USER_LISTINGS_REQUEST,
+  FETCH_USER_LISTINGS_SUCCESS,
+  FETCH_USER_LISTINGS_ERROR,
   REPORT_LISTING_REQUEST,
   REPORT_LISTING_SUCCESS,
   REPORT_LISTING_ERROR,
@@ -26,6 +29,7 @@ const initialState = {
   error: null,
   listingCreated: false,
   reportSuccess: false,
+  userListings: [],
 };
 
 export default function listingReducer(state = initialState, action) {
@@ -124,6 +128,17 @@ export default function listingReducer(state = initialState, action) {
         isLoading: false,
         error: action.payload,
       };
+    case FETCH_USER_LISTINGS_REQUEST:
+      return { ...state, isLoading: true, error: null };
+    case FETCH_USER_LISTINGS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userListings: action.payload.data,
+        pagination: action.payload.meta,
+      };
+    case FETCH_USER_LISTINGS_ERROR:
+      return { ...state, isLoading: false, error: action.payload };
     default:
       return state;
   }
