@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Layout } from "antd";
 import PanelMenuComponent from "@/components/private/PanelMenuComponent";
-import ActiveListingsComponent from "@/components/private/ActiveListingsComponent";
+import MyListingsComponent from "@/components/private/MyListingsComponent";
 import { useTranslation } from "next-i18next";
 
 const { Sider, Content } = Layout;
@@ -13,14 +13,14 @@ const PrivatePage = () => {
 
   const renderContent = () => {
     switch (selectedItem) {
-      case "activeListings":
-        return <ActiveListingsComponent />;
-      case "underReviewAds":
-        return <div>{t("private.underReviewAdsContent")}</div>;
-      case "pausedAds":
-        return <div>{t("private.pausedAdsContent")}</div>;
-      case "expiredAds":
-        return <div>{t("private.expiredAdsContent")}</div>;
+      case "published":
+        return <MyListingsComponent status='published' />;
+      case "underReview":
+        return <MyListingsComponent status='underReview' />;
+      case "paused":
+        return <MyListingsComponent status='paused' />;
+      case "expired":
+        return <MyListingsComponent status='expired' />;
       case "generalInfo":
         return <div>{t("private.generalInfoContent")}</div>;
       case "security":
