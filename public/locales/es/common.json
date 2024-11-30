@@ -18,8 +18,9 @@
   "Please select a reason": "Por favor, selecciona un motivo",
   "Please provide additional details": "Por favor, proporciona detalles adicionales",
   "Success": "Exito",
-  "Confirm Action": "Confirmar acción",
+  "Confirm": "Confirmar",
   "listing_pause_message": "Pausar este anuncio lo volverá invisible al público pero no afectará a la vigencia restante",
+  "listing_reactivate_message": "Si reactivas este anuncio se volverá visible para el público en general",
   "Report submitted successfully": "Reporte enviado exitosamente",
   "Reason for report": "Motivo del reporte",
   "Select a reason": "Selecciona un motivo",
@@ -42,7 +43,6 @@
   "Created At": "Fecha de creación",
   "Actions": "Acciones",
   "No listings found with this status": "No se encontraron anuncios con este estado",
-  "The listing has been paused successfully": "El anuncio fue pausado correctamente",
   "user": {
     "my_profile": "Mi perfil",
     "my_ads": "Mis anuncios",
@@ -56,13 +56,6 @@
     "generalInfo": "Información general",
     "security": "Seguridad",
     "notifications": "Notificaciones",
-    "activeAdsContent": "Aquí están los avisos activos...",
-    "underReviewAdsContent": "Aquí están los avisos en revisión...",
-    "pausedAdsContent": "Aquí están los avisos pausados...",
-    "expiredAdsContent": "Aquí están los avisos caducados...",
-    "generalInfoContent": "Aquí está la información general de tu perfil...",
-    "securityContent": "Aquí puedes ajustar la seguridad...",
-    "notificationsContent": "Aquí puedes gestionar tus notificaciones...",
     "selectAnOption": "Por favor, selecciona una opción"
   },
   "listing": {
@@ -124,5 +117,6 @@
   "ERROR_DELETE_IMAGES_FAILED": "Hubo un error al intentar eliminar las imagenes",
   "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente",
   "SUCCESS_LISTING_PAUSED": "El anuncio fue pausado correctamente",
-  "ERROR_LISTING_PAUSED_FAILED": "Hubo un problema al pausar el anuncio, reintente o contactese con un administrador"
+  "SUCCESS_LISTING_REACTIVATED": "El anuncio fue reactivado correctamente",
+  "ERROR_LISTING_STATUS_UPDATE_FAILED": "Hubo un problema al actualizar el estado del anuncio, reintente o contactese con un administrador"
 }

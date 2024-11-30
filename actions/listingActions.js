@@ -19,9 +19,9 @@ import {
   FETCH_USER_LISTINGS_REQUEST,
   FETCH_USER_LISTINGS_SUCCESS,
   FETCH_USER_LISTINGS_ERROR,
-  PAUSE_LISTING_REQUEST,
-  PAUSE_LISTING_SUCCESS,
-  PAUSE_LISTING_ERROR,
+  TOGGLE_LISTING_STATUS_REQUEST,
+  TOGGLE_LISTING_STATUS_SUCCESS,
+  TOGGLE_LISTING_STATUS_ERROR,
 } from "../constants/ActionsTypes";
 
 export const createListingRequest = (params) => ({
@@ -134,17 +134,17 @@ export const fetchUserListingsError = (error) => ({
 });
 
 // actions/listingActions.js
-export const pauseListingRequest = (listingId) => ({
-  type: PAUSE_LISTING_REQUEST,
+export const toggleListingStatusRequest = (listingId) => ({
+  type: TOGGLE_LISTING_STATUS_REQUEST,
   payload: listingId,
 });
 
-export const pauseListingSuccess = (listingId) => ({
-  type: PAUSE_LISTING_SUCCESS,
+export const toggleListingStatusSuccess = (listingId) => ({
+  type: TOGGLE_LISTING_STATUS_SUCCESS,
   payload: listingId,
 });
 
-export const pauseListingError = (error) => ({
-  type: PAUSE_LISTING_ERROR,
+export const toggleListingStatusError = (error) => ({
+  type: TOGGLE_LISTING_STATUS_ERROR,
   payload: error,
 });

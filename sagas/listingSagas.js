@@ -15,7 +15,8 @@ import {
   reportListingSuccess,
   reportListingError,
   fetchUserListingsSuccess,
-  pauseListingSuccess,
+  toggleListingStatusSuccess,
+  toggleListingStatusError,
 } from "../actions/listingActions";
 
 import {
@@ -25,7 +26,7 @@ import {
   FETCH_LISTING_DETAILS_REQUEST,
   REPORT_LISTING_REQUEST,
   FETCH_USER_LISTINGS_REQUEST,
-  PAUSE_LISTING_REQUEST,
+  TOGGLE_LISTING_STATUS_REQUEST,
 } from "../constants/ActionsTypes";
 
 import {
@@ -37,7 +38,7 @@ import {
   deleteImagesApi,
   reportListingApi,
   fetchUserListingsApi,
-  pauseListingApi,
+  toggleListingStatusApi,
 } from "../api/listingApi";
 
 function* uploadImagesSaga(files) {
@@ -128,12 +129,12 @@ function* fetchUserListingsSaga({ payload }) {
   }
 }
 
-function* pauseListingSaga({ payload }) {
+function* toggleListingStatusSaga({ payload }) {
   try {
-    const response = yield call(pauseListingApi, payload);
-    yield put(pauseListingSuccess(response));
+    const response = yield call(toggleListingStatusApi, payload);
+    yield put(toggleListingStatusSuccess(response));
   } catch (error) {
-    yield put(pauseListingError(error.message));
+    yield put(toggleListingStatusError(error.message));
   }
 }
 
@@ -164,8 +165,8 @@ export function* watchFetchUserListingsSaga() {
   yield takeLatest(FETCH_USER_LISTINGS_REQUEST, fetchUserListingsSaga);
 }
 
-export function* watchPauseListingSaga() {
-  yield takeLatest(PAUSE_LISTING_REQUEST, pauseListingSaga);
+export function* watchToggleListingStatusSaga() {
+  yield takeLatest(TOGGLE_LISTING_STATUS_REQUEST, toggleListingStatusSaga);
 }
 
 export default function* rootLocationSaga() {
@@ -176,6 +177,6 @@ export default function* rootLocationSaga() {
     fork(watchFetchListingDetailsSaga),
     fork(watchReportListingSaga),
     fork(watchFetchUserListingsSaga),
-    fork(watchPauseListingSaga),
+    fork(watchToggleListingStatusSaga),
   ]);
 }

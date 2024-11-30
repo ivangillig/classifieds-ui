@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserListingsRequest, pauseListingRequest } from "../../actions";
+import { fetchUserListingsRequest, toggleListingStatusRequest } from "../../actions";
 import { Table, Spin, Button, Space, notification } from "antd";
 import { useTranslation } from "next-i18next";
 import dayjs from "dayjs";
@@ -17,7 +17,7 @@ import ConfirmActionModal from "@/components/common/ConfirmActionModal";
 const MyListingsComponent = ({ status }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { userListings, isLoading, listingUpdated } = useSelector(
+  const { userListings, isLoading, listingUpdated, successMessage } = useSelector(
     (state) => state.listing
   );
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -27,19 +27,19 @@ const MyListingsComponent = ({ status }) => {
     if (listingUpdated) {
       notification.success({
         message: t("Success"),
-        description: t("The listing has been paused successfully"),
+        description: t(successMessage),
       });
-      dispatch(fetchUserListingsRequest("published"));
+      dispatch(fetchUserListingsRequest(status));
     }
   }, [listingUpdated, dispatch]);
 
-  const handlePause = (id) => {
+  const handleToggleStatus = (id) => {
     setSelectedId(id);
     setIsModalVisible(true);
   };
 
-  const confirmPause = () => {
-    dispatch(pauseListingRequest(selectedId));
+  const confirmToggleStatus = () => {
+    dispatch(toggleListingStatusRequest(selectedId));
     setIsModalVisible(false);
   };
 
@@ -47,8 +47,6 @@ const MyListingsComponent = ({ status }) => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
 
-  const handleReactivate = (id) =>
-    console.log(`Reactivating listing with ID: ${id}`);
   const handleRenew = (id) => console.log(`Renewing listing with ID: ${id}`);
   const handleDelete = (id) => console.log(`Deleting listing with ID: ${id}`);
 
@@ -104,7 +102,7 @@ const MyListingsComponent = ({ status }) => {
             {status === "published" && (
               <Button
                 icon={<PauseOutlined />}
-                onClick={() => handlePause(_id)}
+                onClick={() => handleToggleStatus(_id)}
                 type="default"
               >
                 {t("listingActions.Pause")}
@@ -113,7 +111,7 @@ const MyListingsComponent = ({ status }) => {
             {status === "paused" && (
               <Button
                 icon={<PlayCircleOutlined />}
-                onClick={() => handleReactivate(_id)}
+                onClick={() => handleToggleStatus(_id)}
                 type="default"
               >
                 {t("listingActions.Reactivate")}
@@ -162,9 +160,9 @@ const MyListingsComponent = ({ status }) => {
       />
       <ConfirmActionModal
         visible={isModalVisible}
-        onConfirm={confirmPause}
+        onConfirm={confirmToggleStatus}
         onCancel={() => setIsModalVisible(false)}
-        message={t("listing_pause_message")}
+        message={status === 'published' ? t("listing_pause_message") : t("listing_reactivate_message")}
       />
     </>
   );

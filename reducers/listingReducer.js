@@ -19,9 +19,9 @@ import {
   REPORT_LISTING_REQUEST,
   REPORT_LISTING_SUCCESS,
   REPORT_LISTING_ERROR,
-  PAUSE_LISTING_SUCCESS,
-  PAUSE_LISTING_ERROR,
-  PAUSE_LISTING_REQUEST,
+  TOGGLE_LISTING_STATUS_SUCCESS,
+  TOGGLE_LISTING_STATUS_ERROR,
+  TOGGLE_LISTING_STATUS_REQUEST,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -34,6 +34,7 @@ const initialState = {
   reportSuccess: false,
   userListings: [],
   listingUpdated: false,
+  successMessage: ""
 };
 
 export default function listingReducer(state = initialState, action) {
@@ -144,23 +145,19 @@ export default function listingReducer(state = initialState, action) {
       };
     case FETCH_USER_LISTINGS_ERROR:
       return { ...state, isLoading: false, error: action.payload };
-    case PAUSE_LISTING_REQUEST:
+    case TOGGLE_LISTING_STATUS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case PAUSE_LISTING_SUCCESS:
+    case TOGGLE_LISTING_STATUS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingUpdated: true,
-        userListings: state.userListings.map((listing) =>
-          listing.id === action.payload
-            ? { ...listing, status: "paused" }
-            : listing
-        ),
+        successMessage: action.payload.message,
       };
-    case PAUSE_LISTING_ERROR:
+    case TOGGLE_LISTING_STATUS_ERROR:
       return {
         ...state,
         isLoading: false,
