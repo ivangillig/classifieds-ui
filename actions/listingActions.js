@@ -22,6 +22,9 @@ import {
   TOGGLE_LISTING_STATUS_REQUEST,
   TOGGLE_LISTING_STATUS_SUCCESS,
   TOGGLE_LISTING_STATUS_ERROR,
+  DELETE_LISTING_REQUEST,
+  DELETE_LISTING_SUCCESS,
+  DELETE_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 export const createListingRequest = (params) => ({
@@ -133,18 +136,32 @@ export const fetchUserListingsError = (error) => ({
   payload: error,
 });
 
-// actions/listingActions.js
 export const toggleListingStatusRequest = (listingId) => ({
   type: TOGGLE_LISTING_STATUS_REQUEST,
   payload: listingId,
 });
 
-export const toggleListingStatusSuccess = (listingId) => ({
+export const toggleListingStatusSuccess = (response) => ({
   type: TOGGLE_LISTING_STATUS_SUCCESS,
-  payload: listingId,
+  payload: response,
 });
 
 export const toggleListingStatusError = (error) => ({
   type: TOGGLE_LISTING_STATUS_ERROR,
+  payload: error,
+});
+
+export const deleteListingRequest = (listingId) => ({
+  type: DELETE_LISTING_REQUEST,
+  payload: listingId,
+});
+
+export const deleteListingSuccess = (response) => ({
+  type: DELETE_LISTING_SUCCESS,
+  payload: response,
+});
+
+export const deleteListingtError = (error) => ({
+  type: DELETE_LISTING_ERROR,
   payload: error,
 });

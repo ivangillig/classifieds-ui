@@ -21,6 +21,7 @@
   "Confirm": "Confirmar",
   "listing_pause_message": "Pausar este anuncio lo volverá invisible al público pero no afectará a la vigencia restante",
   "listing_reactivate_message": "Si reactivas este anuncio se volverá visible para el público en general",
+  "listing_delete_message": "Está seguro de querer eliminar este anuncio? Esta acción no se puede deshacer",
   "Report submitted successfully": "Reporte enviado exitosamente",
   "Reason for report": "Motivo del reporte",
   "Select a reason": "Selecciona un motivo",
@@ -115,8 +116,10 @@
   "ERROR_USE_WHATSAPP_BOOLEAN": "El valor ingresado no es válido",
   "ERROR_UPLOAD_FAILED": "Hubo un error al subir las fotos",
   "ERROR_DELETE_IMAGES_FAILED": "Hubo un error al intentar eliminar las imagenes",
+  "ERROR_LISTING_DELETE_FAILED": "Hubo un problema al eliminar el anuncio, por favor reintente o contáctese con un administrador",
+  "ERROR_LISTING_STATUS_UPDATE_FAILED": "Hubo un problema al actualizar el estado del anuncio, reintente o contáctese con un administrador",
   "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente",
   "SUCCESS_LISTING_PAUSED": "El anuncio fue pausado correctamente",
   "SUCCESS_LISTING_REACTIVATED": "El anuncio fue reactivado correctamente",
-  "ERROR_LISTING_STATUS_UPDATE_FAILED": "Hubo un problema al actualizar el estado del anuncio, reintente o contactese con un administrador"
+  "SUCCESS_LISTING_DELETED": "El anuncio se eliminó correctamente"
 }

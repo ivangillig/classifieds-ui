@@ -123,3 +123,14 @@ export const toggleListingStatusApi = async (listingId) => {
     throw error;
   }
 };
+
+export const deleteListingApi = async (listingId) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/listings/${listingId}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

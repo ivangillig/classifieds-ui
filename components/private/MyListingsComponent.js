@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserListingsRequest, toggleListingStatusRequest } from "../../actions";
+import {
+  fetchUserListingsRequest,
+  toggleListingStatusRequest,
+  deleteListingRequest,
+} from "../../actions";
 import { Table, Spin, Button, Space, notification } from "antd";
 import { useTranslation } from "next-i18next";
 import dayjs from "dayjs";
@@ -17,25 +21,35 @@ import ConfirmActionModal from "@/components/common/ConfirmActionModal";
 const MyListingsComponent = ({ status }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { userListings, isLoading, listingUpdated, successMessage } = useSelector(
-    (state) => state.listing
-  );
+  const {
+    userListings,
+    isLoading,
+    listingUpdated,
+    listingDeleted,
+    successMessage,
+  } = useSelector((state) => state.listing);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
-    if (listingUpdated) {
+    if (listingUpdated || listingDeleted) {
       notification.success({
         message: t("Success"),
         description: t(successMessage),
       });
       dispatch(fetchUserListingsRequest(status));
     }
-  }, [listingUpdated, dispatch]);
+  }, [listingUpdated, listingDeleted, dispatch]);
 
   const handleToggleStatus = (id) => {
     setSelectedId(id);
     setIsModalVisible(true);
+  };
+
+  const handleDelete = (id) => {
+    setSelectedId(id);
+    setIsDeleteModalVisible(true);
   };
 
   const confirmToggleStatus = () => {
@@ -43,12 +57,16 @@ const MyListingsComponent = ({ status }) => {
     setIsModalVisible(false);
   };
 
+  const confirmDelete = () => {
+    dispatch(deleteListingRequest(selectedId));
+    setIsDeleteModalVisible(false);
+  };
+
   useEffect(() => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
 
   const handleRenew = (id) => console.log(`Renewing listing with ID: ${id}`);
-  const handleDelete = (id) => console.log(`Deleting listing with ID: ${id}`);
 
   const columns = [
     {
@@ -162,7 +180,17 @@ const MyListingsComponent = ({ status }) => {
         visible={isModalVisible}
         onConfirm={confirmToggleStatus}
         onCancel={() => setIsModalVisible(false)}
-        message={status === 'published' ? t("listing_pause_message") : t("listing_reactivate_message")}
+        message={
+          status === "published"
+            ? t("listing_pause_message")
+            : t("listing_reactivate_message")
+        }
+      />
+      <ConfirmActionModal
+        visible={isDeleteModalVisible}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsDeleteModalVisible(false)}
+        message={t("listing_delete_message")}
       />
     </>
   );

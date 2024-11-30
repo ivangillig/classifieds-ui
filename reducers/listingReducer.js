@@ -22,6 +22,9 @@ import {
   TOGGLE_LISTING_STATUS_SUCCESS,
   TOGGLE_LISTING_STATUS_ERROR,
   TOGGLE_LISTING_STATUS_REQUEST,
+  DELETE_LISTING_REQUEST,
+  DELETE_LISTING_SUCCESS,
+  DELETE_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -34,7 +37,8 @@ const initialState = {
   reportSuccess: false,
   userListings: [],
   listingUpdated: false,
-  successMessage: ""
+  listingDeleted: false,
+  successMessage: "",
 };
 
 export default function listingReducer(state = initialState, action) {
@@ -140,6 +144,8 @@ export default function listingReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         listingUpdated: false,
+        listingDeleted: false,
+        successMessage: "",
         userListings: action.payload.data,
         pagination: action.payload.meta,
       };
@@ -158,6 +164,24 @@ export default function listingReducer(state = initialState, action) {
         successMessage: action.payload.message,
       };
     case TOGGLE_LISTING_STATUS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case DELETE_LISTING_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case DELETE_LISTING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        listingDeleted: true,
+        successMessage: action.payload.message,
+      };
+    case DELETE_LISTING_ERROR:
       return {
         ...state,
         isLoading: false,
