@@ -17,7 +17,9 @@
   "Report Listing": "Reportar anuncio",
   "Please select a reason": "Por favor, selecciona un motivo",
   "Please provide additional details": "Por favor, proporciona detalles adicionales",
-  "Success": "Éxito",
+  "Success": "Exito",
+  "Confirm Action": "Confirmar acción",
+  "listing_pause_message": "Pausar este anuncio lo volverá invisible al público pero no afectará a la vigencia restante",
   "Report submitted successfully": "Reporte enviado exitosamente",
   "Reason for report": "Motivo del reporte",
   "Select a reason": "Selecciona un motivo",
@@ -40,6 +42,7 @@
   "Created At": "Fecha de creación",
   "Actions": "Acciones",
   "No listings found with this status": "No se encontraron anuncios con este estado",
+  "The listing has been paused successfully": "El anuncio fue pausado correctamente",
   "user": {
     "my_profile": "Mi perfil",
     "my_ads": "Mis anuncios",
@@ -103,7 +106,7 @@
   "Back": "Volver",
   "Error": "Error",
   "The required resource was not found": "No se encontró el recurso solicitado",
-  "SUCCESS_LISTING_CREATED": "",
+  "SUCCESS_LISTING_CREATED": "Anuncio creado correctamente",
   "ERROR_INVALID_TOKEN": "Error de autenticación, por favor ingrese nuevamente",
   "ERROR_TITLE_REQUIRED": "Ingrese un título para el anuncio",
   "ERROR_AGE_MIN": "La edad mínima es 18 años",
@@ -119,5 +122,7 @@
   "ERROR_USE_WHATSAPP_BOOLEAN": "El valor ingresado no es válido",
   "ERROR_UPLOAD_FAILED": "Hubo un error al subir las fotos",
   "ERROR_DELETE_IMAGES_FAILED": "Hubo un error al intentar eliminar las imagenes",
-  "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente"
+  "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente",
+  "SUCCESS_LISTING_PAUSED": "El anuncio fue pausado correctamente",
+  "ERROR_LISTING_PAUSED_FAILED": "Hubo un problema al pausar el anuncio, reintente o contactese con un administrador"
 }

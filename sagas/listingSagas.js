@@ -15,7 +15,7 @@ import {
   reportListingSuccess,
   reportListingError,
   fetchUserListingsSuccess,
-  fetchUserListingsError,
+  pauseListingSuccess,
 } from "../actions/listingActions";
 
 import {
@@ -25,6 +25,7 @@ import {
   FETCH_LISTING_DETAILS_REQUEST,
   REPORT_LISTING_REQUEST,
   FETCH_USER_LISTINGS_REQUEST,
+  PAUSE_LISTING_REQUEST,
 } from "../constants/ActionsTypes";
 
 import {
@@ -36,6 +37,7 @@ import {
   deleteImagesApi,
   reportListingApi,
   fetchUserListingsApi,
+  pauseListingApi,
 } from "../api/listingApi";
 
 function* uploadImagesSaga(files) {
@@ -121,8 +123,17 @@ function* fetchUserListingsSaga({ payload }) {
     const response = yield call(fetchUserListingsApi, payload);
     yield put(fetchUserListingsSuccess(response));
   } catch (error) {
-    // TODO: should handle this with middleware 
+    // TODO: should handle this with middleware
     // yield put(fetchUserListingsError(error.message));
+  }
+}
+
+function* pauseListingSaga({ payload }) {
+  try {
+    const response = yield call(pauseListingApi, payload);
+    yield put(pauseListingSuccess(response));
+  } catch (error) {
+    yield put(pauseListingError(error.message));
   }
 }
 
@@ -153,6 +164,10 @@ export function* watchFetchUserListingsSaga() {
   yield takeLatest(FETCH_USER_LISTINGS_REQUEST, fetchUserListingsSaga);
 }
 
+export function* watchPauseListingSaga() {
+  yield takeLatest(PAUSE_LISTING_REQUEST, pauseListingSaga);
+}
+
 export default function* rootLocationSaga() {
   yield all([
     fork(watchCreateListingSaga),
@@ -161,5 +176,6 @@ export default function* rootLocationSaga() {
     fork(watchFetchListingDetailsSaga),
     fork(watchReportListingSaga),
     fork(watchFetchUserListingsSaga),
+    fork(watchPauseListingSaga),
   ]);
 }

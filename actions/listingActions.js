@@ -19,6 +19,9 @@ import {
   FETCH_USER_LISTINGS_REQUEST,
   FETCH_USER_LISTINGS_SUCCESS,
   FETCH_USER_LISTINGS_ERROR,
+  PAUSE_LISTING_REQUEST,
+  PAUSE_LISTING_SUCCESS,
+  PAUSE_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 export const createListingRequest = (params) => ({
@@ -127,5 +130,21 @@ export const fetchUserListingsSuccess = (listings) => ({
 
 export const fetchUserListingsError = (error) => ({
   type: FETCH_USER_LISTINGS_ERROR,
+  payload: error,
+});
+
+// actions/listingActions.js
+export const pauseListingRequest = (listingId) => ({
+  type: PAUSE_LISTING_REQUEST,
+  payload: listingId,
+});
+
+export const pauseListingSuccess = (listingId) => ({
+  type: PAUSE_LISTING_SUCCESS,
+  payload: listingId,
+});
+
+export const pauseListingError = (error) => ({
+  type: PAUSE_LISTING_ERROR,
   payload: error,
 });

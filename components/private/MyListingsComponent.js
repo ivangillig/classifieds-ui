@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserListingsRequest } from "../../actions";
-import { Table, Spin, Button, Space } from "antd";
+import { fetchUserListingsRequest, pauseListingRequest } from "../../actions";
+import { Table, Spin, Button, Space, notification } from "antd";
 import { useTranslation } from "next-i18next";
 import dayjs from "dayjs";
 import { getImagesPath } from "@/utils/listingsUtils";
@@ -12,18 +12,43 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import ConfirmActionModal from "@/components/common/ConfirmActionModal";
 
 const MyListingsComponent = ({ status }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { userListings, isLoading } = useSelector((state) => state.listing);
+  const { userListings, isLoading, listingUpdated } = useSelector(
+    (state) => state.listing
+  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
+  useEffect(() => {
+    if (listingUpdated) {
+      notification.success({
+        message: t("Success"),
+        description: t("The listing has been paused successfully"),
+      });
+      dispatch(fetchUserListingsRequest("published"));
+    }
+  }, [listingUpdated, dispatch]);
+
+  const handlePause = (id) => {
+    setSelectedId(id);
+    setIsModalVisible(true);
+  };
+
+  const confirmPause = () => {
+    dispatch(pauseListingRequest(selectedId));
+    setIsModalVisible(false);
+  };
 
   useEffect(() => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
 
-  const handlePause = (id) => console.log(`Pausing listing with ID: ${id}`);
-  const handleReactivate = (id) => console.log(`Reactivating listing with ID: ${id}`);
+  const handleReactivate = (id) =>
+    console.log(`Reactivating listing with ID: ${id}`);
   const handleRenew = (id) => console.log(`Renewing listing with ID: ${id}`);
   const handleDelete = (id) => console.log(`Deleting listing with ID: ${id}`);
 
@@ -63,7 +88,7 @@ const MyListingsComponent = ({ status }) => {
       title: t("Actions"),
       key: "actions",
       render: (text, record) => {
-        const { id, status } = record;
+        const { _id, status } = record;
 
         return (
           <Space>
@@ -79,7 +104,7 @@ const MyListingsComponent = ({ status }) => {
             {status === "published" && (
               <Button
                 icon={<PauseOutlined />}
-                onClick={() => handlePause(id)}
+                onClick={() => handlePause(_id)}
                 type="default"
               >
                 {t("listingActions.Pause")}
@@ -88,7 +113,7 @@ const MyListingsComponent = ({ status }) => {
             {status === "paused" && (
               <Button
                 icon={<PlayCircleOutlined />}
-                onClick={() => handleReactivate(id)}
+                onClick={() => handleReactivate(_id)}
                 type="default"
               >
                 {t("listingActions.Reactivate")}
@@ -97,7 +122,7 @@ const MyListingsComponent = ({ status }) => {
             {status === "expired" && (
               <Button
                 icon={<ReloadOutlined />}
-                onClick={() => handleRenew(id)}
+                onClick={() => handleRenew(_id)}
                 type="default"
               >
                 {t("listingActions.Renew")}
@@ -105,7 +130,7 @@ const MyListingsComponent = ({ status }) => {
             )}
             <Button
               icon={<DeleteOutlined />}
-              onClick={() => handleDelete(id)}
+              onClick={() => handleDelete(_id)}
               danger
             >
               {t("listingActions.Delete")}
@@ -125,17 +150,23 @@ const MyListingsComponent = ({ status }) => {
   }
 
   return (
-    <Table
-    dataSource={userListings}
-    columns={columns}
-    rowKey={(record) => record.id}
-      pagination={{ pageSize: 10 }}
-      locale={{
-        emptyText: isLoading
-          ? null
-          : t("No listings found with this status"),
-      }}
-    />
+    <>
+      <Table
+        dataSource={userListings}
+        columns={columns}
+        rowKey={(record) => record.id}
+        pagination={{ pageSize: 10 }}
+        locale={{
+          emptyText: isLoading ? null : t("No listings found with this status"),
+        }}
+      />
+      <ConfirmActionModal
+        visible={isModalVisible}
+        onConfirm={confirmPause}
+        onCancel={() => setIsModalVisible(false)}
+        message={t("listing_pause_message")}
+      />
+    </>
   );
 };
 

@@ -19,6 +19,9 @@ import {
   REPORT_LISTING_REQUEST,
   REPORT_LISTING_SUCCESS,
   REPORT_LISTING_ERROR,
+  PAUSE_LISTING_SUCCESS,
+  PAUSE_LISTING_ERROR,
+  PAUSE_LISTING_REQUEST,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -30,6 +33,7 @@ const initialState = {
   listingCreated: false,
   reportSuccess: false,
   userListings: [],
+  listingUpdated: false,
 };
 
 export default function listingReducer(state = initialState, action) {
@@ -134,11 +138,34 @@ export default function listingReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
+        listingUpdated: false,
         userListings: action.payload.data,
         pagination: action.payload.meta,
       };
     case FETCH_USER_LISTINGS_ERROR:
       return { ...state, isLoading: false, error: action.payload };
+    case PAUSE_LISTING_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case PAUSE_LISTING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        listingUpdated: true,
+        userListings: state.userListings.map((listing) =>
+          listing.id === action.payload
+            ? { ...listing, status: "paused" }
+            : listing
+        ),
+      };
+    case PAUSE_LISTING_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }
