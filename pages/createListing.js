@@ -1,14 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/Layout/DefaultLayout";
-import {
-  Input,
-  Select,
-  InputNumber,
-  Checkbox,
-  Button,
-  Tooltip,
-} from "antd";
-import { InfoCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Input, Select, InputNumber, Checkbox, Button, Tooltip } from "antd";
+import { InfoCircleOutlined } from "@ant-design/icons";
 import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -22,6 +15,8 @@ import {
 } from "../actions/locationsActions";
 import {
   createListingRequest,
+  updateListingRequest,
+  fetchListingDetailsRequest,
   clearListingState,
 } from "../actions/listingActions";
 import { showMessage } from "../actions/notificationActions";
@@ -29,14 +24,19 @@ import { showMessage } from "../actions/notificationActions";
 const { TextArea } = Input;
 const { Option } = Select;
 
-const CreateListing = () => {
+const ListingForm = () => {
   const { t } = useTranslation("common");
   const dispatch = useDispatch();
   const router = useRouter();
+  const { listingId } = router.query;
 
   const provinces = useSelector((state) => state.location?.provinces || []);
   const cities = useSelector((state) => state.location?.cities || []);
+  const listingDetails = useSelector(
+    (state) => state.listing?.listingDetails || {}
+  );
   const listingState = useSelector((state) => state.listing);
+  const [isEditing, setIsEditing] = useState(false);
 
   const cityOptions = cities.map((city) => ({
     label: city.name,
@@ -45,26 +45,47 @@ const CreateListing = () => {
 
   useEffect(() => {
     dispatch(fetchProvincesRequest());
-  }, [dispatch]);
+
+    if (listingId) {
+      setIsEditing(true);
+      dispatch(fetchListingDetailsRequest(listingId));
+    }
+  }, [dispatch, listingId]);
 
   useEffect(() => {
-    if (listingState.listingCreated) {
+    if (listingDetails?.location?.subcountry) {
+      dispatch(fetchCitiesRequest(listingDetails.location.subcountry));
+    }
+  }, [dispatch, listingDetails?.location?.subcountry]);
+
+  useEffect(() => {
+    if (listingState.listingUpdated || listingState.listingCreated) {
       dispatch(
-        showMessage([
-          {
-            severity: "success",
-            summary: t("listing.created_summary"),
-            detail: t("listing.created_detail"),
-          },
-        ])
+        showMessage({
+          severity: "success",
+          summary: t(
+            isEditing ? "listing.updated_summary" : "listing.created_summary"
+          ),
+          detail: t(
+            isEditing ? "listing.updated_detail" : "listing.created_detail"
+          ),
+        })
       );
       dispatch(clearListingState());
+      router.push("/user/private/myListings");
     }
-  }, [listingState.listingCreated, dispatch, router, t]);
+  }, [
+    listingState.listingUpdated,
+    listingState.listingCreated,
+    dispatch,
+    router,
+    t,
+    isEditing,
+  ]);
 
   const validationSchema = Yup.object({
     title: Yup.string()
-    .matches(/^[a-zA-Z]+$/, t("ERROR_INVALID_NAME"))
+      .matches(/^[a-zA-Z]+$/, t("ERROR_INVALID_NAME"))
       .required(t("ERROR_TITLE_REQUIRED")),
     age: Yup.number()
       .min(18, t("ERROR_AGE_MIN"))
@@ -81,27 +102,33 @@ const CreateListing = () => {
       location: values.city,
       age: values.age.toString(),
     };
-    dispatch(createListingRequest({ ...newListing, files: values.photos }));
+
+    if (isEditing) {
+      dispatch(updateListingRequest({ id: listingId, ...newListing }));
+    } else {
+      dispatch(createListingRequest({ ...newListing, files: values.photos }));
+    }
   };
 
   return (
     <ProtectedRoute>
       <div className="create-listing-form">
-        <h1 className="form-title">{t("post_ad")}</h1>
+        <h1 className="form-title">{t(isEditing ? "edit_ad" : "post_ad")}</h1>
 
         <Formik
           initialValues={{
-            title: "",
-            description: "",
-            age: 18,
-            province: null,
-            city: null,
-            photos: [],
-            price: null,
-            phone: "",
-            useWhatsApp: false,
+            title: listingDetails?.title || "",
+            description: listingDetails?.description || "",
+            age: listingDetails?.age || 18,
+            province: listingDetails?.location?.subcountry || null,
+            city: listingDetails?.location?.name || null,
+            photos: listingDetails?.photos || [],
+            price: listingDetails?.price || null,
+            phone: listingDetails?.phone || "",
+            useWhatsApp: listingDetails?.useWhatsApp || false,
           }}
           validationSchema={validationSchema}
+          enableReinitialize
           onSubmit={handleSubmit}
         >
           {({ errors, touched, setFieldValue, values }) => (
@@ -140,9 +167,7 @@ const CreateListing = () => {
                       onChange={(value) => setFieldValue("city", value)}
                       placeholder={t("listing.select_city")}
                       disabled={!values.province}
-                      className={
-                        touched.city && errors.city ? "invalid" : ""
-                      }
+                      className={touched.city && errors.city ? "invalid" : ""}
                     >
                       {cityOptions.map((city) => (
                         <Option key={city.value} value={city.value}>
@@ -162,10 +187,7 @@ const CreateListing = () => {
                 <div className="form-field full-width">
                   <label htmlFor="title">
                     {t("listing.title")}
-                    <Tooltip
-                      title={t("listing.name_hint")}
-                      placement="top"
-                    >
+                    <Tooltip title={t("listing.name_hint")} placement="top">
                       <InfoCircleOutlined
                         style={{
                           fontSize: "1rem",
@@ -205,9 +227,7 @@ const CreateListing = () => {
                       setFieldValue("description", e.target.value)
                     }
                     className={
-                      touched.description && errors.description
-                        ? "invalid"
-                        : ""
+                      touched.description && errors.description ? "invalid" : ""
                     }
                     placeholder={t("listing.enterDescription")}
                   />
@@ -270,9 +290,7 @@ const CreateListing = () => {
                     value={values.phone}
                     onChange={(e) => setFieldValue("phone", e.target.value)}
                     placeholder={t("listing.phone_placeholder")}
-                    className={
-                      touched.phone && errors.phone ? "invalid" : ""
-                    }
+                    className={touched.phone && errors.phone ? "invalid" : ""}
                   />
                 </div>
                 {touched.phone && errors.phone && (
@@ -316,6 +334,6 @@ const CreateListing = () => {
   );
 };
 
-CreateListing.Layout = DefaultLayout;
+ListingForm.Layout = DefaultLayout;
 
-export default CreateListing;
+export default ListingForm;

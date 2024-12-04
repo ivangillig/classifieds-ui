@@ -17,8 +17,10 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import ConfirmActionModal from "@/components/common/ConfirmActionModal";
+import { useRouter } from "next/router";
 
 const MyListingsComponent = ({ status }) => {
+  const router = useRouter();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const {
@@ -111,7 +113,7 @@ const MyListingsComponent = ({ status }) => {
             {(status === "published" || status === "paused") && (
               <Button
                 icon={<EditOutlined />}
-                onClick={() => console.log(`Editing listing with ID: ${id}`)}
+                onClick={() => router.push(`/createListing?listingId=${_id}`)}
                 type="default"
               >
                 {t("listingActions.Edit")}
