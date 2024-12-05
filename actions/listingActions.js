@@ -3,6 +3,9 @@ import {
   CREATE_LISTING_REQUEST,
   CREATE_LISTING_SUCCESS,
   CREATE_LISTING_ERROR,
+  EDIT_LISTING_REQUEST,
+  EDIT_LISTING_SUCCESS,
+  EDIT_LISTING_ERROR,
   CLEAR_LISTING_STATE,
   FETCH_LISTINGS_REQUEST,
   FETCH_LISTINGS_SUCCESS,
@@ -39,6 +42,22 @@ export const createListingSuccess = (data) => ({
 
 export const createListingError = (error) => ({
   type: CREATE_LISTING_ERROR,
+  payload: error,
+});
+
+
+export const editListingRequest = (params) => ({
+  type: EDIT_LISTING_REQUEST,
+  payload: params,
+});
+
+export const editListingSuccess = (data) => ({
+  type: EDIT_LISTING_SUCCESS,
+  payload: data,
+});
+
+export const editListingError = (error) => ({
+  type: EDIT_LISTING_ERROR,
   payload: error,
 });
 

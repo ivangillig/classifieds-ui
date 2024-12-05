@@ -29,6 +29,9 @@ const ImageUploader = ({ onFilesUpdated, initialFiles = [] }) => {
         source: url,
         options: {
           type: "remote",
+          metadata: {
+            url,
+          },
         },
       }));
       setFiles(formattedFiles);
@@ -37,7 +40,7 @@ const ImageUploader = ({ onFilesUpdated, initialFiles = [] }) => {
 
   const handleUpdateFiles = (fileItems) => {
     setFiles(fileItems);
-    const currentFiles = fileItems.map((fileItem) => fileItem.file || fileItem.source);
+    const currentFiles = fileItems.map((fileItem) => fileItem.file || fileItem.options.metadata.url);
     onFilesUpdated(currentFiles);
   };
 
