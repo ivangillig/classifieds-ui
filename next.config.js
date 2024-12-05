@@ -7,7 +7,7 @@ module.exports = withLess({
     localeDetection: false,
   },
   publicRuntimeConfig: {
-    apiUrl: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000",
+    BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000",
     listingImagesBasePath: process.env.IMG_BASE_PATH || "/uploads/",
   },
   compiler: {

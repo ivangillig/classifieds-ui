@@ -20,6 +20,7 @@ import {
   clearListingState,
 } from "../actions/listingActions";
 import { showMessage } from "../actions/notificationActions";
+import { getImagesPath } from "@/utils/listingsUtils";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -37,6 +38,7 @@ const ListingForm = () => {
   );
   const listingState = useSelector((state) => state.listing);
   const [isEditing, setIsEditing] = useState(false);
+  const [listingImages, setlistingImages] = useState([]);
 
   const cityOptions = cities.map((city) => ({
     label: city.name,
@@ -51,6 +53,13 @@ const ListingForm = () => {
       dispatch(fetchListingDetailsRequest(listingId));
     }
   }, [dispatch, listingId]);
+
+  useEffect(() => {
+    if (listingDetails?.photos?.length > 0) {
+      const images = listingDetails.photos.map(img => getImagesPath()+img)
+      setlistingImages(images)
+    }
+  }, [dispatch, listingDetails]);
 
   useEffect(() => {
     if (listingDetails?.location?.subcountry) {
@@ -278,6 +287,7 @@ const ListingForm = () => {
                 <p>{t("listing.image_upload_instructions")}</p>
                 <ImageUploader
                   onFilesUpdated={(files) => setFieldValue("photos", files)}
+                  initialFiles={listingImages}
                 />
               </div>
 
