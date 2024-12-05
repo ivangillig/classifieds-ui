@@ -172,7 +172,7 @@ const MyListingsComponent = ({ status }) => {
       <Table
         dataSource={userListings}
         columns={columns}
-        rowKey={(record) => record.id}
+        rowKey={(record) => record._id}
         pagination={{ pageSize: 10 }}
         locale={{
           emptyText: isLoading ? null : t("No listings found with this status"),

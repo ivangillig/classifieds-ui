@@ -45,7 +45,6 @@ const ImageUploader = ({ onFilesUpdated, initialFiles = [] }) => {
     "listing.drag_and_drop_images"
   )} <span class="filepond--label-action">${t("listing.browse")}</span>`;
   
-  console.log(initialFiles)
   return (
     <FilePond
       files={files}

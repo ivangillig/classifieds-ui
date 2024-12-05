@@ -68,7 +68,6 @@ function* getUserInfo() {
       Router.push('/');
     } 
   } catch (error) {
-    console.log(error);
     yield put(getUserInfoFailure(error.message));
   }
 }
