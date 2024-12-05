@@ -13,7 +13,7 @@ export const handleApiErrors = (error, store) => {
         if (!error.response.config.url.includes("/auth/logout")) {
           store.dispatch(
             showMessage({
-              severity: "error",
+              type: "error",
               summary: "Error",
               detail: message,
             })
@@ -25,7 +25,7 @@ export const handleApiErrors = (error, store) => {
         // 403 - Forbbiden handler
         store.dispatch(
           showMessage({
-            severity: "error",
+            type: "error",
             summary: "Error",
             detail: "You are not authorized to access the resource",
           })
@@ -35,7 +35,7 @@ export const handleApiErrors = (error, store) => {
         // 404 - Not found
         store.dispatch(
           showMessage({
-            severity: "error",
+            type: "error",
             summary: "Error 404",
             detail: "The required resource was not found",
           })
@@ -45,7 +45,7 @@ export const handleApiErrors = (error, store) => {
         // 409 - Conflict
         store.dispatch(
           showMessage({
-            severity: "error",
+            type: "error",
             summary: "Error",
             detail: message,
           })
@@ -55,7 +55,7 @@ export const handleApiErrors = (error, store) => {
         // 422 - Validation error
         store.dispatch(
           showMessage({
-            severity: "error",
+            type: "error",
             summary: "Error",
             detail: message,
           })
@@ -65,7 +65,7 @@ export const handleApiErrors = (error, store) => {
         // Other errors handling
         store.dispatch(
           showMessage({
-            severity: "error",
+            type: "error",
             summary: "Error",
             detail: "Error communicating with server",
           })
@@ -76,7 +76,7 @@ export const handleApiErrors = (error, store) => {
     // No response error handler (network error)
     store.dispatch(
       showMessage({
-        severity: "error",
+        type: "error",
         summary: "Error",
         detail: "Network error. Please check your connection.",
       })
@@ -85,7 +85,7 @@ export const handleApiErrors = (error, store) => {
     // Unexpected error handler
     store.dispatch(
       showMessage({
-        severity: "error",
+        type: "error",
         summary: "Error",
         detail: "An unexpected error occurred",
       })

@@ -15,7 +15,7 @@ import {
 } from "../actions/locationsActions";
 import {
   createListingRequest,
-  updateListingRequest,
+  editListingRequest,
   fetchListingDetailsRequest,
   clearListingState,
 } from "../actions/listingActions";
@@ -56,8 +56,8 @@ const ListingForm = () => {
 
   useEffect(() => {
     if (listingDetails?.photos?.length > 0) {
-      const images = listingDetails.photos.map(img => getImagesPath()+img)
-      setlistingImages(images)
+      const images = listingDetails.photos.map((img) => getImagesPath() + img);
+      setlistingImages(images);
     }
   }, [dispatch, listingDetails]);
 
@@ -71,7 +71,7 @@ const ListingForm = () => {
     if (listingState.listingUpdated || listingState.listingCreated) {
       dispatch(
         showMessage({
-          severity: "success",
+          type: "success",
           summary: t(
             isEditing ? "listing.updated_summary" : "listing.created_summary"
           ),
@@ -106,16 +106,34 @@ const ListingForm = () => {
   });
 
   const handleSubmit = (values) => {
-    const newListing = {
+    const existingImages = listingDetails.photos || [];
+    const currentImages = values.photos.filter(
+      (photo) => !(photo instanceof File) && photo instanceof Blob // Blobs that represent remote images
+    );
+
+    const newImages = values.photos.filter(
+      (photo) => photo instanceof File // New upload files
+    );
+
+    const removedImages = existingImages.filter(
+      (image) =>
+        !currentImages.some((blob) => blob.name === image.split("/").pop()) // deleted URLs
+    );
+
+    const listingData = {
       ...values,
       location: values.city,
       age: values.age.toString(),
+      removedImages,
+      currentImages: currentImages.map((blob) => blob.name),
     };
 
     if (isEditing) {
-      dispatch(updateListingRequest({ id: listingId, ...newListing }));
+      dispatch(
+        editListingRequest({ ...listingData, id: listingId, photos: newImages })
+      );
     } else {
-      dispatch(createListingRequest({ ...newListing, files: values.photos }));
+      dispatch(createListingRequest({ ...listingData, photos: newImages }));
     }
   };
 
@@ -130,7 +148,7 @@ const ListingForm = () => {
             description: listingDetails?.description || "",
             age: listingDetails?.age || 18,
             province: listingDetails?.location?.subcountry || null,
-            city: listingDetails?.location?.name || null,
+            city: listingDetails?.location?._id || null,
             photos: listingDetails?.photos || [],
             price: listingDetails?.price || null,
             phone: listingDetails?.phone || "",

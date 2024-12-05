@@ -19,6 +19,7 @@ import {
   toggleListingStatusError,
   deleteListingSuccess,
   deleteListingtError,
+  editListingSuccess,
 } from "../actions/listingActions";
 
 import {
@@ -30,6 +31,7 @@ import {
   FETCH_USER_LISTINGS_REQUEST,
   TOGGLE_LISTING_STATUS_REQUEST,
   DELETE_LISTING_REQUEST,
+  EDIT_LISTING_REQUEST,
 } from "../constants/ActionsTypes";
 
 import {
@@ -43,6 +45,7 @@ import {
   fetchUserListingsApi,
   toggleListingStatusApi,
   deleteListingApi,
+  editListingApi,
 } from "../api/listingApi";
 
 function* uploadImagesSaga(files) {
@@ -59,10 +62,10 @@ function* uploadImagesSaga(files) {
 function* createListingRequest({ payload }) {
   let uploadedPhotos;
   try {
-    const { files, ...listingData } = payload;
+    const { photos, ...listingData } = payload;
 
     // Upload images and get urls
-    uploadedPhotos = yield call(uploadImagesSaga, files);
+    uploadedPhotos = yield call(uploadImagesSaga, photos);
 
     // Create listing with images urls
     const data = yield call(createListing, {
@@ -72,13 +75,35 @@ function* createListingRequest({ payload }) {
 
     if (data) {
       yield put(createListingSuccess(data));
-      Router.push("/");
+      Router.push("/user/private/my-listings/underReview");
     }
   } catch (error) {
     if (uploadedPhotos && uploadedPhotos.length > 0) {
       yield call(deleteImagesApi, uploadedPhotos); // Delete images from server if something go wrong
     }
     yield put(createListingError(error));
+  }
+}
+
+function* editListingRequest({ payload }) {
+  try {
+    const { photos, removedImages, currentImages, ...listingData } = payload;
+
+    // Upload new images if exists
+    let uploadedImages = [];
+    if (photos.length > 0) {
+      uploadedImages = yield call(uploadImagesApi, photos);
+    }
+
+    const data = yield call(editListingApi, {
+      ...listingData,
+      photos: [...currentImages, ...uploadedImages],
+    });
+
+    yield put(editListingSuccess(data));
+    Router.push("/user/private/my-listings/underReview");
+  } catch (error) {
+    yield put(createListingError(error.message));
   }
 }
 
@@ -155,6 +180,10 @@ export function* watchCreateListingSaga() {
   yield takeLatest(CREATE_LISTING_REQUEST, createListingRequest);
 }
 
+export function* watchEditListingSaga() {
+  yield takeLatest(EDIT_LISTING_REQUEST, editListingRequest);
+}
+
 export function* watchFetchListingsSaga() {
   yield takeLatest(FETCH_LISTINGS_REQUEST, fetchListingsSaga);
 }
@@ -189,6 +218,7 @@ export function* watchDeleteListingSaga() {
 export default function* rootLocationSaga() {
   yield all([
     fork(watchCreateListingSaga),
+    fork(watchEditListingSaga),
     fork(watchFetchListingsSaga),
     fork(watchFetchListingsByProvinceSaga),
     fork(watchFetchListingDetailsSaga),

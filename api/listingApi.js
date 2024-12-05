@@ -73,6 +73,19 @@ export const deleteImagesApi = async (urls) => {
   }
 };
 
+export const editListingApi = async ({ id, ...payload }) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/listings/${id}`,
+      payload,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export const fetchListingDetailsApi = async (id) => {
   try {
     const response = await axios.get(`${BASE_URL}/listings/${id}`);
