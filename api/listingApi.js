@@ -134,3 +134,15 @@ export const deleteListingApi = async (listingId) => {
     throw error;
   }
 };
+
+
+export const renewListingApi = async (listingId) => {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL}/listings/${listingId}/renewListing`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

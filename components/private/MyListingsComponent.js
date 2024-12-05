@@ -4,6 +4,7 @@ import {
   fetchUserListingsRequest,
   toggleListingStatusRequest,
   deleteListingRequest,
+  renewListingRequest,
 } from "../../actions";
 import { Table, Spin, Button, Space, notification } from "antd";
 import { useTranslation } from "next-i18next";
@@ -32,6 +33,8 @@ const MyListingsComponent = ({ status }) => {
   } = useSelector((state) => state.listing);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isIsRenewListingModalVisible, setIsRenewListingModalVisible] =
+    useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
@@ -54,6 +57,11 @@ const MyListingsComponent = ({ status }) => {
     setIsDeleteModalVisible(true);
   };
 
+  const handleRenew = (id) => {
+    setSelectedId(id);
+    setIsRenewListingModalVisible(true);
+  };
+
   const confirmToggleStatus = () => {
     dispatch(toggleListingStatusRequest(selectedId));
     setIsModalVisible(false);
@@ -64,11 +72,14 @@ const MyListingsComponent = ({ status }) => {
     setIsDeleteModalVisible(false);
   };
 
+  const confirmRenewListing = () => {
+    dispatch(renewListingRequest(selectedId));
+    setIsRenewListingModalVisible(false);
+  };
+
   useEffect(() => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
-
-  const handleRenew = (id) => console.log(`Renewing listing with ID: ${id}`);
 
   const columns = [
     {
@@ -187,6 +198,12 @@ const MyListingsComponent = ({ status }) => {
             ? t("listing_pause_message")
             : t("listing_reactivate_message")
         }
+      />
+      <ConfirmActionModal
+        visible={isIsRenewListingModalVisible}
+        onConfirm={confirmRenewListing}
+        onCancel={() => setIsRenewListingModalVisible(false)}
+        message={t("listing_renew_message")}
       />
       <ConfirmActionModal
         visible={isDeleteModalVisible}

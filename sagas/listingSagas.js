@@ -20,6 +20,8 @@ import {
   deleteListingSuccess,
   deleteListingtError,
   editListingSuccess,
+  renewListingSuccess,
+  renewListingtError,
 } from "../actions/listingActions";
 
 import {
@@ -32,6 +34,7 @@ import {
   TOGGLE_LISTING_STATUS_REQUEST,
   DELETE_LISTING_REQUEST,
   EDIT_LISTING_REQUEST,
+  RENEW_LISTING_REQUEST,
 } from "../constants/ActionsTypes";
 
 import {
@@ -46,6 +49,7 @@ import {
   toggleListingStatusApi,
   deleteListingApi,
   editListingApi,
+  renewListingApi,
 } from "../api/listingApi";
 
 function* uploadImagesSaga(files) {
@@ -167,6 +171,15 @@ function* toggleListingStatusSaga({ payload }) {
   }
 }
 
+function* renewListingSaga({ payload }) {
+  try {
+    const response = yield call(renewListingApi, payload);
+    yield put(renewListingSuccess(response));
+  } catch (error) {
+    yield put(renewListingtError(error.message));
+  }
+}
+
 function* deleteListingSaga({ payload }) {
   try {
     const response = yield call(deleteListingApi, payload);
@@ -215,6 +228,10 @@ export function* watchDeleteListingSaga() {
   yield takeLatest(DELETE_LISTING_REQUEST, deleteListingSaga);
 }
 
+export function* watchRenewListingSaga() {
+  yield takeLatest(RENEW_LISTING_REQUEST, renewListingSaga);
+}
+
 export default function* rootLocationSaga() {
   yield all([
     fork(watchCreateListingSaga),
@@ -226,5 +243,6 @@ export default function* rootLocationSaga() {
     fork(watchFetchUserListingsSaga),
     fork(watchToggleListingStatusSaga),
     fork(watchDeleteListingSaga),
+    fork(watchRenewListingSaga),
   ]);
 }

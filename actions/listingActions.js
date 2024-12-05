@@ -28,6 +28,9 @@ import {
   DELETE_LISTING_REQUEST,
   DELETE_LISTING_SUCCESS,
   DELETE_LISTING_ERROR,
+  RENEW_LISTING_REQUEST,
+  RENEW_LISTING_SUCCESS,
+  RENEW_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 export const createListingRequest = (params) => ({
@@ -182,5 +185,20 @@ export const deleteListingSuccess = (response) => ({
 
 export const deleteListingtError = (error) => ({
   type: DELETE_LISTING_ERROR,
+  payload: error,
+});
+
+export const renewListingRequest = (listingId) => ({
+  type: RENEW_LISTING_REQUEST,
+  payload: listingId,
+});
+
+export const renewListingSuccess = (response) => ({
+  type: RENEW_LISTING_SUCCESS,
+  payload: response,
+});
+
+export const renewListingtError = (error) => ({
+  type: RENEW_LISTING_ERROR,
   payload: error,
 });

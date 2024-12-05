@@ -28,6 +28,9 @@ import {
   EDIT_LISTING_REQUEST,
   EDIT_LISTING_SUCCESS,
   EDIT_LISTING_ERROR,
+  RENEW_LISTING_REQUEST,
+  RENEW_LISTING_SUCCESS,
+  RENEW_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -207,6 +210,24 @@ export default function listingReducer(state = initialState, action) {
         isLoading: false,
         listingUpdated: true,
         successMessage: action.payload.message,
+      };
+    case RENEW_LISTING_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case RENEW_LISTING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        listingUpdated: true,
+        successMessage: action.payload.message,
+      };
+    case RENEW_LISTING_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       };
     default:
       return state;
