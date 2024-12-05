@@ -80,7 +80,9 @@
     "select_province": "Selecciona una provincia",
     "select_city": "Selecciona una ciudad",
     "created_summary": "Anuncio creado",
+    "updated_summary": "Anuncio actualizado",
     "created_detail": "Tu anuncio fue creado correctamente",
+    "updated_detail": "Tu anuncio fue actualizado correctamente",
     "drag_and_drop_images": "Arrastrá tus fotos o ",
     "browse": "seleccionalas desde tu dispositivo",
     "paused": "Pausado",
@@ -122,5 +124,6 @@
   "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente",
   "SUCCESS_LISTING_PAUSED": "El anuncio fue pausado correctamente",
   "SUCCESS_LISTING_REACTIVATED": "El anuncio fue reactivado correctamente",
-  "SUCCESS_LISTING_DELETED": "El anuncio se eliminó correctamente"
+  "SUCCESS_LISTING_DELETED": "El anuncio se eliminó correctamente",
+  "SUCCESS_LISTING_UPDATED": "El anuncio fue actualizado correctamente"
 }

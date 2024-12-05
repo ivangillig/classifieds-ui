@@ -25,6 +25,9 @@ import {
   DELETE_LISTING_REQUEST,
   DELETE_LISTING_SUCCESS,
   DELETE_LISTING_ERROR,
+  EDIT_LISTING_REQUEST,
+  EDIT_LISTING_SUCCESS,
+  EDIT_LISTING_ERROR,
 } from "../constants/ActionsTypes";
 
 const initialState = {
@@ -186,6 +189,24 @@ export default function listingReducer(state = initialState, action) {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case EDIT_LISTING_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case EDIT_LISTING_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case EDIT_LISTING_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        listingUpdated: true,
+        successMessage: action.payload.message,
       };
     default:
       return state;
