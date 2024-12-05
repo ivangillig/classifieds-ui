@@ -15,36 +15,31 @@ const UserMenu = ({ user }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const menuItems = (
-    <Menu>
-      <Menu.Item
-        key="my-listings"
-        icon={<UnorderedListOutlined />}
-        onClick={() => router.push("/user/private/my-listings")}
-      >
-        {t("user.my_ads")}
-      </Menu.Item>
-      <Menu.Item
-        key="my-profile"
-        icon={<UserOutlined />}
-        onClick={() => router.push("/user/private/my-profile")}
-      >
-        {t("user.my_profile")}
-      </Menu.Item>
-      <Menu.Item
-        key="logout"
-        icon={<LogoutOutlined />}
-        onClick={() => dispatch(logoutRequest())}
-      >
-        {t("user.logout")}
-      </Menu.Item>
-    </Menu>
-  );
+  const menuItems = [
+    {
+      key: "my-listings",
+      icon: <UnorderedListOutlined />,
+      label: t("user.my_ads"),
+      onClick: () => router.push("/user/private/my-listings"),
+    },
+    {
+      key: "my-profile",
+      icon: <UserOutlined />,
+      label: t("user.my_profile"),
+      onClick: () => router.push("/user/private/my-profile"),
+    },
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: t("user.logout"),
+      onClick: () => dispatch(logoutRequest()),
+    },
+  ];
 
   return (
     <div className="user-menu">
       <Dropdown
-        overlay={menuItems}
+        menu={{ items: menuItems }}
         trigger={["click"]}
         placement="bottomRight"
         arrow

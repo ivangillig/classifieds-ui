@@ -5,7 +5,7 @@
   --main-white: #f8f9fa;
 
   --primary-color: #5d40dd;
-  --hover-color: #8974E7;
+  --hover-color: #8974e7;
 }
 
 // @media (prefers-color-scheme: dark) {
@@ -59,7 +59,6 @@ body {
 .button-danger {
   background-color: red;
   font-weight: 500;
-  
 }
 
 .layout {
@@ -78,11 +77,19 @@ body {
   padding: 1rem;
 }
 
-.ant-back-top-icon {
-  background-color: var(--primary-color);
+.ant-float-btn {
+  background-color: var(--primary-color) !important;
 
-  &:hover {
-    background-color: var(--hover-color);
+  .ant-float-btn-body {
+    background-color: var(--primary-color) !important;
+
+    .ant-float-btn-icon {
+      color: white !important;
+    }
+
+    &:hover {
+      background-color: var(--hover-color) !important;
+    }
   }
 }
 

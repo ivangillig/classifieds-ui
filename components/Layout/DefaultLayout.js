@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, BackTop } from "antd";
+import { Layout, FloatButton  } from "antd";
 import Head from "./Head";
 import AppFooter from "./Footer";
 import NavBar from "./NavBar";
@@ -35,7 +35,7 @@ const DefaultLayout = ({ children, title }) => {
       </Footer>
 
       {/* Back to Top */}
-      <BackTop visibilityHeight={400} duration={10} />
+      <FloatButton.BackTop visibilityHeight={400} duration={10} />
     </div>
   );
 };
