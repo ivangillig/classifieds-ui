@@ -100,6 +100,22 @@
     "Edit": "Editar",
     "Renew": "Renovar"
   },
+  "profile": {
+    "description": "Aquí puede administrar su información ingresada durante el registro, \ntales como correo o numero de telefono.",
+    "current_name": "Nombre actual",
+    "current_phone": "Teléfono actual",
+    "update_name": "Actualizar nombre",
+    "update_phone": "Actualizar teléfono",
+    "confirmation_message": "¿Está seguro de que desea realizar este cambio?",
+    "confirm_update_displayName": "Confirmar cambio de nombre",
+    "confirm_update_phone": "Confirmar cambio de teléfono",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "previous_value": "Valor anterior",
+    "new_value": "Nuevo valor",
+    "name_placeholder": "Ingrese su nombre",
+    "phone_placeholder": "Ingrese su número de teléfono"
+  },
   "Publish": "Publicar",
   "Ads_on": "Clasificados en",
   "Back": "Volver",

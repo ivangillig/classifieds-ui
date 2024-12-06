@@ -4,6 +4,7 @@ import PanelMenuComponent from "@/components/private/PanelMenuComponent";
 import MyListingsComponent from "@/components/private/MyListingsComponent";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
+import MyProfileComponent from "@/components/private/MyProfileComponent";
 
 const { Sider, Content } = Layout;
 
@@ -39,16 +40,7 @@ const PrivatePage = () => {
     }
 
     if (selectedCategory === "my-profile") {
-      switch (selectedSubCategory) {
-        case "generalInfo":
-          return <div>{t("private.generalInfoContent")}</div>;
-        case "security":
-          return <div>{t("private.securityContent")}</div>;
-        case "notifications":
-          return <div>{t("private.notificationsContent")}</div>;
-        default:
-          return <div>{t("selectAnOption")}</div>;
-      }
+      return <MyProfileComponent subcategory={selectedSubCategory} />;
     }
 
     return <div>{t("selectAnOption")}</div>;
