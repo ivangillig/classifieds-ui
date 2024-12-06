@@ -30,7 +30,7 @@ const DefaultLayout = ({ children, title }) => {
       </Content>
 
       {/* Footer */}
-      <Footer style={{ flexShrink: 0 }}>
+      <Footer>
         <AppFooter />
       </Footer>
 
