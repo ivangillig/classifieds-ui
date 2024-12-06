@@ -81,94 +81,112 @@ const MyListingsComponent = ({ status }) => {
     dispatch(fetchUserListingsRequest(status));
   }, [dispatch, status]);
 
-  const columns = [
-    {
-      title: t("Image"),
-      dataIndex: "photos",
-      key: "photos",
-      render: (photos) => {
-        const imageSrc =
-          photos && photos[0]
-            ? getImagesPath() + photos[0]
-            : "/static/images/image_not_available.webp";
-        return (
-          <img
-            src={imageSrc}
-            alt="Listing"
-            style={{ width: "80px", height: "80px", objectFit: "cover" }}
-          />
-        );
+  const getColumns = () => {
+    const baseColumns = [
+      {
+        title: t("Image"),
+        dataIndex: "photos",
+        key: "photos",
+        render: (photos) => {
+          const imageSrc =
+            photos && photos[0]
+              ? getImagesPath() + photos[0]
+              : "/static/images/image_not_available.webp";
+          return (
+            <img
+              src={imageSrc}
+              alt="Listing"
+              style={{ width: "80px", height: "80px", objectFit: "cover" }}
+            />
+          );
+        },
       },
-    },
-    { title: t("Title"), dataIndex: "title", key: "title" },
-    {
-      title: t("Price"),
-      dataIndex: "price",
-      key: "price",
-      render: (price) => `$${price}`,
-    },
-    {
-      title: t("Created At"),
-      dataIndex: "createdAt",
-      key: "createdAt",
-      render: (createdAt) => dayjs(createdAt).format("DD/MM/YYYY"),
-    },
-    {
-      title: t("Actions"),
-      key: "actions",
-      render: (text, record) => {
-        const { _id, status } = record;
+      { title: t("Title"), dataIndex: "title", key: "title" },
+      {
+        title: t("Price"),
+        dataIndex: "price",
+        key: "price",
+        render: (price) => `$${price}`,
+      },
+      {
+        title: t("Created At"),
+        dataIndex: "createdAt",
+        key: "createdAt",
+        render: (createdAt) => dayjs(createdAt).format("DD/MM/YYYY"),
+      },
+      {
+        title: t("Actions"),
+        key: "actions",
+        render: (text, record) => {
+          const { _id, status } = record;
 
-        return (
-          <Space>
-            {(status === "published" || status === "paused") && (
+          return (
+            <Space>
+              {(status === "published" || status === "paused") && (
+                <Button
+                  icon={<EditOutlined />}
+                  onClick={() => router.push(`/createListing?listingId=${_id}`)}
+                  type="default"
+                >
+                  {t("listingActions.Edit")}
+                </Button>
+              )}
+              {status === "published" && (
+                <Button
+                  icon={<PauseOutlined />}
+                  onClick={() => handleToggleStatus(_id)}
+                  type="default"
+                >
+                  {t("listingActions.Pause")}
+                </Button>
+              )}
+              {status === "paused" && (
+                <Button
+                  icon={<PlayCircleOutlined />}
+                  onClick={() => handleToggleStatus(_id)}
+                  type="default"
+                >
+                  {t("listingActions.Reactivate")}
+                </Button>
+              )}
+              {status === "expired" && (
+                <Button
+                  icon={<ReloadOutlined />}
+                  onClick={() => handleRenew(_id)}
+                  type="default"
+                >
+                  {t("listingActions.Renew")}
+                </Button>
+              )}
               <Button
-                icon={<EditOutlined />}
-                onClick={() => router.push(`/createListing?listingId=${_id}`)}
-                type="default"
+                icon={<DeleteOutlined />}
+                onClick={() => handleDelete(_id)}
+                danger
               >
-                {t("listingActions.Edit")}
+                {t("listingActions.Delete")}
               </Button>
-            )}
-            {status === "published" && (
-              <Button
-                icon={<PauseOutlined />}
-                onClick={() => handleToggleStatus(_id)}
-                type="default"
-              >
-                {t("listingActions.Pause")}
-              </Button>
-            )}
-            {status === "paused" && (
-              <Button
-                icon={<PlayCircleOutlined />}
-                onClick={() => handleToggleStatus(_id)}
-                type="default"
-              >
-                {t("listingActions.Reactivate")}
-              </Button>
-            )}
-            {status === "expired" && (
-              <Button
-                icon={<ReloadOutlined />}
-                onClick={() => handleRenew(_id)}
-                type="default"
-              >
-                {t("listingActions.Renew")}
-              </Button>
-            )}
-            <Button
-              icon={<DeleteOutlined />}
-              onClick={() => handleDelete(_id)}
-              danger
-            >
-              {t("listingActions.Delete")}
-            </Button>
-          </Space>
-        );
+            </Space>
+          );
+        },
       },
-    },
-  ];
+    ];
+
+    if (["published", "paused", "underReview"].includes(status)) {
+      baseColumns.splice(4, 0, {
+        title: t("Days Remaining"),
+        dataIndex: "validUntil",
+        key: "validUntil",
+        render: (validUntil) => {
+          const daysRemaining = dayjs(validUntil).diff(dayjs(), "day");
+          return daysRemaining >= 0
+            ? `${daysRemaining} ${t("days remaining")}`
+            : t("listing.expired");
+        },
+      });
+    }
+
+    return baseColumns;
+  };
 
   if (isLoading) {
     return (
@@ -182,7 +200,7 @@ const MyListingsComponent = ({ status }) => {
     <>
       <Table
         dataSource={userListings}
-        columns={columns}
+        columns={getColumns()}
         rowKey={(record) => record._id}
         pagination={{ pageSize: 10 }}
         locale={{

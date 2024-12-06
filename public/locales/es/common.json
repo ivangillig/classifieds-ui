@@ -88,10 +88,10 @@
     "drag_and_drop_images": "Arrastrá tus fotos o ",
     "browse": "seleccionalas desde tu dispositivo",
     "paused": "Pausado",
-    "published": "published",
-    "underReview": "underReview",
-    "expired": "expired",
-    "blocked": "blocked"
+    "published": "Publicado",
+    "underReview": "En revisión",
+    "expired": "Vencido",
+    "blocked": "Bloqueado"
   },
   "listingActions": {
     "Pause": "Pausar",
@@ -104,6 +104,8 @@
   "Ads_on": "Clasificados en",
   "Back": "Volver",
   "Error": "Error",
+  "Days Remaining": "Días restantes",
+  "days remaining": "días restantes",
   "The required resource was not found": "No se encontró el recurso solicitado",
   "SUCCESS_LISTING_CREATED": "Anuncio creado correctamente",
   "ERROR_INVALID_TOKEN": "Error de autenticación, por favor ingrese nuevamente",
