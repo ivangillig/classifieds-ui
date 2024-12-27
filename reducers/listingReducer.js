@@ -31,7 +31,10 @@ import {
   RENEW_LISTING_REQUEST,
   RENEW_LISTING_SUCCESS,
   RENEW_LISTING_ERROR,
-} from "../constants/ActionsTypes";
+  SEARCH_LISTINGS_REQUEST,
+  SEARCH_LISTINGS_SUCCESS,
+  SEARCH_LISTINGS_ERROR,
+} from '../constants/ActionsTypes'
 
 const initialState = {
   listings: [],
@@ -44,8 +47,8 @@ const initialState = {
   userListings: [],
   listingUpdated: false,
   listingDeleted: false,
-  successMessage: "",
-};
+  successMessage: '',
+}
 
 export default function listingReducer(state = initialState, action) {
   switch (action.type) {
@@ -54,182 +57,200 @@ export default function listingReducer(state = initialState, action) {
         ...state,
         isLoading: true,
         error: null,
-      };
+      }
     case FETCH_LISTING_DETAILS_SUCCESS:
       return {
         ...state,
         listingDetails: action.payload,
         isLoading: false,
-      };
+      }
     case FETCH_LISTING_DETAILS_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-      };
+      }
     case CREATE_LISTING_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: null,
-      };
+      }
     case CREATE_LISTING_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingCreated: true,
-      };
+      }
     case CREATE_LISTING_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      };
+      }
     case FETCH_LISTINGS_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: null,
-      };
+      }
     case FETCH_LISTINGS_SUCCESS:
       return {
         ...state,
         listings: action.payload,
         isLoading: false,
-      };
+      }
     case FETCH_LISTINGS_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-      };
+      }
     case FETCH_LISTINGS_BY_PROVINCE_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: null,
-      };
+      }
     case FETCH_LISTINGS_BY_PROVINCE_SUCCESS:
       return {
         ...state,
         listings: action.payload.data,
         pagination: action.payload.meta,
         isLoading: false,
-      };
+      }
     case FETCH_LISTINGS_BY_PROVINCE_ERROR:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-      };
+      }
     case CLEAR_LISTING_STATE:
-      return initialState;
+      return initialState
     case REPORT_LISTING_REQUEST:
       return {
         ...state,
         isLoading: true,
         error: null,
         reportSuccess: false,
-      };
+      }
     case REPORT_LISTING_SUCCESS:
       return {
         ...state,
         isLoading: false,
         reportSuccess: true,
-      };
+      }
     case REPORT_LISTING_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      };
+      }
     case FETCH_USER_LISTINGS_REQUEST:
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true, error: null }
     case FETCH_USER_LISTINGS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingUpdated: false,
         listingDeleted: false,
-        successMessage: "",
+        successMessage: '',
         userListings: action.payload.data,
         pagination: action.payload.meta,
-      };
+      }
     case FETCH_USER_LISTINGS_ERROR:
-      return { ...state, isLoading: false, error: action.payload };
+      return { ...state, isLoading: false, error: action.payload }
     case TOGGLE_LISTING_STATUS_REQUEST:
       return {
         ...state,
         isLoading: true,
-      };
+      }
     case TOGGLE_LISTING_STATUS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingUpdated: true,
         successMessage: action.payload.message,
-      };
+      }
     case TOGGLE_LISTING_STATUS_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      };
+      }
     case DELETE_LISTING_REQUEST:
       return {
         ...state,
         isLoading: true,
-      };
+      }
     case DELETE_LISTING_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingDeleted: true,
         successMessage: action.payload.message,
-      };
+      }
     case DELETE_LISTING_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      };
+      }
     case EDIT_LISTING_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      };
+      }
     case EDIT_LISTING_REQUEST:
       return {
         ...state,
         isLoading: true,
-      };
+      }
     case EDIT_LISTING_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingUpdated: true,
         successMessage: action.payload.message,
-      };
+      }
     case RENEW_LISTING_REQUEST:
       return {
         ...state,
         isLoading: true,
-      };
+      }
     case RENEW_LISTING_SUCCESS:
       return {
         ...state,
         isLoading: false,
         listingUpdated: true,
         successMessage: action.payload.message,
-      };
+      }
     case RENEW_LISTING_ERROR:
       return {
         ...state,
         isLoading: false,
         error: action.payload,
-      };
+      }
+    case SEARCH_LISTINGS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      }
+    case SEARCH_LISTINGS_SUCCESS:
+      return {
+        ...state,
+        listings: action.payload,
+        isLoading: false,
+      }
+    case SEARCH_LISTINGS_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      }
     default:
-      return state;
+      return state
   }
 }
