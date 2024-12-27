@@ -1,5 +1,6 @@
 {
   "app_name": "Clasificados",
+  "createdBy": "Sitio construido por",
   "welcome_message": "Bienvenido a la App de Clasificados",
   "go_to_login": "Ir al login",
   "go_to_main": "Ir al home",
@@ -144,7 +145,6 @@
   "ERROR_LISTING_DELETE_FAILED": "Hubo un problema al eliminar el anuncio, por favor reintente o contáctese con el equipo de soporte",
   "ERROR_LISTING_STATUS_UPDATE_FAILED": "Hubo un problema al actualizar el estado del anuncio, reintente o contáctese con el equipo de soporte",
   "ERROR_LISTING_RENEW_FAILED": "Hubo un problema al renovar el anuncio, reintente o contáctese con el equipo de soporte",
-  "SUCCESS_IMAGES_DELETED": "Imagenes borradas correctamente",
   "SUCCESS_LISTING_PAUSED": "El anuncio fue pausado correctamente",
   "SUCCESS_LISTING_REACTIVATED": "El anuncio fue reactivado correctamente",
   "SUCCESS_LISTING_DELETED": "El anuncio se eliminó correctamente",

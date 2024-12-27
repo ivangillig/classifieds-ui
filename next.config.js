@@ -10,6 +10,7 @@ module.exports = withLess({
   publicRuntimeConfig: {
     BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000',
     listingImagesBasePath: process.env.IMG_BASE_PATH || '/uploads/',
+    APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'ClassifiedsApp',
   },
   compiler: {
     styledComponents: true,

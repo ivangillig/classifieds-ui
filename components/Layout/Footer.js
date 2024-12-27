@@ -1,10 +1,20 @@
 // components/Footer.js
-import React from 'react';
+import React from 'react'
+import getConfig from 'next/config'
+import { useTranslation } from 'next-i18next'
 
-const AppFooter = () => (
-  <footer>
-    My App ©2024 Created by MyCompany
-  </footer>
-);
+const { publicRuntimeConfig } = getConfig()
+const { APP_NAME } = publicRuntimeConfig
 
-export default AppFooter;
+const AppFooter = () => {
+  const { t } = useTranslation()
+  const currentYear = new Date().getFullYear()
+
+  return (
+    <footer>
+      {APP_NAME} ©{currentYear} {t('createdBy')} AnunciosTDF!
+    </footer>
+  )
+}
+
+export default AppFooter
