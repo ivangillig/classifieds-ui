@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu } from "antd";
 import { useTranslation } from "next-i18next";
 import {
@@ -17,6 +17,7 @@ const PanelMenuComponent = ({
   selectedSubCategory,
 }) => {
   const { t } = useTranslation();
+  const [openKeys, setOpenKeys] = useState([selectedCategory]);
 
   const items = [
     {
@@ -42,6 +43,15 @@ const PanelMenuComponent = ({
     },
   ];
 
+  const onOpenChange = (keys) => {
+    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+    if (items.map((item) => item.key).indexOf(latestOpenKey) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
+
   const handleClick = ({ keyPath }) => {
     const subCategory = keyPath[0];
     const category = keyPath[1] || subCategory;
@@ -54,7 +64,8 @@ const PanelMenuComponent = ({
       items={items}
       onClick={handleClick}
       selectedKeys={[selectedSubCategory]}
-      defaultOpenKeys={[selectedCategory]}
+      openKeys={openKeys}
+      onOpenChange={onOpenChange}
       style={{ width: "100%", maxWidth: "300px" }}
     />
   );

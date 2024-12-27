@@ -26,7 +26,7 @@ const UserMenu = ({ user }) => {
       key: "my-profile",
       icon: <UserOutlined />,
       label: t("user.my_profile"),
-      onClick: () => router.push("/user/private/my-profile"),
+      onClick: () => router.push("/user/private/my-profile/generalInfo"),
     },
     {
       key: "logout",

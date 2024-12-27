@@ -19,6 +19,7 @@ const PrivatePage = () => {
   // Initialize state from URL
   useEffect(() => {
     if (slug) {
+      console.log(slug)
       setSelectedCategory(slug[0] || "my-listings");
       setSelectedSubCategory(slug[1] || "published");
     }
