@@ -13,7 +13,7 @@ const MyProfileComponent = () => {
   const [fieldToUpdate, setFieldToUpdate] = useState("");
   const [newValue, setNewValue] = useState("");
   const [updatedFields, setUpdatedFields] = useState({
-    displayName: "",
+    profileName: "",
     phone: "",
   });
 
@@ -52,19 +52,19 @@ const MyProfileComponent = () => {
 
         <div className="profile-item">
           <p>
-            {t("profile.current_name")}: <strong>{user.displayName}</strong>
+            {t("profile.current_name")}: <strong>{user.profileName}</strong>
           </p>
           <div className="input-button-group">
             <Input
-              value={updatedFields.displayName}
-              onChange={(e) => handleInputChange("displayName", e.target.value)}
+              value={updatedFields.profileName}
+              onChange={(e) => handleInputChange("profileName", e.target.value)}
               placeholder={t("profile.name_placeholder")}
             />
             <Button
               type="primary"
-              onClick={() => showModal("displayName")}
+              onClick={() => showModal("profileName")}
               className="update-button"
-              disabled={!updatedFields.displayName}
+              disabled={!updatedFields.profileName}
             >
               {t("profile.update_name")}
             </Button>
@@ -104,7 +104,7 @@ const MyProfileComponent = () => {
 
       {/* confirmation Modal */}
       <Modal
-        title={t(`profile.update_${fieldToUpdate}`)}
+        title={t(`profile.confirm_update_${fieldToUpdate}`)}
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         onOk={handleUpdateProfile}
@@ -114,8 +114,8 @@ const MyProfileComponent = () => {
         <p>{t("profile.confirmation_message")}</p>
         <p>
           <strong>{t("profile.previous_value")}:</strong>{" "}
-          {fieldToUpdate === "displayName"
-            ? user.displayName
+          {fieldToUpdate === "profileName"
+            ? user.profileName
             : user.phone || "-"}
         </p>
         <p>
