@@ -1,11 +1,9 @@
 const withLess = require("next-with-less");
+const { i18n } = require('./next-i18next.config')
 
 module.exports = withLess({
-  i18n: {
-    locales: ["es", "en"],
-    defaultLocale: "es",
-    localeDetection: false,
-  },
+  i18n,
+  reactStrictMode: true,
   publicRuntimeConfig: {
     BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000",
     listingImagesBasePath: process.env.IMG_BASE_PATH || "/uploads/",

@@ -7,11 +7,22 @@ import { appWithTranslation } from "next-i18next";
 import { ConfigProvider } from "antd";
 import DefaultLayout from "../components/Layout/DefaultLayout";
 import Notifications from "../components/common/Notifications";
+import { useEffect, useState } from 'react'
 
 function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const Layout =
     Component.Layout === undefined ? DefaultLayout : Component.Layout;
+
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <Provider store={store} stabilityCheck="never">
