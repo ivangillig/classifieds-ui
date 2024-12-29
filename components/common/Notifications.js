@@ -1,12 +1,14 @@
 // components/Notifications.js
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { notification } from "antd";
 import { useTranslation } from "react-i18next";
+import { clearMessages } from "../../actions/notificationActions";
 
 const Notifications = () => {
   const { t } = useTranslation();
   const messages = useSelector((state) => state.notifications || []);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -19,8 +21,9 @@ const Notifications = () => {
           });
         }
       });
+      dispatch(clearMessages());
     }
-  }, [messages, t]);
+  }, [messages, t, dispatch]);
 
   return null;
 };
