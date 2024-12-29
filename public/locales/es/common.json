@@ -145,6 +145,7 @@
   "ERROR_LISTING_DELETE_FAILED": "Hubo un problema al eliminar el anuncio, por favor reintente o contáctese con el equipo de soporte",
   "ERROR_LISTING_STATUS_UPDATE_FAILED": "Hubo un problema al actualizar el estado del anuncio, reintente o contáctese con el equipo de soporte",
   "ERROR_LISTING_RENEW_FAILED": "Hubo un problema al renovar el anuncio, reintente o contáctese con el equipo de soporte",
+  "ERROR_QUERY_MUST_CONTAIN_ONLY_ALPHANUMERIC": "La búsqueda debe contener solo caracteres alfanuméricos",
   "SUCCESS_LISTING_PAUSED": "El anuncio fue pausado correctamente",
   "SUCCESS_LISTING_REACTIVATED": "El anuncio fue reactivado correctamente",
   "SUCCESS_LISTING_DELETED": "El anuncio se eliminó correctamente",
