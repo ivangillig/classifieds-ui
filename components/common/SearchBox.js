@@ -4,16 +4,25 @@ import { Input, Button } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { useTranslation } from 'next-i18next'
 import { useDispatch } from 'react-redux'
-import { searchListingsRequest } from '../../actions/listingActions'
+import { useRouter } from 'next/router'
 
 const { Search } = Input
 
 const SearchBox = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const onSearch = (value) => {
-    dispatch(searchListingsRequest(value))
+    const alphanumericRegex = /^[a-z0-9]+$/i
+    if (alphanumericRegex.test(value)) {
+      router.push({
+        pathname: '/escorts',
+        query: { query: value },
+      })
+    } else {
+      alert(t('search_invalid_characters'))
+    }
   }
 
   return (

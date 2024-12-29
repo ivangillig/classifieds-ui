@@ -205,9 +205,9 @@ export const renewListingtError = (error) => ({
   payload: error,
 })
 
-export const searchListingsRequest = (query) => ({
+export const searchListingsRequest = (params) => ({
   type: SEARCH_LISTINGS_REQUEST,
-  payload: query,
+  payload: params,
 })
 
 export const searchListingsSuccess = (listings) => ({

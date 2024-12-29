@@ -194,7 +194,7 @@ function* deleteListingSaga({ payload }) {
 
 function* searchListingsSaga({ payload }) {
   try {
-    const listings = yield call(fetchListingsApi, { query: payload })
+    const listings = yield call(fetchListingsApi, payload)
     yield put(searchListingsSuccess(listings))
   } catch (error) {
     yield put(searchListingsError(error.message))
