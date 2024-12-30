@@ -2,6 +2,15 @@
 
 This is the frontend for a classified ads web application built with [Next.js](https://nextjs.org/). The application allows users to post, browse, and manage classified ads across various categories.
 
+## Technologies Used
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Ant Design (Antd)](https://ant.design/)
+- [Axios](https://axios-http.com/)
+- [Redux](https://redux.js.org/)
+- [Redux-Saga](https://redux-saga.js.org/)
+
 ## Getting Started
 
 First, clone the repository:
