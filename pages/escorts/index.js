@@ -87,7 +87,7 @@ const SearchResultsPage = () => {
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <SearchOutlined />
-              <span>{t('search_results')}</span>
+              <span>{query}</span>
             </Breadcrumb.Item>
           </Breadcrumb>
         </Card>
