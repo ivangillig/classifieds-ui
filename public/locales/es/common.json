@@ -127,6 +127,7 @@
   "days remaining": "días restantes",
   "The required resource was not found": "No se encontró el recurso solicitado",
   "SUCCESS_LISTING_CREATED": "Anuncio creado correctamente",
+  "ERROR_SESSION_EXPIRED": "Su sesión ha caducado, por favor ingrese nuevamente",
   "ERROR_INVALID_TOKEN": "Error de autenticación, por favor ingrese nuevamente",
   "ERROR_TITLE_REQUIRED": "Ingrese un título para el anuncio",
   "ERROR_AGE_MIN": "La edad mínima es 18 años",
