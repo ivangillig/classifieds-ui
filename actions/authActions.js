@@ -8,7 +8,10 @@ import {
   LOGOUT_FAILURE,
   GET_USER_INFO_REQUEST,
   GET_USER_INFO_SUCCESS,
-  GET_USER_INFO_FAILURE
+  GET_USER_INFO_FAILURE,
+  CONFIRM_EMAIL_REQUEST,
+  CONFIRM_EMAIL_SUCCESS,
+  CONFIRM_EMAIL_FAILURE
 } from '../constants/ActionsTypes';
 
 export const loginRequest = () => ({
@@ -51,4 +54,19 @@ export const getUserInfoSuccess = (user) => ({
 export const getUserInfoFailure = (error) => ({
   type: GET_USER_INFO_FAILURE,
   error,
+});
+
+export const confirmEmailRequest = (token) => ({
+  type: CONFIRM_EMAIL_REQUEST,
+  payload: token,
+});
+
+export const confirmEmailSuccess = (message) => ({
+  type: CONFIRM_EMAIL_SUCCESS,
+  payload: message,
+});
+
+export const confirmEmailFailure = (error) => ({
+  type: CONFIRM_EMAIL_FAILURE,
+  payload: error,
 });

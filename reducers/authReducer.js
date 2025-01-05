@@ -9,6 +9,9 @@ import {
   GET_USER_INFO_FAILURE,
   UPDATE_USER_PROFILE_SUCCESS,
   RESET_PROFILE_UPDATED,
+  CONFIRM_EMAIL_REQUEST,
+  CONFIRM_EMAIL_SUCCESS,
+  CONFIRM_EMAIL_FAILURE,
 } from '../constants/ActionsTypes'
 
 const initialState = {
@@ -90,6 +93,24 @@ const authReducer = (state = initialState, action) => {
         profileUpdated: true,
         user: action.payload,
         loading: false,
+      }
+    case CONFIRM_EMAIL_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        message: 'Confirming your email...',
+      }
+    case CONFIRM_EMAIL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload,
+      }
+    case CONFIRM_EMAIL_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload,
       }
     default:
       if (state.profileUpdated) {

@@ -20,3 +20,12 @@ export const signOutRequest = async () => {
     throw error;
   }
 };
+
+export const confirmEmailApi = async (token) => {
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/confirm-email/${token}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

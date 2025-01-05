@@ -8,17 +8,21 @@ import {
   logoutSuccess,
   logoutFailure,
   getUserInfoSuccess,
-  getUserInfoFailure
+  getUserInfoFailure,
+  confirmEmailSuccess,
+  confirmEmailFailure
 } from "../actions/authActions";
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
-  GET_USER_INFO_REQUEST
+  GET_USER_INFO_REQUEST,
+  CONFIRM_EMAIL_REQUEST
 } from '../constants/ActionsTypes'
 import {
   signInRequest, 
   signOutRequest,
-  getUserInfoApi 
+  getUserInfoApi,
+  confirmEmailApi
 } from "../api/authApi";
 
 function* loginSaga() {
@@ -72,6 +76,15 @@ function* getUserInfo() {
   }
 }
 
+function* confirmEmailSaga(action) {
+  try {
+    const response = yield call(confirmEmailApi, action.payload);
+    yield put(confirmEmailSuccess(response.message));
+  } catch (error) {
+    yield put(confirmEmailFailure(error.message));
+  }
+}
+
 export function* watchLoginSaga() {
   yield takeLatest(LOGIN_REQUEST, loginSaga);
 }
@@ -84,11 +97,16 @@ export function* watchGetUserInfo() {
   yield takeLatest(GET_USER_INFO_REQUEST, getUserInfo);
 }
 
+export function* watchConfirmEmailSaga() {
+  yield takeLatest(CONFIRM_EMAIL_REQUEST, confirmEmailSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     fork(watchLoginSaga),
     fork(watchLogoutSaga),
     fork(watchGetUserInfo),
+    fork(watchConfirmEmailSaga),
   ]);
 }
 
