@@ -2,6 +2,7 @@
   "app_name": "Clasificados",
   "createdBy": "Sitio construido por",
   "welcome_message": "Bienvenido a la App de Clasificados",
+  "emailConfirmationMessage": "Se ha enviado un correo electrónico de verificación a su dirección de correo electrónico.",
   "go_to_login": "Ir al login",
   "go_to_main": "Ir al home",
   "page": "Página",

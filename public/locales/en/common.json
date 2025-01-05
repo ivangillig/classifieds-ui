@@ -1,6 +1,7 @@
 {
     "app_name": "Classifieds App",
     "search_placeholder": "Search...",
+    "emailConfirmationMessage": "A verification email has been sent to your email address.",
     "login": "Login",
     "post_ad": "Post Ad",
     "createdBy": "Created by"
