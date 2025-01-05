@@ -152,5 +152,7 @@
   "SUCCESS_LISTING_REACTIVATED": "El anuncio fue reactivado correctamente",
   "SUCCESS_LISTING_DELETED": "El anuncio se eliminó correctamente",
   "SUCCESS_LISTING_UPDATED": "El anuncio fue actualizado correctamente",
-  "SUCCESS_LISTING_RENEWED": "El anuncio se renovó correctamente"
+  "SUCCESS_LISTING_RENEWED": "El anuncio se renovó correctamente",
+  "EMAIL_CONFIRMED_SUCCESS": "Correo confirmado con exito",
+  "You can now login": "Ahora puedes iniciar sesión"
 }

@@ -30,6 +30,7 @@ const initialState = {
   loading: false,
   error: null,
   profileUpdated: false,
+  emailConfirmed: false,
 }
 
 const clearLocalStorage = () => {
@@ -99,18 +100,21 @@ const authReducer = (state = initialState, action) => {
         ...state,
         loading: true,
         message: 'Confirming your email...',
+        emailConfirmed: false,
       }
     case CONFIRM_EMAIL_SUCCESS:
       return {
         ...state,
         loading: false,
         message: action.payload,
+        emailConfirmed: true,
       }
     case CONFIRM_EMAIL_FAILURE:
       return {
         ...state,
         loading: false,
         message: action.payload,
+        emailConfirmed: false,
       }
     default:
       if (state.profileUpdated) {
