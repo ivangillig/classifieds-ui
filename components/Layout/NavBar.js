@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import UserMenu from "../UserMenu";
 import SearchBox from "../common/SearchBox";
+import { FilterOutlined } from "@ant-design/icons";
+import FilterModal from "../FilterModal";
 
 const { Search } = Input;
 
@@ -14,6 +16,7 @@ const NavBar = () => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
   const [isMounted, setIsMounted] = useState(false);
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -42,6 +45,14 @@ const NavBar = () => {
     router.push("/createListing");
   };
 
+  const showFilterModal = () => {
+    setIsFilterModalVisible(true);
+  };
+
+  const hideFilterModal = () => {
+    setIsFilterModalVisible(false);
+  };
+
   if (!isMounted) {
     return null;
   }
@@ -60,6 +71,7 @@ const NavBar = () => {
             </div>
             <Space>
               <SearchBox />
+              <Button icon={<FilterOutlined />} onClick={showFilterModal} />
             </Space>
           </div>
 
@@ -86,6 +98,10 @@ const NavBar = () => {
           </div>
         </div>
       </div>
+      <FilterModal
+        visible={isFilterModalVisible}
+        onClose={hideFilterModal}
+      />
     </div>
   );
 };
