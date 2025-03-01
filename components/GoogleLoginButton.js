@@ -1,19 +1,21 @@
 // components/GoogleLoginButton.js
-"use client";
+'use client'
 
-import React from "react";
-import { useDispatch } from "react-redux";
-import { loginRequest } from "../actions/authActions";
-import { Button } from "antd";
-import { GoogleOutlined } from "@ant-design/icons";
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { loginRequest } from '../actions/authActions'
+import { Button } from 'antd'
+import { GoogleOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 
 const GoogleLoginButton = () => {
-  const dispatch = useDispatch();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const handleLogin = () => {
     // dispatch(loginRequest());
-    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
-  };
+    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`
+  }
 
   return (
     <Button
@@ -22,9 +24,9 @@ const GoogleLoginButton = () => {
       className="login-button"
       onClick={handleLogin}
     >
-      Login with Google
+      {t('Login with Google')}
     </Button>
-  );
-};
+  )
+}
 
-export default GoogleLoginButton;
+export default GoogleLoginButton
