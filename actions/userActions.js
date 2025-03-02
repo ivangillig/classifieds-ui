@@ -4,7 +4,7 @@ import {
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_ERROR,
   RESET_PROFILE_UPDATED,
-  SET_VIEW
+  SET_VIEW,
 } from '../constants/ActionsTypes'
 
 export const updateUserProfileRequest = (listingId) => ({

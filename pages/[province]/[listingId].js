@@ -110,38 +110,40 @@ const ListingDetailsPage = () => {
       </div>
 
       {/* Image Gallery */}
-      <div className="image-gallery">
-        {images.length > 3 && (
-          <Button
-            type="primary"
-            icon={<ExclamationCircleOutlined />}
-            className="view-all-button"
-            onClick={() => openGallery(0)}
-          >
-            {t('Show all photos')}
-          </Button>
-        )}
-        <div className="main-image">
-          <img
-            src={getImagesPath() + images[0]?.src || '/placeholder.jpg'}
-            alt={images[0]?.alt || 'Main'}
-            style={{ width: '100%', borderRadius: '8px' }}
-            onClick={() => openGallery(0)}
-          />
+      {images && images.length > 0 && (
+        <div className="image-gallery">
+          {images.length > 3 && (
+            <Button
+              type="primary"
+              icon={<ExclamationCircleOutlined />}
+              className="view-all-button"
+              onClick={() => openGallery(0)}
+            >
+              {t('Show all photos')}
+            </Button>
+          )}
+          <div className="main-image">
+            <img
+              src={getImagesPath() + images[0]?.src || '/placeholder.jpg'}
+              alt={images[0]?.alt || 'Main'}
+              style={{ width: '100%', borderRadius: '8px' }}
+              onClick={() => openGallery(0)}
+            />
+          </div>
+          <div className="side-images">
+            {images.slice(1, 3).map((img, idx) => (
+              <div key={idx} className="side-image">
+                <img
+                  onClick={() => openGallery(idx + 1)}
+                  src={getImagesPath() + img.src}
+                  alt={img.alt}
+                  style={{ width: '100%', borderRadius: '8px' }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="side-images">
-          {images.slice(1, 3).map((img, idx) => (
-            <div key={idx} className="side-image">
-              <img
-                onClick={() => openGallery(idx + 1)}
-                src={getImagesPath() + img.src}
-                alt={img.alt}
-                style={{ width: '100%', borderRadius: '8px' }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+      )}
 
       {/* Info Section */}
       <div className="info-section">
