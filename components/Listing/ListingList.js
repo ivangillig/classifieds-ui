@@ -5,14 +5,14 @@ import {
   PhoneOutlined,
   WhatsAppOutlined,
 } from '@ant-design/icons'
-import { getImagesPath } from '@/utils/listingsUtils'
+import { getImagesPath, getWhatsAppLink } from '@/utils/listingsUtils'
 import { useRouter } from 'next/router'
 
 const ListingList = ({ data: listing }) => {
   const router = useRouter()
   const { province } = router.query
 
-  const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, '')}`
+  const whatsappLink = getWhatsAppLink(listing.phone)
   const callLink = `tel:${listing.phone}`
 
   const handleButtonClick = (e) => {
