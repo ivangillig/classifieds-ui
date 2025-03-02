@@ -4,6 +4,7 @@ import {
   UPDATE_USER_PROFILE_SUCCESS,
   UPDATE_USER_PROFILE_ERROR,
   RESET_PROFILE_UPDATED,
+  SET_VIEW
 } from '../constants/ActionsTypes'
 
 export const updateUserProfileRequest = (listingId) => ({
@@ -23,4 +24,9 @@ export const updateUserProfileError = (error) => ({
 
 export const resetProfileUpdated = () => ({
   type: RESET_PROFILE_UPDATED,
+})
+
+export const setView = (view) => ({
+  type: SET_VIEW,
+  payload: view,
 })

@@ -16,7 +16,11 @@ const ProvincePage = () => {
 
   const { t } = useTranslation()
 
-  const [layout, setLayout] = useState('grid')
+  const [layout, setLayout] = useState(
+    typeof window !== 'undefined' && window.localStorage.getItem('view')
+      ? window.localStorage.getItem('view')
+      : 'grid'
+  )
   const [isMobile, setIsMobile] = useState(false)
 
   const { listings, pagination, isLoading } = useSelector(
@@ -65,6 +69,12 @@ const ProvincePage = () => {
     })
   }
 
+  const handleViewChange = (e) => {
+    const newView = e.target.value
+    setLayout(newView)
+    window.localStorage.setItem('view', newView)
+  }
+
   const renderHeader = () => {
     // Shows the view options and breadcrumb only in large screens
     if (isMobile) return null
@@ -95,7 +105,7 @@ const ProvincePage = () => {
         {/* View Selector */}
         <Radio.Group
           value={layout}
-          onChange={(e) => setLayout(e.target.value)}
+          onChange={handleViewChange}
           buttonStyle="solid"
         >
           <Radio.Button value="grid">{t('Grid')}</Radio.Button>

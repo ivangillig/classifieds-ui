@@ -31,6 +31,12 @@ const initialState = {
   error: null,
   profileUpdated: false,
   emailConfirmed: false,
+  view:
+    typeof window !== 'undefined'
+      ? window.localStorage.getItem('view')
+        ? window.localStorage.getItem('view')
+        : 'grid'
+      : 'grid',
 }
 
 const clearLocalStorage = () => {
@@ -115,6 +121,12 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         message: action.payload,
         emailConfirmed: false,
+      }
+    case 'SET_VIEW':
+      window.localStorage.setItem('view', action.payload)
+      return {
+        ...state,
+        view: action.payload,
       }
     default:
       if (state.profileUpdated) {
