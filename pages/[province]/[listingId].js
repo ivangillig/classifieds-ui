@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { fetchListingDetailsRequest } from "@/actions/listingActions";
-import { Spin, Tag, Card, Button, Breadcrumb } from "antd";
-import ReportListingModal from "@/components/Listing/ReportListingModal";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
+import { fetchListingDetailsRequest } from '@/actions/listingActions'
+import { Spin, Tag, Card, Button, Breadcrumb } from 'antd'
+import ReportListingModal from '@/components/Listing/ReportListingModal'
 import {
   HomeOutlined,
   EnvironmentOutlined,
@@ -12,41 +12,41 @@ import {
   PhoneOutlined,
   WhatsAppOutlined,
   ExclamationCircleOutlined,
-} from "@ant-design/icons";
-import EmblaWithGallery from "@/components/Listing/EmblaWithGallery";
-import { getImagesPath } from "@/utils/listingsUtils";
-import { useTranslation } from "react-i18next";
-import dayjs from "dayjs";
+} from '@ant-design/icons'
+import EmblaWithGallery from '@/components/Listing/EmblaWithGallery'
+import { getImagesPath } from '@/utils/listingsUtils'
+import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 
 const ListingDetailsPage = () => {
-  const router = useRouter();
-  const { t } = useTranslation();
-  const { province, listingId } = router.query;
-  const [isReportModalVisible, setReportModalVisible] = useState(false);
+  const router = useRouter()
+  const { t } = useTranslation()
+  const { province, listingId } = router.query
+  const [isReportModalVisible, setReportModalVisible] = useState(false)
 
-  const showReportModal = () => setReportModalVisible(true);
-  const closeReportModal = () => setReportModalVisible(false);
+  const showReportModal = () => setReportModalVisible(true)
+  const closeReportModal = () => setReportModalVisible(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const { listingDetails, isLoading, error } = useSelector(
     (state) => state.listing
-  );
+  )
 
-  const [isGalleryOpen, setGalleryOpen] = useState(false);
-  const [initialIndex, setInitialIndex] = useState(0);
+  const [isGalleryOpen, setGalleryOpen] = useState(false)
+  const [initialIndex, setInitialIndex] = useState(0)
 
   useEffect(() => {
     if (listingId) {
-      dispatch(fetchListingDetailsRequest(listingId));
+      dispatch(fetchListingDetailsRequest(listingId))
     }
-  }, [dispatch, listingId]);
+  }, [dispatch, listingId])
 
   if (isLoading) {
     return (
       <div className="loading-container">
         <Spin size="large" />
       </div>
-    );
+    )
   }
 
   if (error) {
@@ -54,32 +54,32 @@ const ListingDetailsPage = () => {
       <div className="error-container">
         <h2>Error: {error}</h2>
         <Button type="primary" onClick={() => router.back()}>
-          {t("Go Back")}
+          {t('Go Back')}
         </Button>
       </div>
-    );
+    )
   }
 
   if (!listingDetails) {
     return (
       <div className="not-found-container">
-        <h2>{t("Listing not found")}</h2>
+        <h2>{t('Listing not found')}</h2>
         <Button type="primary" onClick={() => router.back()}>
-          {t("Go Back")}
+          {t('Go Back')}
         </Button>
       </div>
-    );
+    )
   }
 
   const images = listingDetails.photos.map((photo) => ({
     src: photo,
     alt: listingDetails.title,
-  }));
+  }))
 
   const openGallery = (index) => {
-    setInitialIndex(index);
-    setGalleryOpen(true);
-  };
+    setInitialIndex(index)
+    setGalleryOpen(true)
+  }
 
   return (
     <div className="listing-details-page">
@@ -105,7 +105,7 @@ const ListingDetailsPage = () => {
           className="report-button font-medium"
           onClick={showReportModal}
         >
-          {t("Report Listing")}
+          {t('Report Listing')}
         </Button>
       </div>
 
@@ -118,14 +118,14 @@ const ListingDetailsPage = () => {
             className="view-all-button"
             onClick={() => openGallery(0)}
           >
-            {t("Show all photos")}
+            {t('Show all photos')}
           </Button>
         )}
         <div className="main-image">
           <img
-            src={getImagesPath() + images[0]?.src || "/placeholder.jpg"}
-            alt={images[0]?.alt || "Main"}
-            style={{ width: "100%", borderRadius: "8px" }}
+            src={getImagesPath() + images[0]?.src || '/placeholder.jpg'}
+            alt={images[0]?.alt || 'Main'}
+            style={{ width: '100%', borderRadius: '8px' }}
             onClick={() => openGallery(0)}
           />
         </div>
@@ -136,7 +136,7 @@ const ListingDetailsPage = () => {
                 onClick={() => openGallery(idx + 1)}
                 src={getImagesPath() + img.src}
                 alt={img.alt}
-                style={{ width: "100%", borderRadius: "8px" }}
+                style={{ width: '100%', borderRadius: '8px' }}
               />
             </div>
           ))}
@@ -150,7 +150,7 @@ const ListingDetailsPage = () => {
           <div className="info-tags">
             {listingDetails.age && (
               <Tag icon={<CalendarOutlined />} color="default">
-                {dayjs(listingDetails.createdAt).format("DD/MM/YYYY")}
+                {dayjs(listingDetails.createdAt).format('DD/MM/YYYY')}
               </Tag>
             )}
             <Tag icon={<EnvironmentOutlined />} color="red">
@@ -172,21 +172,21 @@ const ListingDetailsPage = () => {
           <Button
             type="primary"
             icon={<PhoneOutlined />}
-            className="button-phone font-medium"
-            onClick={() => window.open(`tel:${listingDetails.phone}`, "_self")}
+            className="button-contact phone font-medium"
+            onClick={() => window.open(`tel:${listingDetails.phone}`, '_self')}
           >
-            {t("Call")}
+            {t('Call')}
           </Button>
         )}
         {listingDetails.useWhatsApp && (
           <Button
             type="primary"
             icon={<WhatsAppOutlined />}
-            className="button-whatsapp font-medium"
+            className="button-contact whatsapp font-medium"
             onClick={() =>
               window.open(
-                `https://wa.me/${listingDetails.phone.replace(/\D/g, "")}`,
-                "_blank"
+                `https://wa.me/${listingDetails.phone.replace(/\D/g, '')}`,
+                '_blank'
               )
             }
           >
@@ -209,7 +209,7 @@ const ListingDetailsPage = () => {
         listingId={listingId}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ListingDetailsPage;
+export default ListingDetailsPage
