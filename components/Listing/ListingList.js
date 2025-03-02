@@ -1,32 +1,41 @@
-import React from "react";
-import { Button } from "antd";
+import React from 'react'
+import { Button } from 'antd'
 import {
   EnvironmentOutlined,
   PhoneOutlined,
   WhatsAppOutlined,
-} from "@ant-design/icons";
-import { getImagesPath } from "@/utils/listingsUtils";
+} from '@ant-design/icons'
+import { getImagesPath } from '@/utils/listingsUtils'
+import { useRouter } from 'next/router'
 
 const ListingList = ({ data: listing }) => {
-  const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, "")}`;
-  const callLink = `tel:${listing.phone}`;
+  const router = useRouter()
+  const { province } = router.query
 
-  const handleButtonClick = () => {
+  const whatsappLink = `https://wa.me/${listing.phone.replace(/\D/g, '')}`
+  const callLink = `tel:${listing.phone}`
+
+  const handleButtonClick = (e) => {
+    e.stopPropagation()
     if (listing.useWhatsApp) {
-      window.open(whatsappLink, "_blank");
+      window.open(whatsappLink, '_blank')
     } else {
-      window.open(callLink, "_self");
+      window.open(callLink, '_self')
     }
-  };
+  }
 
-  const mainImage = getImagesPath() + listing.photos[0] || null;
+  const handleItemClick = () => {
+    router.push(`/${province}/${listing._id}`)
+  }
+
+  const mainImage = getImagesPath() + listing.photos[0] || null
 
   return (
-    <div className="listing-list-item">
+    <div className="listing-list-item" onClick={handleItemClick}>
       <img
         src={mainImage}
         onError={(e) =>
-          (e.target.src = "/static/images/image_not_available.webp")
+          (e.target.src = '/static/images/image_not_available.webp')
         }
         alt={listing.name}
         className="listing-image"
@@ -42,20 +51,20 @@ const ListingList = ({ data: listing }) => {
       <div className="listing-list-action">
         <span className="listing-price">${listing.price}</span>
         <Button
-          type={"primary"}
+          type={'primary'}
           className={
-            listing.useWhatsApp ? "button-contact whatsapp" : "button-contact phone"
+            listing.useWhatsApp
+              ? 'button-contact whatsapp'
+              : 'button-contact phone'
           }
-          icon={
-            listing.useWhatsApp ? <WhatsAppOutlined /> : <PhoneOutlined />
-          }
+          icon={listing.useWhatsApp ? <WhatsAppOutlined /> : <PhoneOutlined />}
           onClick={handleButtonClick}
         >
           {listing.phone}
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ListingList;
+export default ListingList
