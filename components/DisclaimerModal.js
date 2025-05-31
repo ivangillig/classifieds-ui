@@ -1,6 +1,6 @@
-import React from 'react';
-import { Modal, Button } from 'antd';
-import Link from 'next/link';
+import React from 'react'
+import { Modal, Button } from 'antd'
+import Link from 'next/link'
 
 const DisclaimerModal = ({ visible, onAccept }) => {
   return (
@@ -22,7 +22,9 @@ const DisclaimerModal = ({ visible, onAccept }) => {
         Publicando el botón de "aceptar" declaras bajo tu responsabilidad ser
         mayor de edad para acceder a contenidos para adultos.
       </p>
-      <p>No se permite publicar anuncios que se refieran a servicios sexuales.</p>
+      <p>
+        No se permite publicar anuncios que se refieran a servicios sexuales.
+      </p>
       <p>
         No se permite subir imágenes que contengan material pornográfico,
         desnudez o todo lo que pueda ofender la decencia y la moralidad.
@@ -34,9 +36,9 @@ const DisclaimerModal = ({ visible, onAccept }) => {
       </p>
       <p>
         Al hacer clic en aceptar, el usuario libera a SIMPLEESCORTS de la
-        responsabilidad sobre el contenido publicado y declara ser consciente
-        de que el sitio solo actúa como un proveedor de servicios sin un control
-        de moderación previa sobre el contenido.
+        responsabilidad sobre el contenido publicado y declara ser consciente de
+        que el sitio solo actúa como un proveedor de servicios sin un control de
+        moderación previa sobre el contenido.
       </p>
       <p>
         Al colocar un anuncio en SIMPLEESCORTS, el usuario certifica que tiene
@@ -46,7 +48,7 @@ const DisclaimerModal = ({ visible, onAccept }) => {
         publicarlos en el Sitio.
       </p>
     </Modal>
-  );
-};
+  )
+}
 
-export default DisclaimerModal;
+export default DisclaimerModal
