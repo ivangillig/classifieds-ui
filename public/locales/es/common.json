@@ -155,5 +155,15 @@
   "SUCCESS_LISTING_UPDATED": "El anuncio fue actualizado correctamente",
   "SUCCESS_LISTING_RENEWED": "El anuncio se renovó correctamente",
   "EMAIL_CONFIRMED_SUCCESS": "Correo confirmado con exito",
-  "You can now login": "Ahora puedes iniciar sesión"
+  "You can now login": "Ahora puedes iniciar sesión",
+  "filter_title": "Filtrar anuncios",
+  "use_whatsapp": "Usar WhatsApp",
+  "price_range": "Rango de precios",
+  "min_price": "Precio mínimo",
+  "max_price": "Precio máximo",
+  "select_province": "Selecciona una provincia",
+  "age": "Edad",
+  "age_placeholder": "Ingrese la edad",
+  "apply_filters": "Aplicar filtros",
+  "cancel": "Cancelar"
 }
