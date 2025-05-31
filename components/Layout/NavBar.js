@@ -8,6 +8,7 @@ import UserMenu from "../UserMenu";
 import SearchBox from "../common/SearchBox";
 import { FilterOutlined } from "@ant-design/icons";
 import FilterModal from "../FilterModal";
+import Link from "next/link";
 
 const { Search } = Input;
 
@@ -64,10 +65,10 @@ const NavBar = () => {
           {/* Logo and search bar */}
           <div className="navbar-start">
             <div className="navbar-logo">
-              <a href="/" className="navbar-logo" title="Prime Escorts">
+              <Link href="/" className="navbar-logo" title="Prime Escorts">
                 <span className="logo-primary">PRIME</span>
                 <span className="logo-hover">ESCORTS</span>
-              </a>
+              </Link>
             </div>
             <Space>
               <SearchBox />

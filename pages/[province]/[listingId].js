@@ -17,6 +17,7 @@ import EmblaWithGallery from '@/components/Listing/EmblaWithGallery'
 import { getImagesPath } from '@/utils/listingsUtils'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
+import Link from 'next/link'
 
 const ListingDetailsPage = () => {
   const router = useRouter()
@@ -87,12 +88,16 @@ const ListingDetailsPage = () => {
       <div className="breadcrumb-report-section">
         <Card className="breadcrumb-card">
           <Breadcrumb>
-            <Breadcrumb.Item href="/">
-              <HomeOutlined />
+            <Breadcrumb.Item>
+              <Link href="/">
+                <HomeOutlined />
+              </Link>
             </Breadcrumb.Item>
-            <Breadcrumb.Item href={`/${province}`}>
-              <EnvironmentOutlined />
-              <span>{listingDetails.location.subcountry}</span>
+            <Breadcrumb.Item>
+              <Link href={`/${province}`}>
+                <EnvironmentOutlined />
+                <span>{listingDetails.location.subcountry}</span>
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <span>{listingDetails.title}</span>
