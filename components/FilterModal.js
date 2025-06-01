@@ -11,7 +11,6 @@ import {
 } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { onSearch } from './common/SearchBox'
 
 const { Option } = Select
 
@@ -27,18 +26,15 @@ const FilterModal = ({ visible, onClose, provinces }) => {
     setWhatsApp(checked)
   }
 
-  // TODO: refactor this function to use a more generic search function
   const applyFilters = () => {
-    const queryParams = new URLSearchParams()
+    const queryParams = new URLSearchParams(router.query)
 
-    if (whatsApp) queryParams.append('whatsApp', whatsApp)
-    if (priceRange.min !== null) queryParams.append('priceMin', priceRange.min)
-    if (priceRange.max !== null) queryParams.append('priceMax', priceRange.max)
-    if (age !== null) queryParams.append('age', age)
+    queryParams.set('whatsApp', whatsApp)
+    if (priceRange.min !== null) queryParams.set('priceMin', priceRange.min)
+    if (priceRange.max !== null) queryParams.set('priceMax', priceRange.max)
+    if (age !== null) queryParams.set('age', age)
 
-    const pathname = selectedProvince ? `/${selectedProvince}` : '/'
-
-    router.push({ pathname, query: queryParams.toString() })
+    router.push({ pathname: router.pathname, query: queryParams.toString() })
     onClose()
   }
 
