@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { fetchListingsByProvinceRequest } from '../actions/listingActions'
+import { fetchListingsRequest } from '../actions/listingActions'
 import LoadingOverlay from '../components/common/LoadingOverlay'
 import ListingCard from '../components/Listing/ListingCard'
 import ListingList from '../components/Listing/ListingList'
@@ -49,14 +49,22 @@ const ProvincePage = () => {
   useEffect(() => {
     if (province) {
       dispatch(
-        fetchListingsByProvinceRequest({
+        fetchListingsRequest({
           province,
           page: parseInt(page, 10),
           limit: parseInt(limit, 10),
+          onlyWhatsApp: router.query.onlyWhatsApp === 'true',
+          priceMin: router.query.priceMin
+            ? parseInt(router.query.priceMin, 10)
+            : null,
+          priceMax: router.query.priceMax
+            ? parseInt(router.query.priceMax, 10)
+            : null,
+          age: router.query.age ? parseInt(router.query.age, 10) : null,
         })
       )
     }
-  }, [dispatch, province, page, limit])
+  }, [dispatch, province, page, limit, router.query])
 
   if (isLoading) {
     return <LoadingOverlay />

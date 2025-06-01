@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Modal,
   Switch,
@@ -29,7 +29,7 @@ const FilterModal = ({ visible, onClose, provinces }) => {
   const applyFilters = () => {
     const queryParams = new URLSearchParams(router.query)
 
-    queryParams.set('whatsApp', whatsApp)
+    queryParams.set('onlyWhatsApp', whatsApp)
     if (priceRange.min !== null) queryParams.set('priceMin', priceRange.min)
     if (priceRange.max !== null) queryParams.set('priceMax', priceRange.max)
     if (age !== null) queryParams.set('age', age)
@@ -37,6 +37,19 @@ const FilterModal = ({ visible, onClose, provinces }) => {
     router.push({ pathname: router.pathname, query: queryParams.toString() })
     onClose()
   }
+
+  useEffect(() => {
+    const { onlyWhatsApp, priceMin, priceMax, age, province } = router.query
+
+    // Set initial values from URL query parameters
+    setWhatsApp(onlyWhatsApp === 'true')
+    setPriceRange({
+      min: priceMin ? parseInt(priceMin, 10) : null,
+      max: priceMax ? parseInt(priceMax, 10) : null,
+    })
+    setAge(age ? parseInt(age, 10) : null)
+    setSelectedProvince(province || null)
+  }, [router.query])
 
   return (
     <Modal
@@ -57,10 +70,10 @@ const FilterModal = ({ visible, onClose, provinces }) => {
           <Col span={24}>
             <Form.Item>
               <Row gutter={[16, 16]} align="middle">
-                <Col span={6}>
-                  <span>{t('hasWhatsapp')}</span>
+                <Col span={8}>
+                  <span>{t('onlyWhatsapp')}</span>
                 </Col>
-                <Col span={18}>
+                <Col span={16}>
                   <Switch checked={whatsApp} onChange={handleFilterChange} />
                 </Col>
               </Row>
