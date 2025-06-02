@@ -1,10 +1,10 @@
-import React from "react";
-import { Layout, FloatButton  } from "antd";
-import Head from "./Head";
-import AppFooter from "./Footer";
-import NavBar from "./NavBar";
+import React from 'react'
+import { Layout, FloatButton } from 'antd'
+import Head from './Head'
+import AppFooter from './Footer'
+import AppHeader from './Header'
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout
 
 const DefaultLayout = ({ children, title }) => {
   return (
@@ -12,20 +12,18 @@ const DefaultLayout = ({ children, title }) => {
       <Head title={title} />
 
       {/* Header/NavBar */}
-      <Header
+      <AppHeader
         style={{
-          position: "sticky",
+          position: 'sticky',
           top: 0,
           zIndex: 10,
-          width: "100%",
-          padding: "0",
+          width: '100%',
+          padding: '0',
         }}
-      >
-        <NavBar />
-      </Header>
+      />
 
       {/* Main Content */}
-      <Content style={{ flex: "1 0 auto", padding: "24px" }}>
+      <Content style={{ flex: '1 0 auto', padding: '24px' }}>
         <main className="main-container">{children}</main>
       </Content>
 
@@ -37,7 +35,7 @@ const DefaultLayout = ({ children, title }) => {
       {/* Back to Top */}
       <FloatButton.BackTop visibilityHeight={400} duration={10} />
     </div>
-  );
-};
+  )
+}
 
-export default DefaultLayout;
+export default DefaultLayout
