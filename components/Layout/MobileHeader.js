@@ -5,11 +5,13 @@ import SearchBox from '../common/SearchBox'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import UserMenu from '../UserMenu'
+import FilterModal from '../FilterModal'
 const { Header } = Layout
 
 const MobileHeader = () => {
   const user = useSelector((state) => state.auth.user)
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
 
   const showDrawer = () => {
     setIsDrawerVisible(true)
@@ -21,6 +23,10 @@ const MobileHeader = () => {
 
   const showFilterModal = () => {
     setIsFilterModalVisible(true)
+  }
+
+  const hideFilterModal = () => {
+    setIsFilterModalVisible(false)
   }
 
   return (
@@ -54,6 +60,7 @@ const MobileHeader = () => {
           Post Ad
         </Button>
       </Drawer>
+      <FilterModal visible={isFilterModalVisible} onClose={hideFilterModal} />
     </Header>
   )
 }

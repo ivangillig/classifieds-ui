@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Input, Button, Space } from 'antd'
+import { Button, Space } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
