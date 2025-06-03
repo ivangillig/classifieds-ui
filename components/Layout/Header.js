@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import useScreenSize from '../../hooks/useScreenSize'
 import DesktopHeader from './DesktopHeader'
 import MobileHeader from './MobileHeader'
+import { Layout } from 'antd'
+const { Header } = Layout
 
-const Header = () => {
+const AppHeader = () => {
   const { isDesktop } = useScreenSize()
 
   const [isScrolled, setIsScrolled] = useState(false)
@@ -21,11 +23,15 @@ const Header = () => {
     }
   }, [])
 
-  return isDesktop ? (
-    <DesktopHeader isScrolled={isScrolled} />
-  ) : (
-    <MobileHeader isScrolled={isScrolled} />
+  return (
+    <Header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
+      {isDesktop ? (
+        <DesktopHeader isScrolled={isScrolled} />
+      ) : (
+        <MobileHeader isScrolled={isScrolled} />
+      )}
+    </Header>
   )
 }
 
-export default Header
+export default AppHeader

@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { Button, Drawer, Layout, Row } from 'antd'
+import { Button, Drawer, Row } from 'antd'
 import { FilterOutlined, MenuOutlined } from '@ant-design/icons'
 import SearchBox from '../common/SearchBox'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import UserMenu from '../UserMenu'
 import FilterModal from '../FilterModal'
-const { Header } = Layout
 
-const MobileHeader = ({ isScrolled }) => {
+const MobileHeader = () => {
   const user = useSelector((state) => state.auth.user)
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
@@ -30,7 +29,7 @@ const MobileHeader = ({ isScrolled }) => {
   }
 
   return (
-    <Header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
+    <>
       <Row className="navbar-top">
         <div className="navbar-logo">
           <Link href="/" className="navbar-logo" title="Prime Escorts">
@@ -61,7 +60,7 @@ const MobileHeader = ({ isScrolled }) => {
         </Button>
       </Drawer>
       <FilterModal visible={isFilterModalVisible} onClose={hideFilterModal} />
-    </Header>
+    </>
   )
 }
 
