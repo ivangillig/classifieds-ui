@@ -2,6 +2,24 @@
   width: 100%;
   background-color: var(--main-white);
 
+  .navbar-logo {
+    display: flex;
+    align-items: baseline;
+    font-size: 26px;
+    font-weight: bold;
+    gap: 4px;
+
+    .logo-primary {
+      color: black;
+      font-weight: 500;
+    }
+
+    .logo-hover {
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+  }
+
   .navbar {
     display: flex;
     justify-content: space-between;
@@ -11,24 +29,6 @@
       display: flex;
       align-items: center;
       gap: 3rem;
-
-      .navbar-logo {
-        display: flex;
-        align-items: baseline;
-        font-size: 26px;
-        font-weight: bold;
-        gap: 4px;
-
-        .logo-primary {
-          color: black;
-          font-weight: 500;
-        }
-
-        .logo-hover {
-          color: var(--primary-color);
-          font-weight: 500;
-        }
-      }
 
       .navbar-search {
         display: flex;
@@ -75,8 +75,23 @@
       }
     }
   }
+}
 
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
+  .ant-layout-header {
+    height: auto;
+    padding: 0 0.5rem;
+
+    .navbar-top {
+      padding: 0 0.5rem;
+    }
+
+    .navbar-bottom {
+      display: flex;
+      flex-flow: row;
+      gap: 0.5rem;
+    }
+
     .navbar {
       flex-direction: column;
       align-items: flex-start;
@@ -97,7 +112,6 @@
     }
   }
 }
-
 .navbar-container.scrolled {
   transition: box-shadow 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Border shadow when scrolled */
@@ -116,5 +130,27 @@
   span {
     color: var(--primary-color);
     font-weight: 600;
+  }
+}
+
+.navbar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-bottom {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+}
+
+.mobile-drawer {
+  width: 100%;
+
+  .button-publish {
+    margin-top: 1rem;
+    width: 100%;
   }
 }

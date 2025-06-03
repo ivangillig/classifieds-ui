@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Drawer, Space, Layout } from 'antd'
-import { MenuOutlined, FilterOutlined } from '@ant-design/icons'
+import { Button, Drawer, Layout, Row } from 'antd'
+import { FilterOutlined, MenuOutlined } from '@ant-design/icons'
 import SearchBox from '../common/SearchBox'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
@@ -19,9 +19,13 @@ const MobileHeader = () => {
     setIsDrawerVisible(false)
   }
 
+  const showFilterModal = () => {
+    setIsFilterModalVisible(true)
+  }
+
   return (
-    <Header className="mobile-header">
-      <div className="navbar-top">
+    <Header className="navbar-container">
+      <Row className="navbar-top">
         <div className="navbar-logo">
           <Link href="/" className="navbar-logo" title="Prime Escorts">
             <span className="logo-primary">PRIME</span>
@@ -29,27 +33,26 @@ const MobileHeader = () => {
           </Link>
         </div>
         <Button icon={<MenuOutlined />} onClick={showDrawer} />
-      </div>
-      <div className="navbar-bottom">
-        <Space>
-          <SearchBox />
-          <Button icon={<FilterOutlined />} />
-        </Space>
-      </div>
+      </Row>
+      <Row className="navbar-bottom">
+        <Button icon={<FilterOutlined />} onClick={showFilterModal} />
+        <SearchBox />
+      </Row>
       <Drawer
         title="Menu"
         placement="right"
         onClose={closeDrawer}
-        visible={isDrawerVisible}
+        open={isDrawerVisible}
+        className="mobile-drawer"
       >
-        <Button type="primary" className="button-publish">
-          Post Ad
-        </Button>
         {user ? (
           <UserMenu user={user} />
         ) : (
           <Button type="default">Login</Button>
         )}
+        <Button type="primary" className="button-publish">
+          Post Ad
+        </Button>
       </Drawer>
     </Header>
   )
