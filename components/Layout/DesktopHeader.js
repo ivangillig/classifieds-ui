@@ -12,27 +12,13 @@ import { Layout } from 'antd'
 
 const { Header } = Layout
 
-const DesktopHeader = () => {
+const DesktopHeader = ( { isScrolled }) => {
   const { t } = useTranslation()
   const router = useRouter()
   const user = useSelector((state) => state.auth.user)
   const [isMounted, setIsMounted] = useState(false)
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
 
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  // Detect scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
 
   useEffect(() => {
     setIsMounted(true)

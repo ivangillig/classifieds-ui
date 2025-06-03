@@ -8,7 +8,7 @@ import UserMenu from '../UserMenu'
 import FilterModal from '../FilterModal'
 const { Header } = Layout
 
-const MobileHeader = () => {
+const MobileHeader = ({ isScrolled }) => {
   const user = useSelector((state) => state.auth.user)
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
@@ -30,7 +30,7 @@ const MobileHeader = () => {
   }
 
   return (
-    <Header className="navbar-container">
+    <Header className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
       <Row className="navbar-top">
         <div className="navbar-logo">
           <Link href="/" className="navbar-logo" title="Prime Escorts">
