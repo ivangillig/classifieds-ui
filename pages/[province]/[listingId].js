@@ -18,9 +18,11 @@ import { getImagesPath } from '@/utils/listingsUtils'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
 import Link from 'next/link'
+import { useMediaQuery } from 'react-responsive'
 
 const ListingDetailsPage = () => {
   const router = useRouter()
+  const isDesktop = useMediaQuery({ minWidth: 768 })
   const { t } = useTranslation()
   const { province, listingId } = router.query
   const [isReportModalVisible, setReportModalVisible] = useState(false)
@@ -85,7 +87,7 @@ const ListingDetailsPage = () => {
   return (
     <div className="listing-details-page">
       {/* Breadcrumb Section */}
-      <div className="breadcrumb-report-section">
+      <div className="breadcrumb-section">
         <Card className="breadcrumb-card">
           <Breadcrumb>
             <Breadcrumb.Item>
@@ -104,14 +106,16 @@ const ListingDetailsPage = () => {
             </Breadcrumb.Item>
           </Breadcrumb>
         </Card>
-        <Button
-          danger
-          icon={<ExclamationCircleOutlined />}
-          className="report-button font-medium"
-          onClick={showReportModal}
-        >
-          {t('Report Listing')}
-        </Button>
+        {isDesktop && (
+          <Button
+            danger
+            icon={<ExclamationCircleOutlined />}
+            className="report-button font-medium"
+            onClick={showReportModal}
+          >
+            {t('Report Listing')}
+          </Button>
+        )}
       </div>
 
       {/* Image Gallery */}
@@ -198,6 +202,16 @@ const ListingDetailsPage = () => {
             }
           >
             WhatsApp
+          </Button>
+        )}
+        {!isDesktop && (
+          <Button
+            danger
+            icon={<ExclamationCircleOutlined />}
+            className="report-button font-medium"
+            onClick={showReportModal}
+          >
+            {t('Report Listing')}
           </Button>
         )}
       </div>

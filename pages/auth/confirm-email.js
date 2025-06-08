@@ -13,7 +13,6 @@ const ConfirmEmailPage = () => {
 
   useEffect(() => {
     const { token } = router.query
-    console.log(token)
     if (token) {
       dispatch(confirmEmailRequest(token))
     }

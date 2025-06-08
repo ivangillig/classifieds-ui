@@ -12,7 +12,7 @@
     }
   }
 
-  .breadcrumb-report-section {
+  .breadcrumb-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -57,7 +57,7 @@
     width: 100%;
     max-width: 1024px;
     position: relative;
-    cursor:zoom-in;
+    cursor: zoom-in;
 
     .view-all-button {
       position: absolute;
@@ -116,6 +116,13 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
+
+    .report-button {
+      margin-top: 20px;
+        background-color: #ff4d4f;
+        border-color: #ff4d4f;
+        color: #fff;
+      }
   }
 
   @media (max-width: 768px) {
@@ -133,5 +140,19 @@
       flex-direction: column;
       align-items: center;
     }
+  }
+}
+
+@media (max-width: 576px) {
+  .listing-details-page {
+    padding: 0px;
+
+    .listing-card-details {
+    border-radius: 15px;
+
+    .ant-card-body {
+      padding: 1rem;
+    }
+  }
   }
 }
