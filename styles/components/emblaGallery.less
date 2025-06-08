@@ -2,8 +2,7 @@
 .embla-modal {
   padding: 0;
   overflow: hidden;
-  max-width: "900px";
-  margin: "0 auto";
+  width: 90% !important;
 
   max-width: 900px;
 
@@ -105,8 +104,14 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+  .embla-modal {
+    width: 100% !important;
+    max-width: none;
+    margin: 0;
+  }
+
   .embla__slide--thumbs {
-    width: 25%;
-    max-width: 60px;
+    width: 30%;
+    max-width: 80px;
   }
 }

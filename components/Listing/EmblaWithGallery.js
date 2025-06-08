@@ -23,7 +23,6 @@ const EmblaWithGallery = ({ images, isOpen, onClose, initialIndex = 0 }) => {
       open={isOpen}
       onCancel={onClose}
       footer={null}
-      width="90%"
       className={'embla-modal'}
     >
       {/* Main Slider */}

@@ -171,8 +171,10 @@ const ListingDetailsPage = () => {
               {listingDetails.price}
             </Tag>
           </div>
-          {listingDetails.description && (
+          {listingDetails.description ? (
             <p className="listing-description">{listingDetails.description}</p>
+          ) : (
+            <p className="listing-description">{t('No description available')}</p>
           )}
         </Card>
       </div>

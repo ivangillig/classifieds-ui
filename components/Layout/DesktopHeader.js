@@ -53,8 +53,12 @@ const DesktopHeader = () => {
               </Link>
             </div>
             <Space>
-              <SearchBox />
-              <Button icon={<FilterOutlined />} onClick={showFilterModal} />
+              {router.pathname !== '/' && (
+                <>
+                  <SearchBox />
+                  <Button icon={<FilterOutlined />} onClick={showFilterModal} />
+                </>
+              )}
             </Space>
           </div>
 

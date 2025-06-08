@@ -6,11 +6,13 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import UserMenu from '../UserMenu'
 import FilterModal from '../FilterModal'
+import { useRouter } from 'next/router'
 
 const MobileHeader = () => {
   const user = useSelector((state) => state.auth.user)
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
+  const router = useRouter()
 
   const showDrawer = () => {
     setIsDrawerVisible(true)
@@ -28,6 +30,7 @@ const MobileHeader = () => {
     setIsFilterModalVisible(false)
   }
 
+  console.log(router.pathname)
   return (
     <>
       <Row className="navbar-top">
@@ -39,10 +42,13 @@ const MobileHeader = () => {
         </div>
         <Button icon={<MenuOutlined />} onClick={showDrawer} />
       </Row>
+      
+      {router.pathname != '/' && (
       <Row className="navbar-bottom">
         <Button icon={<FilterOutlined />} onClick={showFilterModal} />
         <SearchBox />
       </Row>
+      )}
       <Drawer
         title="Menu"
         placement="right"

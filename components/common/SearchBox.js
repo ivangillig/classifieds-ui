@@ -15,8 +15,6 @@ export const onSearch = (value, router, t) => {
       pathname: '/escorts',
       query: { query: value },
     })
-  } else {
-    alert(t('search_invalid_characters'))
   }
 }
 
