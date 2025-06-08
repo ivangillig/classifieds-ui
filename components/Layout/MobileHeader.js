@@ -30,7 +30,6 @@ const MobileHeader = () => {
     setIsFilterModalVisible(false)
   }
 
-  console.log(router.pathname)
   return (
     <>
       <Row className="navbar-top">
