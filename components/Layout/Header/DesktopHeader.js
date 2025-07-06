@@ -3,10 +3,10 @@ import { Button, Space } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import UserMenu from '../UserMenu'
-import SearchBox from '../common/SearchBox'
+import UserMenu from '../../UserMenu'
+import SearchBox from '../../common/SearchBox'
 import { FilterOutlined } from '@ant-design/icons'
-import FilterModal from '../FilterModal'
+import FilterModal from '../../FilterModal'
 import Link from 'next/link'
 
 const DesktopHeader = () => {

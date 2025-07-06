@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import useScreenSize from '../../hooks/useScreenSize'
-import DesktopHeader from './DesktopHeader'
-import MobileHeader from './MobileHeader'
+import DesktopHeader from './Header/DesktopHeader'
+import MobileHeader from './Header/MobileHeader'
 import { Layout } from 'antd'
 const { Header } = Layout
 

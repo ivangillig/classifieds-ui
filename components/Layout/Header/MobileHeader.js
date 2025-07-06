@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import { Button, Drawer, Row } from 'antd'
+import { Button, Row } from 'antd'
 import { FilterOutlined, MenuOutlined } from '@ant-design/icons'
-import SearchBox from '../common/SearchBox'
+import SearchBox from '../../common/SearchBox'
 import Link from 'next/link'
-import { useSelector } from 'react-redux'
-import UserMenu from '../UserMenu'
-import FilterModal from '../FilterModal'
+import UserMenuDrawer from './UserMenuDrawer'
+import FilterModal from '../../FilterModal'
 import { useRouter } from 'next/router'
 
 const MobileHeader = () => {
-  const user = useSelector((state) => state.auth.user)
   const [isDrawerVisible, setIsDrawerVisible] = useState(false)
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
   const router = useRouter()
@@ -41,29 +39,18 @@ const MobileHeader = () => {
         </div>
         <Button icon={<MenuOutlined />} onClick={showDrawer} />
       </Row>
-      
+
       {router.pathname != '/' && (
-      <Row className="navbar-bottom">
-        <Button icon={<FilterOutlined />} onClick={showFilterModal} />
-        <SearchBox />
-      </Row>
+        <Row className="navbar-bottom">
+          <Button icon={<FilterOutlined />} onClick={showFilterModal} />
+          <SearchBox />
+        </Row>
       )}
-      <Drawer
-        title="Menu"
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        className="mobile-drawer"
-      >
-        {user ? (
-          <UserMenu user={user} />
-        ) : (
-          <Button type="default">Login</Button>
-        )}
-        <Button type="primary" className="button-publish">
-          Post Ad
-        </Button>
-      </Drawer>
+      
+      <UserMenuDrawer 
+        isVisible={isDrawerVisible} 
+        onClose={closeDrawer} 
+      />
       <FilterModal visible={isFilterModalVisible} onClose={hideFilterModal} />
     </>
   )
