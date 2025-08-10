@@ -1,10 +1,11 @@
 import React from 'react'
-import { Button, Drawer } from 'antd'
+import { Button, Drawer, Space } from 'antd'
 import { useSelector } from 'react-redux'
-import UserMenu from '../../UserMenu'
+import useUserMenuItems from '../../UserMenu'
 
 const UserMenuDrawer = ({ isVisible, onClose }) => {
   const user = useSelector((state) => state.auth.user)
+  const menuItems = useUserMenuItems()
 
   return (
     <Drawer
@@ -15,7 +16,26 @@ const UserMenuDrawer = ({ isVisible, onClose }) => {
       className="mobile-drawer"
     >
       {user ? (
-        <UserMenu user={user} />
+        <Space direction="vertical" style={{ width: '100%' }}>
+          {menuItems.map((item) => (
+            <Button
+              key={item.key}
+              type="text"
+              icon={item.icon}
+              onClick={() => {
+                item.onClick()
+                onClose()
+              }}
+              style={{
+                textAlign: 'left',
+                width: '100%',
+                justifyContent: 'flex-start',
+              }}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </Space>
       ) : (
         <Button type="default">Login</Button>
       )}

@@ -46,11 +46,8 @@ const MobileHeader = () => {
           <SearchBox />
         </Row>
       )}
-      
-      <UserMenuDrawer 
-        isVisible={isDrawerVisible} 
-        onClose={closeDrawer} 
-      />
+
+      <UserMenuDrawer isVisible={isDrawerVisible} onClose={closeDrawer} />
       <FilterModal visible={isFilterModalVisible} onClose={hideFilterModal} />
     </>
   )

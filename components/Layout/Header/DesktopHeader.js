@@ -3,7 +3,7 @@ import { Button, Space } from 'antd'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import UserMenu from '../../UserMenu'
+import UserMenuDropdown from '../../UserMenuDropdown'
 import SearchBox from '../../common/SearchBox'
 import { FilterOutlined } from '@ant-design/icons'
 import FilterModal from '../../FilterModal'
@@ -72,7 +72,7 @@ const DesktopHeader = () => {
               {t('post_ad')}
             </Button>
             {user ? (
-              <UserMenu user={user} />
+              <UserMenuDropdown user={user} />
             ) : (
               <Button
                 type="default"

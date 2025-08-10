@@ -1,65 +1,65 @@
 // components/NavBar.js
-import React, { useEffect, useState } from "react";
-import { Input, Button, Space } from "antd";
-import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import UserMenu from "../UserMenu";
-import SearchBox from "../common/SearchBox";
-import { FilterOutlined } from "@ant-design/icons";
-import FilterModal from "../FilterModal";
-import Link from "next/link";
+import React, { useEffect, useState } from 'react'
+import { Input, Button, Space } from 'antd'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import UserMenuDropdown from '../UserMenuDropdown'
+import SearchBox from '../common/SearchBox'
+import { FilterOutlined } from '@ant-design/icons'
+import FilterModal from '../FilterModal'
+import Link from 'next/link'
 
-const { Search } = Input;
+const { Search } = Input
 
 const NavBar = () => {
-  const { t } = useTranslation();
-  const router = useRouter();
-  const user = useSelector((state) => state.auth.user);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+  const { t } = useTranslation()
+  const router = useRouter()
+  const user = useSelector((state) => state.auth.user)
+  const [isMounted, setIsMounted] = useState(false)
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false)
 
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
 
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
+      setIsScrolled(window.scrollY > 0)
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    setIsMounted(true)
+  }, [])
 
   const handleLoginClick = () => {
-    router.push("/login");
-  };
+    router.push('/login')
+  }
 
   const handlePostAdClick = () => {
-    router.push("/createListing");
-  };
+    router.push('/createListing')
+  }
 
   const showFilterModal = () => {
-    setIsFilterModalVisible(true);
-  };
+    setIsFilterModalVisible(true)
+  }
 
   const hideFilterModal = () => {
-    setIsFilterModalVisible(false);
-  };
+    setIsFilterModalVisible(false)
+  }
 
   if (!isMounted) {
-    return null;
+    return null
   }
 
   return (
-    <div className={`navbar-container ${isScrolled ? "scrolled" : ""}`}>
+    <div className={`navbar-container ${isScrolled ? 'scrolled' : ''}`}>
       <div className="main-container">
         <div className="navbar">
           {/* Logo and search bar */}
@@ -83,28 +83,25 @@ const NavBar = () => {
               onClick={handlePostAdClick}
               className="button-publish"
             >
-              {t("post_ad")}
+              {t('post_ad')}
             </Button>
             {user ? (
-              <UserMenu user={user} />
+              <UserMenuDropdown user={user} />
             ) : (
               <Button
                 type="default"
                 onClick={handleLoginClick}
                 className="navBar-login-button"
               >
-                <span>{t("login")}</span>
+                <span>{t('login')}</span>
               </Button>
             )}
           </div>
         </div>
       </div>
-      <FilterModal
-        visible={isFilterModalVisible}
-        onClose={hideFilterModal}
-      />
+      <FilterModal visible={isFilterModalVisible} onClose={hideFilterModal} />
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
