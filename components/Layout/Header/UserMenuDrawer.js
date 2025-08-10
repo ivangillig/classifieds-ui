@@ -2,14 +2,16 @@ import React from 'react'
 import { Button, Drawer, Space } from 'antd'
 import { useSelector } from 'react-redux'
 import useUserMenuItems from '../../UserMenu'
+import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
 const UserMenuDrawer = ({ isVisible, onClose }) => {
+  const { t } = useTranslation()
   const user = useSelector((state) => state.auth.user)
   const menuItems = useUserMenuItems()
 
   return (
     <Drawer
-      title="Menu"
       placement="right"
       onClose={onClose}
       open={isVisible}
@@ -37,10 +39,12 @@ const UserMenuDrawer = ({ isVisible, onClose }) => {
           ))}
         </Space>
       ) : (
-        <Button type="default">Login</Button>
+        <Button type="default">
+          <Link href="/login">{t('login')}</Link>
+        </Button>
       )}
       <Button type="primary" className="button-publish">
-        Post Ad
+        <Link href="/createListing">{t('post_ad')}</Link>
       </Button>
     </Drawer>
   )
