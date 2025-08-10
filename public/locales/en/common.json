@@ -1,8 +1,49 @@
 {
-    "app_name": "Classifieds App",
-    "search_placeholder": "Search...",
-    "emailConfirmationMessage": "A verification email has been sent to your email address.",
-    "login": "Login",
-    "post_ad": "Post Ad",
-    "createdBy": "Created by"
+  "app_name": "Classifieds App",
+  "search_placeholder": "Search...",
+  "emailConfirmationMessage": "A verification email has been sent to your email address.",
+  "login": "Login",
+  "post_ad": "Post Ad",
+  "createdBy": "Created by",
+  "user": {
+    "my_ads": "My Ads",
+    "my_profile": "My Profile",
+    "logout": "Logout"
+  },
+  "private": {
+    "menu": "Menu",
+    "activeListings": "Active",
+    "underReviewListings": "Under Review",
+    "pausedListings": "Paused",
+    "expiredListings": "Expired",
+    "generalInfo": "General Information",
+    "security": "Security",
+    "notifications": "Notifications",
+    "selectAnOption": "Please select an option"
+  },
+  "Days Remaining": "Days Remaining",
+  "Days": "Days",
+  "days remaining": "days remaining",
+  "No image available": "No image available",
+  "Actions": "Actions",
+  "Image": "Image",
+  "Title": "Title",
+  "Price": "Price",
+  "Created At": "Created At",
+  "listingActions": {
+    "Edit": "Edit",
+    "Pause": "Pause",
+    "Reactivate": "Reactivate",
+    "Renew": "Renew",
+    "Delete": "Delete",
+    "View": "View",
+    "Actions": "Actions",
+    "Published": "Published"
+  },
+  "listingState": {
+    "active": "Active",
+    "paused": "Paused",
+    "underReview": "Under Review",
+    "expired": "Expired"
+  }
 }

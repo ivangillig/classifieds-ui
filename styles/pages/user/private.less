@@ -5,6 +5,10 @@
 .private-sider {
   background-color: #f0f2f5;
   padding: 16px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 }
 
 .private-menu {
@@ -16,9 +20,135 @@
   overflow: auto;
 }
 
+.private-content-wrapper {
+  padding: 16px;
+
+  @media (max-width: 767px) {
+    padding: 8px;
+  }
+}
+
+.private-mobile-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  .mobile-menu-button {
+    margin-right: 12px;
+    font-size: 18px;
+  }
+
+  .page-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #262626;
+  }
+}
+
+.private-drawer {
+  .ant-drawer-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .ant-drawer-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+
+  .ant-drawer-body {
+    padding: 0;
+
+    .private-panel-menu {
+      .ant-menu-item {
+        margin: 0;
+        height: 48px;
+        line-height: 48px;
+        padding: 0 24px !important;
+        border-radius: 0;
+
+        .ant-menu-item-icon {
+          margin-right: 12px;
+        }
+
+        &.ant-menu-item-selected {
+          background-color: #e6f4ff;
+          color: #1677ff;
+
+          &::after {
+            border-right: 3px solid #1677ff;
+          }
+        }
+      }
+
+      .ant-menu-submenu {
+        .ant-menu-submenu-title {
+          height: 48px;
+          line-height: 48px;
+          padding: 0 24px !important;
+          margin: 0;
+
+          .ant-menu-submenu-arrow {
+            right: 16px;
+          }
+        }
+
+        .ant-menu-sub {
+          .ant-menu-item {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 48px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+// Mobile responsive adjustments for tables
+@media (max-width: 767px) {
+  .ant-table {
+    font-size: 12px;
+
+    .ant-table-thead > tr > th {
+      padding: 8px 4px;
+      font-size: 12px;
+    }
+
+    .ant-table-tbody > tr > td {
+      padding: 8px 4px;
+      font-size: 12px;
+    }
+
+    // Hide some columns on mobile
+    .ant-table-column-title {
+      white-space: nowrap;
+    }
+  }
+
+  // Stack action buttons vertically on very small screens
+  .ant-space-item {
+    margin-bottom: 4px !important;
+  }
+}
+
+// Specific mobile adjustments for listing images
+@media (max-width: 767px) {
+  .ant-table img {
+    width: 60px !important;
+    height: 60px !important;
+  }
 }

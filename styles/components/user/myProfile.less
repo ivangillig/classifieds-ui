@@ -4,40 +4,81 @@
   background-color: #fff;
   border: 1px solid #f0f0f0;
   border-radius: 8px;
+
+  @media (max-width: 767px) {
+    padding: 12px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
 }
 
 .profile-section {
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  @media (max-width: 767px) {
+    gap: 12px;
+  }
 }
 
 .profile-item {
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  p {
+    margin: 0;
+    color: #595959;
+    font-size: 14px;
+
+    strong {
+      color: #262626;
+      font-weight: 500;
+    }
+
+    @media (max-width: 767px) {
+      font-size: 13px;
+    }
+  }
 }
 
 .input-button-group {
   display: flex;
   gap: 16px;
-}
+  align-items: flex-end;
 
-.input-button-group .ant-input {
-  flex: 1;
-}
-
-.update-button {
-  flex-shrink: 0;
-}
-
-@media (max-width: 768px) {
-  .input-button-group {
+  @media (max-width: 767px) {
     flex-direction: column;
     gap: 8px;
+    align-items: stretch;
+  }
+
+  .ant-input {
+    flex: 1;
+
+    @media (max-width: 767px) {
+      flex: none;
+    }
   }
 
   .update-button {
-    width: 100%;
+    flex-shrink: 0;
+    height: 32px;
+
+    @media (max-width: 767px) {
+      width: 100%;
+      height: 36px;
+      flex-shrink: 1;
+    }
+  }
+}
+
+// Divider styling for mobile
+@media (max-width: 767px) {
+  .ant-divider {
+    margin: 12px 0;
   }
 }

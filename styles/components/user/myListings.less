@@ -1,0 +1,119 @@
+// Mobile responsive styles for MyListingsComponent
+@media (max-width: 767px) {
+  .ant-table-wrapper {
+    .ant-spin-nested-loading {
+      .ant-spin-container {
+        .ant-table {
+          .ant-table-content {
+            .ant-table-body {
+              .ant-table-tbody > tr > td {
+                padding: 8px 4px;
+                vertical-align: top;
+
+                // Make action column sticky on mobile
+                &:last-child {
+                  position: sticky;
+                  right: 0;
+                  background: #fff;
+                  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.06);
+                  z-index: 1;
+                }
+
+                // Image styling
+                img {
+                  border-radius: 4px;
+                  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+                }
+              }
+
+              // Title column ellipsis
+              .ant-table-cell {
+                &[data-column-key='title'] {
+                  max-width: 120px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+            }
+
+            // Header adjustments
+            .ant-table-thead > tr > th {
+              padding: 8px 4px;
+              font-size: 12px;
+              font-weight: 600;
+
+              &:last-child {
+                position: sticky;
+                right: 0;
+                background: #fafafa;
+                box-shadow: -2px 0 8px rgba(0, 0, 0, 0.06);
+                z-index: 2;
+              }
+            }
+          }
+        }
+
+        // Pagination adjustments for mobile
+        .ant-pagination {
+          text-align: center;
+          margin-top: 16px;
+
+          .ant-pagination-options {
+            display: none;
+          }
+
+          .ant-pagination-item,
+          .ant-pagination-prev,
+          .ant-pagination-next {
+            margin: 0 2px;
+            min-width: 28px;
+            height: 28px;
+            line-height: 26px;
+          }
+        }
+      }
+    }
+  }
+
+  // Dropdown menu styling
+  .ant-dropdown {
+    .ant-dropdown-menu {
+      .ant-dropdown-menu-item {
+        padding: 8px 12px;
+        font-size: 14px;
+
+        .anticon {
+          margin-right: 8px;
+        }
+
+        &.ant-dropdown-menu-item-danger {
+          color: #ff4d4f;
+
+          &:hover {
+            background-color: #fff2f0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Very small screens (phones in portrait)
+@media (max-width: 480px) {
+  .ant-table-wrapper {
+    .ant-table {
+      font-size: 11px;
+
+      .ant-table-thead > tr > th,
+      .ant-table-tbody > tr > td {
+        padding: 6px 2px;
+      }
+
+      // Hide price column on very small screens
+      .ant-table-cell[data-column-key='price'] {
+        display: none;
+      }
+    }
+  }
+}
