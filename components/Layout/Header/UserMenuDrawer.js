@@ -39,11 +39,11 @@ const UserMenuDrawer = ({ isVisible, onClose }) => {
           ))}
         </Space>
       ) : (
-        <Button type="default">
+        <Button type="default" onClick={onClose}>
           <Link href="/login">{t('login')}</Link>
         </Button>
       )}
-      <Button type="primary" className="button-publish">
+      <Button type="primary" className="button-publish" onClick={onClose}>
         <Link href="/createListing">{t('post_ad')}</Link>
       </Button>
     </Drawer>
