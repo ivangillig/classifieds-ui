@@ -1,43 +1,66 @@
-.custom-report-modal .formik-form {
+.report-listing-modal .formik-form {
   padding: 16px;
 }
 
-.custom-report-modal .form-item {
+.report-listing-modal .form-item {
   margin-bottom: 16px;
 }
 
-.custom-report-modal .form-item label {
+.report-listing-modal .form-item label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
+  color: var(--text-primary);
 }
 
-.custom-report-modal .input {
+.report-listing-modal .input {
   width: 100%;
   box-sizing: border-box;
-  padding: 6px;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 14px;
+
+  &::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: var(--card-bg);
+  }
 }
 
-.custom-report-modal .input.error {
+.report-listing-modal .input.error {
   border-color: #ff4d4f;
 }
 
-.custom-report-modal .error-message {
+.report-listing-modal .error-message {
   color: #ff4d4f;
   font-size: 12px;
   margin-top: 4px;
 }
 
-.custom-report-modal .form-actions {
+.report-listing-modal .form-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 16px;
+  gap: 12px;
+
+  .ant-btn {
+    flex: 1;
+    height: 38px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
 }
 
 /* Styles for ReCAPTCHA */
-.custom-report-modal .form-item .recaptcha {
+.report-listing-modal .form-item .recaptcha {
   margin-top: 16px;
   display: flex;
   justify-content: center;
@@ -45,18 +68,18 @@
 
 /* Responsive adjustments for ReCAPTCHA */
 @media (max-width: 576px) {
-  .custom-report-modal .form-item .recaptcha {
+  .report-listing-modal .form-item .recaptcha {
     margin-top: 12px;
   }
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 576px) {
-  .custom-report-modal .formik-form {
+  .report-listing-modal .formik-form {
     padding: 12px;
   }
 
-  .custom-report-modal .form-actions {
+  .report-listing-modal .form-actions {
     flex-direction: column;
     gap: 8px;
   }
