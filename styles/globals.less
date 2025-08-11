@@ -99,6 +99,152 @@ body {
   border-color: var(--border-color);
 }
 
+// Modal and overlay styles
+.ant-modal {
+  .ant-modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+  }
+
+  .ant-form-item {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .ant-modal-header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-light);
+
+    .ant-modal-title {
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+  }
+
+  .ant-modal-close {
+    color: var(--text-secondary);
+
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+}
+
+.ant-modal-mask {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+// Drawer styles
+.ant-drawer {
+  .ant-drawer-content-wrapper {
+    .ant-drawer-content {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .ant-drawer-header {
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-light);
+
+      .ant-drawer-title {
+        color: var(--text-primary);
+      }
+    }
+
+    .ant-drawer-close {
+      color: var(--text-secondary);
+
+      &:hover {
+        color: var(--text-primary);
+      }
+    }
+  }
+}
+
+// Form and input styles
+.ant-input,
+.ant-input-number,
+.ant-select-selector,
+.ant-picker {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  border-radius: 8px;
+
+  &:focus,
+  &:hover {
+    border-color: var(--primary-color);
+    background-color: var(--card-bg);
+  }
+
+  &::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.6;
+  }
+}
+
+.ant-input-number-input {
+  &::placeholder {
+    color: var(--text-secondary) !important;
+    opacity: 0.6;
+  }
+}
+
+.ant-select-dropdown {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+
+  .ant-select-item {
+    color: var(--text-primary);
+
+    &:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    &.ant-select-item-option-selected {
+      background-color: var(--primary-color);
+      color: white;
+    }
+  }
+}
+
+// Button overrides for theme
+.ant-btn {
+  &.ant-btn-default {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    border-radius: 8px;
+
+    &:hover {
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+      background-color: var(--bg-tertiary);
+    }
+  }
+
+  &.ant-btn-primary {
+    border-radius: 8px;
+  }
+}
+
+// Switch component
+.ant-switch {
+  background-color: var(--border-color);
+  
+  &.ant-switch-checked {
+    background-color: var(--primary-color);
+  }
+
+  &:hover:not(.ant-switch-disabled) {
+    background-color: var(--text-tertiary);
+  }
+
+  &.ant-switch-checked:hover:not(.ant-switch-disabled) {
+    background-color: var(--hover-color);
+  }
+}
+
 // Theme toggle styles
 .theme-toggle {
   display: flex;

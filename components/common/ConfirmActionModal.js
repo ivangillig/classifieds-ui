@@ -14,6 +14,7 @@ const ConfirmActionModal = ({ visible, onConfirm, onCancel, message }) => {
       onCancel={onCancel}
       okText={t("Confirm")}
       cancelText={t("Cancel")}
+      className="confirm-action-modal"
       title={
         <span>
           <ExclamationCircleOutlined style={{ color: "#faad14" }} />{" "}

@@ -56,7 +56,7 @@ const ReportListingModal = ({ visible, onClose, listingId }) => {
         </div>
       }
       footer={null}
-      className="custom-report-modal"
+      className="report-listing-modal"
       width="90%"
       style={{ maxWidth: '400px' }}
     >

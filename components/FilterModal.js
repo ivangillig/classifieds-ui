@@ -56,6 +56,7 @@ const FilterModal = ({ visible, onClose, provinces }) => {
       title={t('filter_title')}
       open={visible}
       onCancel={onClose}
+      className="filter-modal"
       footer={[
         <Button key="cancel" onClick={onClose}>
           {t('cancel')}
