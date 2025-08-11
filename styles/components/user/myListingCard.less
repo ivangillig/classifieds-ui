@@ -3,10 +3,10 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   }
 
   .my-listing-card-cover {
@@ -46,10 +46,6 @@
           font-weight: 500;
         }
       }
-    }
-
-    &:hover img {
-      transform: scale(1.05);
     }
 
     .my-listing-card-overlay {
@@ -130,9 +126,10 @@
   }
 
   .ant-card-actions {
-    background: #fafafa;
-    border-top: 1px solid #f0f0f0;
+    background: rgba(250, 250, 250, 0.8);
+    border-top: 1px solid rgba(240, 240, 240, 0.8);
     padding: 0;
+    backdrop-filter: blur(4px);
 
     li {
       margin: 0;
@@ -167,7 +164,9 @@
 @media (max-width: 767px) {
   .my-listing-card {
     margin-bottom: 12px;
-    border-radius: 8px;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 
     .my-listing-card-cover {
       height: 160px;
@@ -192,13 +191,14 @@
         .status-tag,
         .days-tag {
           font-size: 10px;
-          padding: 1px 6px;
+          padding: 2px 8px;
+          border-radius: 12px;
         }
       }
     }
+
     .ant-card-body {
       padding: 12px;
-
       .my-listing-card-title {
         .listing-title {
           font-size: 14px;
@@ -219,6 +219,7 @@
     .ant-card-actions {
       li {
         padding: 10px 0;
+        margin-left: 10px;
 
         .card-action-button {
           font-size: 13px;
@@ -273,12 +274,13 @@
 .my-listings-mobile-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 0 4px;
+  gap: 16px;
+  padding: 0 8px;
+  margin-top: 8px;
 
   @media (max-width: 480px) {
-    padding: 0;
-    gap: 8px;
+    padding: 0 4px;
+    gap: 12px;
   }
 }
 
