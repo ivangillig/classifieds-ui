@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import UserMenuDropdown from '../../UserMenuDropdown'
 import SearchBox from '../../common/SearchBox'
+import ThemeToggle from '../../common/ThemeToggle'
 import { FilterOutlined } from '@ant-design/icons'
 import FilterModal from '../../FilterModal'
 import Link from 'next/link'
@@ -64,24 +65,27 @@ const DesktopHeader = () => {
 
           {/* Buttons and user menu */}
           <div className="navbar-end">
-            <Button
-              type="primary"
-              onClick={handlePostAdClick}
-              className="button-publish"
-            >
-              {t('post_ad')}
-            </Button>
-            {user ? (
-              <UserMenuDropdown user={user} />
-            ) : (
+            <Space>
+              <ThemeToggle />
               <Button
-                type="default"
-                onClick={handleLoginClick}
-                className="navBar-login-button"
+                type="primary"
+                onClick={handlePostAdClick}
+                className="button-publish"
               >
-                <span>{t('login')}</span>
+                {t('post_ad')}
               </Button>
-            )}
+              {user ? (
+                <UserMenuDropdown user={user} />
+              ) : (
+                <Button
+                  type="default"
+                  onClick={handleLoginClick}
+                  className="navBar-login-button"
+                  >
+                  <span>{t('login')}</span>
+                </Button>
+              )}
+            </Space>
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
 .private-layout {
   height: 100vh;
+  background: var(--bg-primary);
 }
 
 .private-sider {
-  background-color: #f0f2f5;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-light);
   padding: 16px;
 
   @media (max-width: 767px) {
@@ -13,10 +15,25 @@
 
 .private-menu {
   border-right: none;
+  background: var(--bg-secondary);
+
+  .ant-menu-item {
+    color: var(--text-primary);
+
+    &:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    &.ant-menu-item-selected {
+      background-color: var(--primary-color);
+      color: white;
+    }
+  }
 }
 
 .private-content {
   overflow: auto;
+  background: var(--bg-primary);
 }
 
 .private-content-wrapper {

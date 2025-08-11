@@ -28,6 +28,8 @@
   "listing_reactivate_message": "Si reactivas este anuncio se volverá visible para el público en general",
   "listing_delete_message": "Está seguro de querer eliminar este anuncio? Esta acción no se puede deshacer",
   "listing_renew_message": "Está seguro de querer renovar este anuncio?",
+  "theme_toggle_light": "Cambiar a tema claro",
+  "theme_toggle_dark": "Cambiar a tema oscuro",
   "Report submitted successfully": "Reporte enviado exitosamente",
   "Reason for report": "Motivo del reporte",
   "Select a reason": "Selecciona un motivo",

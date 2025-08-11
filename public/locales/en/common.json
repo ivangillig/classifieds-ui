@@ -45,5 +45,7 @@
     "paused": "Paused",
     "underReview": "Under Review",
     "expired": "Expired"
-  }
+  },
+  "theme_toggle_light": "Switch to light theme",
+  "theme_toggle_dark": "Switch to dark theme"
 }

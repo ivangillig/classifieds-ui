@@ -1,12 +1,14 @@
 .my-listing-card {
   margin-bottom: 16px;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 16px var(--shadow-color);
   }
 
   .my-listing-card-cover {

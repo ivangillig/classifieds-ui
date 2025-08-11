@@ -9,7 +9,9 @@
 
 .navbar-container {
   width: 100%;
-  background-color: var(--main-white);
+  background-color: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
 
   .navbar-logo {
     display: flex;
@@ -19,7 +21,7 @@
     gap: 4px;
 
     .logo-primary {
-      color: black;
+      color: var(--text-primary);
       font-weight: 500;
     }
 

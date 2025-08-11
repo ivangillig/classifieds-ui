@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Row } from 'antd'
+import { Button, Row, Space } from 'antd'
 import { FilterOutlined, MenuOutlined } from '@ant-design/icons'
 import SearchBox from '../../common/SearchBox'
+import ThemeToggle from '../../common/ThemeToggle'
 import Link from 'next/link'
 import UserMenuDrawer from './UserMenuDrawer'
 import FilterModal from '../../FilterModal'
@@ -37,10 +38,13 @@ const MobileHeader = () => {
             <span className="logo-hover">ESCORTS</span>
           </Link>
         </div>
-        <Button icon={<MenuOutlined />} onClick={showDrawer} />
+        <Space>
+          <ThemeToggle size="small" />
+          <Button icon={<MenuOutlined />} onClick={showDrawer} />
+        </Space>
       </Row>
 
-      {router.pathname != '/' && (
+      {router.pathname != '/' && !router.pathname.includes('/user') && (
         <Row className="navbar-bottom">
           <Button icon={<FilterOutlined />} onClick={showFilterModal} />
           <SearchBox />
