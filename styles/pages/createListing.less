@@ -8,7 +8,7 @@
   .form-title {
     font-size: 2rem;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--primary-color);
   }
 
   .form-section {
@@ -17,7 +17,7 @@
     h2 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
-      color: #333;
+      color: var(--text-secondary);
     }
 
     .form-field {
@@ -27,7 +27,7 @@
         display: block;
         margin-bottom: 0.5rem;
         font-weight: 600;
-        color: #555;
+        color: var(--text-secondary);
       }
 
       input,
@@ -35,6 +35,7 @@
       textarea {
         width: 100%;
         border-radius: 4px;
+        color: var(--text-primary);
       }
 
       input:not(.invalid),
@@ -47,6 +48,19 @@
       .ant-select.invalid .ant-select-selector,
       textarea.invalid {
         border-color: #ff4d4f;
+      }
+
+      .ant-select.ant-select-disabled {
+        .ant-select-selector {
+          background-color: var(--bg-secondary) !important;
+          border-color: var(--border-color) !important;
+          color: var(--text-tertiary) !important;
+          opacity: 0.7;
+        }
+
+        &:hover .ant-select-selector {
+          border-color: var(--border-color) !important;
+        }
       }
 
       &.half-width {
@@ -66,7 +80,7 @@
 
     p {
       margin-bottom: 1.5rem;
-      color: #666;
+      color: var(--text-secondary);
       font-size: 0.875rem;
     }
 
@@ -85,15 +99,22 @@
         border-radius: 8px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         padding: 5px 15px;
         width: 100%;
         transition: all 0.3s ease;
         cursor: pointer;
+        position: relative;
 
         &:hover {
           transform: scale(1.02);
           background-color: #34a853;
           border-color: #2e7d32;
+        }
+
+        .whatsapp-left {
+          display: flex;
+          align-items: center;
         }
 
         .whatsapp-icon {
@@ -104,6 +125,43 @@
           color: #fff;
           font-weight: 500;
           font-size: 16px;
+        }
+
+        .whatsapp-check {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.2);
+          border: 2px solid rgba(255, 255, 255, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+
+          &::after {
+            content: '';
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+        }
+      }
+
+      // When checked
+      &.ant-checkbox-wrapper-checked {
+        .whatsapp-content {
+          .whatsapp-check {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: white;
+
+            &::after {
+              opacity: 1;
+            }
+          }
         }
       }
     }
@@ -126,13 +184,13 @@
     }
 
     .ant-btn-primary {
-      background-color: #6200ea;
-      border-color: #6200ea;
+      background-color: var(--bg-primary);
+      border-color: var(--border-color);
     }
 
     .ant-btn-primary:hover {
-      background-color: #7e33e0;
-      border-color: #7e33e0;
+      background-color: var(--hover-color);
+      border-color: var(--hover-color);
     }
   }
 
@@ -149,4 +207,118 @@
   width: 60%;
   display: flex;
   justify-content: space-between;
+}
+
+// Mobile responsive styles
+@media (max-width: 767px) {
+  .create-listing-form {
+    width: 95%;
+    padding: 16px 8px;
+
+    .form-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .form-section {
+      h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .form-field {
+        &.half-width {
+          width: 100%;
+          display: block;
+          margin-right: 0;
+          margin-bottom: 2rem !important;
+        }
+
+        input,
+        .ant-select,
+        textarea {
+          font-size: 16px; // Prevents zoom on iOS
+
+          border-radius: 8px;
+          min-height: 48px;
+        }
+
+        .ant-select {
+          .ant-select-selector {
+            padding: 16px 12px !important;
+            min-height: 48px !important;
+            display: flex;
+            align-items: center;
+          }
+
+          &.ant-select-disabled {
+            .ant-select-selector {
+              background-color: var(--bg-secondary) !important;
+              border-color: var(--border-color) !important;
+              color: var(--text-tertiary) !important;
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+
+      .input-group {
+        .ant-input-group-addon {
+          background-color: var(--bg-tertiary);
+          border-color: var(--border-color);
+          color: var(--text-primary);
+        }
+
+        .ant-input {
+          font-size: 16px; // Prevents zoom on iOS
+        }
+      }
+
+      .whatsapp-checkbox {
+        margin-top: 16px;
+
+        .whatsapp-content {
+          justify-content: space-between;
+
+          .whatsapp-icon {
+            width: 35px;
+            height: 35px;
+          }
+
+          .whatsapp-text {
+            font-size: 14px;
+          }
+
+          .whatsapp-check {
+            width: 18px;
+            height: 18px;
+
+            &::after {
+              width: 5px;
+              height: 8px;
+            }
+          }
+        }
+      }
+    }
+
+    .form-actions {
+      text-align: center;
+      margin-top: 1rem;
+
+      .ant-btn {
+        width: 100%;
+        min-width: unset;
+        height: 48px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .location-fields {
+    width: 100%;
+    flex-direction: column;
+  }
 }
