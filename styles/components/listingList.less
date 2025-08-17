@@ -1,3 +1,120 @@
+// Mobile-specific horizontal card layout
+.listing-list-container {
+  width: 100%;
+  // margin: 0 auto 16px auto;
+
+  // Only apply to mobile
+  @media (max-width: 768px) {
+    .listing-list-card {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+
+      .ant-card-body {
+        padding: 0;
+      }
+
+      .listing-list-content {
+        display: flex;
+        flex-direction: row;
+        min-height: 140px;
+      }
+
+      .listing-list-image-wrapper {
+        width: 35%;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      .listing-list-info {
+        flex: 1;
+        padding: 13px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .listing-list-header {
+        flex-shrink: 0;
+      }
+
+      .listing-list-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 0 5px 0;
+        color: var(--text-primary);
+        line-height: 1.3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .listing-list-location {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 15px;
+
+        .listing-location-icon {
+          color: var(--primary-color);
+        }
+      }
+
+      .listing-list-price-mobile {
+        color: var(--primary-color);
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .listing-list-actions {
+        margin-top: auto;
+        flex-shrink: 0;
+
+        .button-contact {
+          width: 100%;
+          border-radius: 8px;
+          font-weight: 500;
+          height: 36px;
+          font-size: 13px;
+
+          &.whatsapp {
+            background-color: #25d366;
+            border-color: #25d366;
+
+            &:hover {
+              background-color: #128c7e;
+              border-color: #128c7e;
+            }
+          }
+
+          &.phone {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+
+            &:hover {
+              background-color: var(--hover-color);
+              border-color: var(--hover-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Desktop layout - preserve original design
 .ant-list-item {
   width: 90%;
   margin: 0 auto;
@@ -7,11 +124,11 @@
     display: flex;
     align-items: center;
     padding: 1rem;
-    background-color: white;
+    background-color: var(--card-bg);
     width: 100%;
-    border: 1px solid var(--surface-border);
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 3px 6px var(--shadow-color);
     transition: transform 0.3s ease;
 
     &:hover {
@@ -23,7 +140,7 @@
       width: 130px;
       height: 160px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 8px;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       margin-right: 2rem;
     }
@@ -33,28 +150,36 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      height: 160px;
 
       .listing-name {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: bold;
-        margin-bottom: 0.5rem;
-        color: var(--text-color-primary);
+        margin-bottom: 0.8rem;
+        color: var(--text-primary);
       }
 
       .listing-description {
-        margin-bottom: 0.5rem;
-        color: var(--text-color-secondary);
+        margin-bottom: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.4;
+        flex: 1;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
       }
 
       .listing-location {
         display: flex;
         align-items: center;
         font-size: 0.9rem;
-        color: var(--text-color-secondary);
+        color: var(--text-secondary);
 
         .listing-category-icon {
           margin-right: 0.3rem;
-          color: red;
+          color: var(--primary-color);
         }
       }
     }
@@ -79,6 +204,10 @@
 }
 
 @media screen and (max-width: 576px) {
+  .ant-list-item {
+    width: 100%;
+  }
+
   .listing-list-item {
     flex-direction: column;
     text-align: center;

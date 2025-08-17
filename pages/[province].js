@@ -7,7 +7,7 @@ import ListingCard from '../components/Listing/ListingCard'
 import ListingList from '../components/Listing/ListingList'
 import { useTranslation } from 'next-i18next'
 import { List, Pagination, Radio, Breadcrumb, Card } from 'antd'
-import { HomeOutlined, EnvironmentOutlined } from '@ant-design/icons'
+import { HomeOutlined, AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
 
 const ProvincePage = () => {
   const dispatch = useDispatch()
@@ -84,9 +84,6 @@ const ProvincePage = () => {
   }
 
   const renderHeader = () => {
-    // Shows the view options and breadcrumb only in large screens
-    if (isMobile) return null
-
     return (
       <div
         className="grid grid-nogutter"
@@ -97,27 +94,42 @@ const ProvincePage = () => {
           marginBottom: '16px',
         }}
       >
-        {/* Breadcrumb */}
-        <Card className="breadcrumb-card">
-          <Breadcrumb>
-            <Breadcrumb.Item href="/">
-              <HomeOutlined />
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              {/* <EnvironmentOutlined /> */}
-              <span>{province}</span>
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        </Card>
+        {/* Breadcrumb - only on desktop */}
+        {!isMobile && (
+          <Card className="breadcrumb-card">
+            <Breadcrumb>
+              <Breadcrumb.Item href="/">
+                <HomeOutlined />
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <span>{province}</span>
+              </Breadcrumb.Item>
+            </Breadcrumb>
+          </Card>
+        )}
 
-        {/* View Selector */}
+        {/* View Selector - now visible on mobile too */}
         <Radio.Group
           value={layout}
           onChange={handleViewChange}
           buttonStyle="solid"
+          size={isMobile ? 'small' : 'default'}
+          style={
+            isMobile ? { width: '80%', display: 'flex', margin: 'auto' } : {}
+          }
         >
-          <Radio.Button value="grid">{t('Grid')}</Radio.Button>
-          <Radio.Button value="list">{t('List')}</Radio.Button>
+          <Radio.Button
+            value="grid"
+            style={isMobile ? { flex: 1, textAlign: 'center' } : {}}
+          >
+            <AppstoreOutlined /> {t('Grid')}
+          </Radio.Button>
+          <Radio.Button
+            value="list"
+            style={isMobile ? { flex: 1, textAlign: 'center' } : {}}
+          >
+            <BarsOutlined /> {t('List')}
+          </Radio.Button>
         </Radio.Group>
       </div>
     )
