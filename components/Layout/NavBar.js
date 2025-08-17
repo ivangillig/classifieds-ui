@@ -38,10 +38,6 @@ const NavBar = () => {
     setIsMounted(true)
   }, [])
 
-  const handleLoginClick = () => {
-    router.push('/login')
-  }
-
   const handlePostAdClick = () => {
     router.push('/createListing')
   }
@@ -88,13 +84,11 @@ const NavBar = () => {
             {user ? (
               <UserMenuDropdown user={user} />
             ) : (
-              <Button
-                type="default"
-                onClick={handleLoginClick}
-                className="navBar-login-button"
-              >
-                <span>{t('login')}</span>
-              </Button>
+              <Link href="/login">
+                <Button type="default" className="navBar-login-button">
+                  <span>{t('login')}</span>
+                </Button>
+              </Link>
             )}
           </div>
         </div>

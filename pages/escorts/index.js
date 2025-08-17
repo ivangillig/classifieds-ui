@@ -82,8 +82,10 @@ const SearchResultsPage = () => {
         {/* Breadcrumb */}
         <Card className="breadcrumb-card">
           <Breadcrumb>
-            <Breadcrumb.Item href="/">
-              <HomeOutlined />
+            <Breadcrumb.Item>
+              <Link href="/">
+                <HomeOutlined />
+              </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <SearchOutlined />

@@ -8,6 +8,7 @@ import ListingList from '../components/Listing/ListingList'
 import { useTranslation } from 'next-i18next'
 import { List, Pagination, Radio, Breadcrumb, Card } from 'antd'
 import { HomeOutlined, AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 const ProvincePage = () => {
   const dispatch = useDispatch()
@@ -98,8 +99,10 @@ const ProvincePage = () => {
         {!isMobile && (
           <Card className="breadcrumb-card">
             <Breadcrumb>
-              <Breadcrumb.Item href="/">
-                <HomeOutlined />
+              <Breadcrumb.Item>
+                <Link href="/">
+                  <HomeOutlined />
+                </Link>
               </Breadcrumb.Item>
               <Breadcrumb.Item>
                 <span>{province}</span>
