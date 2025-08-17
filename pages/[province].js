@@ -104,7 +104,7 @@ const ProvincePage = () => {
               <HomeOutlined />
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <EnvironmentOutlined />
+              {/* <EnvironmentOutlined /> */}
               <span>{province}</span>
             </Breadcrumb.Item>
           </Breadcrumb>
