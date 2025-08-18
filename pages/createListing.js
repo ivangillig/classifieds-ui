@@ -286,11 +286,17 @@ const ListingForm = () => {
                     id="price"
                     value={values.price}
                     onChange={(value) => setFieldValue('price', value)}
-                    formatter={(value) =>
-                      `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                    }
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+                    min={0}
+                    precision={0}
+                    formatter={(value) => {
+                      if (!value) return ''
+                      return value
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+                    }}
+                    parser={(value) => value.replace(/\./g, '')}
                     placeholder={t('listing.price_placeholder')}
+                    addonBefore="$"
                     className={touched.price && errors.price ? 'invalid' : ''}
                     style={{ width: '100%' }}
                   />
@@ -311,19 +317,22 @@ const ListingForm = () => {
 
               <div className="form-section">
                 <h2>{t('listing.contact_information')}</h2>
-                <div className="input-group">
-                  <Input
-                    addonBefore="+54"
-                    id="phone"
-                    value={values.phone}
-                    onChange={(e) => setFieldValue('phone', e.target.value)}
-                    placeholder={t('listing.phone_placeholder')}
-                    className={touched.phone && errors.phone ? 'invalid' : ''}
-                  />
+                <div className="form-field full-width">
+                  <label htmlFor="phone">{t('listing.phone')}</label>
+                  <div className="input-group">
+                    <Input
+                      addonBefore="+54"
+                      id="phone"
+                      value={values.phone}
+                      onChange={(e) => setFieldValue('phone', e.target.value)}
+                      placeholder={t('listing.phone_placeholder')}
+                      className={touched.phone && errors.phone ? 'invalid' : ''}
+                    />
+                  </div>
+                  {touched.phone && errors.phone && (
+                    <small className="error">{errors.phone}</small>
+                  )}
                 </div>
-                {touched.phone && errors.phone && (
-                  <small className="error">{errors.phone}</small>
-                )}
                 <div className="form-field full-width">
                   <Checkbox
                     id="useWhatsApp"
@@ -340,7 +349,7 @@ const ListingForm = () => {
                           alt="WhatsApp"
                           className="whatsapp-icon"
                         />
-                        <span className="whatsapp-text">WhatsApp</span>
+                        <span className="whatsapp-text">{t('answer_whatsapp')}</span>
                       </div>
                       <div className="whatsapp-check"></div>
                     </div>

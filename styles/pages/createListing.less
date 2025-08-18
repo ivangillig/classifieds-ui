@@ -179,6 +179,16 @@
       }
     }
 
+    .ant-input-number-group {
+      .ant-input-number-group-addon {
+        background-color: var(--bg-tertiary);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+        font-weight: 600;
+        padding: 0 12px;
+      }
+    }
+
     .ant-btn {
       margin-right: 1rem;
     }
@@ -272,6 +282,23 @@
 
         .ant-input {
           font-size: 16px; // Prevents zoom on iOS
+        }
+      }
+
+      .ant-input-number-group {
+        .ant-input-number-group-addon {
+          background-color: var(--bg-tertiary);
+          border-color: var(--border-color);
+          color: var(--text-primary);
+          font-weight: 600;
+          font-size: 16px;
+        }
+
+        .ant-input-number {
+          .ant-input-number-input {
+            font-size: 16px;
+            text-align: right;
+          }
         }
       }
 
