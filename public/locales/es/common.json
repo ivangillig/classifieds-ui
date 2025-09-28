@@ -97,7 +97,8 @@
     "published": "Publicado",
     "underReview": "En revisión",
     "expired": "Vencido",
-    "blocked": "Bloqueado"
+    "blocked": "Bloqueado",
+    "verification": "Verificación"
   },
   "listingActions": {
     "Pause": "Pausar",

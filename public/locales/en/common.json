@@ -90,7 +90,8 @@
     "published": "Published",
     "underReview": "Under Review",
     "expired": "Expired",
-    "blocked": "Blocked"
+    "blocked": "Blocked",
+    "verification": "Verification"
   },
   "Days Remaining": "Days Remaining",
   "Days": "Days",

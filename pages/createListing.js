@@ -21,6 +21,7 @@ import {
 } from '../actions/listingActions'
 import { showMessage } from '../actions/notificationActions'
 import { getImagesPath } from '@/utils/listingsUtils'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const { TextArea } = Input
 const { Option } = Select
@@ -102,7 +103,7 @@ const ListingForm = () => {
     province: Yup.string().required(t('ERROR_PROVINCE_REQUIRED')),
     city: Yup.string().required(t('ERROR_CITY_REQUIRED')),
     price: Yup.number().required(t('ERROR_PRICE_REQUIRED')),
-    phone: Yup.string().required(t('ERROR_PHONE_REQUIRED')),
+    captcha: Yup.string().required(t('INVALID_RECAPTCHA_TOKEN')),
   })
 
   const handleSubmit = (values) => {
@@ -151,8 +152,8 @@ const ListingForm = () => {
             city: listingDetails?.location?._id || null,
             photos: listingDetails?.photos || [],
             price: listingDetails?.price || null,
-            phone: listingDetails?.phone || '',
             useWhatsApp: listingDetails?.useWhatsApp || false,
+            captcha: '',
           }}
           validationSchema={validationSchema}
           enableReinitialize
@@ -356,6 +357,19 @@ const ListingForm = () => {
                       <div className="whatsapp-check"></div>
                     </div>
                   </Checkbox>
+                </div>
+              </div>
+
+              <div className="form-section">
+                <h2>{t('listing.verification')}</h2>
+                <div className="form-field full-width">
+                  <ReCAPTCHA
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                    onChange={(value) => setFieldValue('captcha', value)}
+                  />
+                  {touched.captcha && errors.captcha && (
+                    <small className="error">{errors.captcha}</small>
+                  )}
                 </div>
               </div>
 
