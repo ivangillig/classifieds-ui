@@ -97,7 +97,7 @@ const ListingDetailsPage = () => {
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link href={`/${province}`}>
-                <span>{listingDetails.location.subcountry}</span>
+                <span>{listingDetails.location.province.name}</span>
               </Link>
             </Breadcrumb.Item>
             <Breadcrumb.Item>

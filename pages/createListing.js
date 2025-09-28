@@ -147,7 +147,7 @@ const ListingForm = () => {
             title: listingDetails?.title || '',
             description: listingDetails?.description || '',
             age: listingDetails?.age || 18,
-            province: listingDetails?.location?.subcountry || null,
+            province: listingDetails?.location?.province || null,
             city: listingDetails?.location?._id || null,
             photos: listingDetails?.photos || [],
             price: listingDetails?.price || null,
@@ -166,7 +166,7 @@ const ListingForm = () => {
                   <div className="form-field half-width">
                     <Select
                       id="province"
-                      value={values.province}
+                      // value={values.province.id}
                       onChange={(value) => {
                         setFieldValue('province', value)
                         setFieldValue('city', null) // Reset city when province changes
@@ -178,8 +178,8 @@ const ListingForm = () => {
                       }
                     >
                       {provinces.map((province) => (
-                        <Option key={province} value={province}>
-                          {province}
+                        <Option key={province.id} value={province.code}>
+                          {province.name}
                         </Option>
                       ))}
                     </Select>
@@ -349,7 +349,9 @@ const ListingForm = () => {
                           alt="WhatsApp"
                           className="whatsapp-icon"
                         />
-                        <span className="whatsapp-text">{t('answer_whatsapp')}</span>
+                        <span className="whatsapp-text">
+                          {t('answer_whatsapp')}
+                        </span>
                       </div>
                       <div className="whatsapp-check"></div>
                     </div>

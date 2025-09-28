@@ -8,6 +8,7 @@ import ListingList from '../../components/Listing/ListingList'
 import { useTranslation } from 'next-i18next'
 import { List, Pagination, Radio, Breadcrumb, Card } from 'antd'
 import { HomeOutlined, SearchOutlined } from '@ant-design/icons'
+import Link from 'next/link'
 
 const SearchResultsPage = () => {
   const dispatch = useDispatch()
