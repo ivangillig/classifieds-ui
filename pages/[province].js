@@ -98,16 +98,20 @@ const ProvincePage = () => {
         {/* Breadcrumb - only on desktop */}
         {!isMobile && (
           <Card className="breadcrumb-card">
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                <Link href="/">
-                  <HomeOutlined />
-                </Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <span>{province}</span>
-              </Breadcrumb.Item>
-            </Breadcrumb>
+            <Breadcrumb
+              items={[
+                {
+                  title: (
+                    <Link href="/">
+                      <HomeOutlined />
+                    </Link>
+                  ),
+                },
+                {
+                  title: province,
+                },
+              ]}
+            />
           </Card>
         )}
 

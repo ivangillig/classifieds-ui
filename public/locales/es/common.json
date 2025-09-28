@@ -83,7 +83,7 @@
     "price_placeholder": "Ingrese un precio",
     "add_images": "Agregar imagenes",
     "image_upload_instructions": "Cargue un mínimo de 2 imágenes, con un máximo permitido de hasta 5 imágenes.",
-    "phone": "Teléfono de contacto",
+    "phone": "Teléfono de contacto, sin 0 y sin 15",
     "contact_information": "Información de contacto",
     "select_province": "Selecciona una provincia",
     "select_city": "Selecciona una ciudad",

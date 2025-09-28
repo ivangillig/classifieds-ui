@@ -44,7 +44,7 @@ const MobileHeader = () => {
         </Space>
       </Row>
 
-      {router.pathname != '/' && !router.pathname.includes('/user') && (
+      {router.pathname != '/' && !router.pathname.includes('/user') && !router.pathname.includes('/createListing') && (
         <Row className="navbar-bottom">
           <Button icon={<FilterOutlined />} onClick={showFilterModal} />
           <SearchBox />

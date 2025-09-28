@@ -89,21 +89,27 @@ const ListingDetailsPage = () => {
       {/* Breadcrumb Section */}
       <div className="breadcrumb-section">
         <Card className="breadcrumb-card">
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <Link href="/">
-                <HomeOutlined />
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <Link href={`/${province}`}>
-                <span>{listingDetails.location.province.name}</span>
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <span>{listingDetails.title}</span>
-            </Breadcrumb.Item>
-          </Breadcrumb>
+          <Breadcrumb
+            items={[
+              {
+                title: (
+                  <Link href="/">
+                    <HomeOutlined />
+                  </Link>
+                ),
+              },
+              {
+                title: (
+                  <Link href={`/${province}`}>
+                    {listingDetails.location.province.name}
+                  </Link>
+                ),
+              },
+              {
+                title: listingDetails.title,
+              },
+            ]}
+          />
         </Card>
         {isDesktop && (
           <Button
@@ -173,7 +179,9 @@ const ListingDetailsPage = () => {
           {listingDetails.description ? (
             <p className="listing-description">{listingDetails.description}</p>
           ) : (
-            <p className="listing-description">{t('No description available')}</p>
+            <p className="listing-description">
+              {t('No description available')}
+            </p>
           )}
         </Card>
       </div>
@@ -190,17 +198,17 @@ const ListingDetailsPage = () => {
             {t('Call')}
           </Button>
         )}
-        {listingDetails.useWhatsApp && (
+        {listingDetails.useWhatsApp && listingDetails.phone && (
           <Button
             type="primary"
             icon={<WhatsAppOutlined />}
             className="button-contact whatsapp font-medium"
-            onClick={() =>
-              window.open(
-                `https://wa.me/${listingDetails.phone.replace(/\D/g, '')}`,
-                '_blank'
-              )
-            }
+            onClick={() => {
+              const cleanPhone = listingDetails.phone.replace(/\D/g, '')
+              if (cleanPhone) {
+                window.open(`https://wa.me/+549${cleanPhone}`, '_blank')
+              }
+            }}
           >
             WhatsApp
           </Button>

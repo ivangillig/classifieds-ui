@@ -82,17 +82,24 @@ const SearchResultsPage = () => {
       >
         {/* Breadcrumb */}
         <Card className="breadcrumb-card">
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <Link href="/">
-                <HomeOutlined />
-              </Link>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <SearchOutlined />
-              <span>{query}</span>
-            </Breadcrumb.Item>
-          </Breadcrumb>
+          <Breadcrumb
+            items={[
+              {
+                title: (
+                  <Link href="/">
+                    <HomeOutlined />
+                  </Link>
+                ),
+              },
+              {
+                title: (
+                  <>
+                    <SearchOutlined /> {query}
+                  </>
+                ),
+              },
+            ]}
+          />
         </Card>
 
         {/* View Selector */}
