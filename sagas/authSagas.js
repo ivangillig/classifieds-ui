@@ -1,8 +1,8 @@
 // app/sagas/authSaga.js
-import { call, put, takeLatest, all, fork } from "redux-saga/effects";
-import Axios from 'axios';
-import Router from 'next/router';
-import {  
+import { call, put, takeLatest, all, fork } from 'redux-saga/effects'
+import Axios from 'axios'
+import Router from 'next/router'
+import {
   loginSuccess,
   loginFailure,
   logoutSuccess,
@@ -10,95 +10,105 @@ import {
   getUserInfoSuccess,
   getUserInfoFailure,
   confirmEmailSuccess,
-  confirmEmailFailure
-} from "../actions/authActions";
+  confirmEmailFailure,
+} from '../actions/authActions'
 import {
   LOGIN_REQUEST,
   LOGOUT_REQUEST,
   GET_USER_INFO_REQUEST,
-  CONFIRM_EMAIL_REQUEST
+  CONFIRM_EMAIL_REQUEST,
 } from '../constants/ActionsTypes'
 import {
-  signInRequest, 
+  signInRequest,
   signOutRequest,
   getUserInfoApi,
-  confirmEmailApi
-} from "../api/authApi";
+  confirmEmailApi,
+} from '../api/authApi'
 
 function* loginSaga() {
   try {
-    const user = yield call(signInRequest);
+    const user = yield call(signInRequest)
 
     // Ensure it's a clean login (i.e., nothing left from a previous login)
-    cleanupStorage();
+    cleanupStorage()
 
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-      Axios.defaults.headers.common['authorization'] = user.id;
+      localStorage.setItem('user', JSON.stringify(user))
+      Axios.defaults.headers.common['authorization'] = user.id
     }
 
-    yield put(loginSuccess(user));
+    yield put(loginSuccess(user))
 
-    // Redirect to the home page after successful login
-    Router.push('/');
+    // Redirect admin users to admin panel, regular users to home
+    if (user && user.role === 'admin') {
+      Router.push('/admin')
+    } else {
+      Router.push('/')
+    }
   } catch (error) {
-    yield put(loginFailure(error.message));
+    yield put(loginFailure(error.message))
   }
 }
 
 function* logoutSaga() {
   try {
-    yield call(signOutRequest);
+    yield call(signOutRequest)
 
-    cleanupStorage();
-    delete Axios.defaults.headers.common['Authorization'];
+    cleanupStorage()
+    delete Axios.defaults.headers.common['Authorization']
 
-    Router.push('/');
+    Router.push('/')
 
-    yield put(logoutSuccess());
+    yield put(logoutSuccess())
   } catch (error) {
-    yield put(logoutFailure(error.message));
+    yield put(logoutFailure(error.message))
   }
 }
 
 function* getUserInfo() {
   try {
-    const response = yield call(getUserInfoApi);
+    const response = yield call(getUserInfoApi)
 
     if (response && response.data && response.data.user) {
-      const user = response.data.user;
-      yield put(getUserInfoSuccess(user));
-      localStorage.setItem('user', JSON.stringify(user));
-      Router.push('/');
-    } 
+      const user = response.data.user
+      yield put(getUserInfoSuccess(user))
+      localStorage.setItem('user', JSON.stringify(user))
+
+      // Redirect admin users to admin panel, regular users to home
+      if (user.role === 'admin') {
+        Router.push('/admin')
+      } else {
+        Router.push('/')
+      }
+    }
   } catch (error) {
-    yield put(getUserInfoFailure(error.message));
+    yield put(getUserInfoFailure(error.message))
   }
 }
 
 function* confirmEmailSaga(action) {
   try {
-    const response = yield call(confirmEmailApi, action.payload);
-    yield put(confirmEmailSuccess(response.message));
+    const response = yield call(confirmEmailApi, action.payload)
+    yield put(confirmEmailSuccess(response.message))
   } catch (error) {
-    yield put(confirmEmailFailure(error.message));
+    yield put(confirmEmailFailure(error.message))
   }
 }
 
 export function* watchLoginSaga() {
-  yield takeLatest(LOGIN_REQUEST, loginSaga);
+  yield takeLatest(LOGIN_REQUEST, loginSaga)
 }
 
 export function* watchLogoutSaga() {
-  yield takeLatest(LOGOUT_REQUEST, logoutSaga);
+  yield takeLatest(LOGOUT_REQUEST, logoutSaga)
 }
 
 export function* watchGetUserInfo() {
-  yield takeLatest(GET_USER_INFO_REQUEST, getUserInfo);
+  yield takeLatest(GET_USER_INFO_REQUEST, getUserInfo)
 }
 
 export function* watchConfirmEmailSaga() {
-  yield takeLatest(CONFIRM_EMAIL_REQUEST, confirmEmailSaga);
+  yield takeLatest(CONFIRM_EMAIL_REQUEST, confirmEmailSaga)
 }
 
 export default function* rootSaga() {
@@ -107,10 +117,10 @@ export default function* rootSaga() {
     fork(watchLogoutSaga),
     fork(watchGetUserInfo),
     fork(watchConfirmEmailSaga),
-  ]);
+  ])
 }
 
 export function cleanupStorage() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
 }

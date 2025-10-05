@@ -7,6 +7,9 @@ import { loginRequest } from '../actions/authActions'
 import { Button } from 'antd'
 import { GoogleOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+const { API_BASE_URL } = publicRuntimeConfig
 
 const GoogleLoginButton = () => {
   const { t } = useTranslation()
@@ -14,7 +17,7 @@ const GoogleLoginButton = () => {
 
   const handleLogin = () => {
     // dispatch(loginRequest());
-    window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`
+    window.location.href = `${API_BASE_URL}/auth/google`
   }
 
   return (

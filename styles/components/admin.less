@@ -1,0 +1,138 @@
+// styles/components/admin.less
+
+.admin-dashboard {
+  padding: 24px;
+
+  h1 {
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+}
+
+.admin-listings-container {
+  padding: 24px;
+
+  .ant-typography h2 {
+    color: var(--text-primary);
+    margin-bottom: 0;
+  }
+}
+
+.admin-filters-card {
+  margin-bottom: 24px;
+
+  .ant-card-head-title {
+    font-weight: 600;
+  }
+}
+
+.admin-bulk-actions-card {
+  margin-bottom: 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+
+  .ant-card-body {
+    padding: 16px;
+  }
+}
+
+.admin-listing-card {
+  .listing-image-container {
+    position: relative;
+
+    .listing-overlay {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+
+      .status-tag {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .listing-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .listing-price {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+  }
+
+  .listing-details {
+    .listing-location {
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .listing-age {
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .listing-date {
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .listing-description {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+  }
+
+  .ant-card-actions {
+    > li {
+      margin: 4px;
+
+      .ant-btn {
+        border: none;
+        box-shadow: none;
+
+        &:hover {
+          background: var(--bg-tertiary);
+        }
+      }
+    }
+  }
+}
+
+// Dark theme support
+[data-theme='dark'] {
+  .admin-bulk-actions-card {
+    background: rgba(93, 64, 221, 0.1);
+    border-color: rgba(93, 64, 221, 0.2);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .admin-dashboard,
+  .admin-listings-container {
+    padding: 16px;
+  }
+
+  .admin-listing-card {
+    .listing-title {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-dashboard,
+  .admin-listings-container {
+    padding: 8px;
+  }
+}

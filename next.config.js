@@ -8,7 +8,7 @@ module.exports = withLess({
   },
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   publicRuntimeConfig: {
-    BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000',
+    API_BASE_URL: process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000' + '/api',
     listingImagesBasePath: process.env.IMG_BASE_PATH || '/uploads/',
     APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'ClassifiedsApp',
   },
