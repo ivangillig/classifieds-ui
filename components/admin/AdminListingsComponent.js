@@ -1,6 +1,6 @@
-// components/admin/Admin  const [filters, setFilters] = useState({
+// components/admin/AdminListingsComponent
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Typography, message } from 'antd'
+import { Row, Col, Typography } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import AdminListingTable from './AdminListingTable'
@@ -8,11 +8,11 @@ import AdminListingCard from './AdminListingCard'
 import AdminFilters from './AdminFilters'
 import useScreenSize from '@/hooks/useScreenSize'
 import {
-  fetchAdminListings,
-  approveListing,
-  toggleAdminListingStatus,
-  deleteAdminListing,
-} from '@/actions/adminActions'
+  fetchAdminListingsRequest,
+  approveListingRequest,
+  changeListingStatusRequest,
+  deleteAdminListingRequest,
+} from '@/actions'
 
 const { Title } = Typography
 
@@ -28,15 +28,21 @@ const AdminListingsComponent = () => {
     dateRange: null,
   })
 
-  const { listings, pagination, loading, approving, toggling, deleting } =
-    useSelector((state) => {
-      return state.admin
-    })
+  const {
+    listings,
+    pagination,
+    loading,
+    isApproving,
+    isChangingStatus,
+    isDeleting,
+  } = useSelector((state) => {
+    return state.admin
+  })
 
   const { provinces } = useSelector((state) => state.locations || {})
 
   useEffect(() => {
-    dispatch(fetchAdminListings({ page: 1, limit: 10 }))
+    dispatch(fetchAdminListingsRequest({ page: 1, limit: 10 }))
   }, [dispatch])
 
   const handleTableChange = (pagination, filters, sorter) => {
@@ -49,7 +55,7 @@ const AdminListingsComponent = () => {
         sortOrder: sorter.order === 'ascend' ? 'asc' : 'desc',
       }),
     }
-    dispatch(fetchAdminListings(params))
+    dispatch(fetchAdminListingsRequest(params))
   }
 
   const buildFilterParams = () => {
@@ -77,7 +83,7 @@ const AdminListingsComponent = () => {
       limit: pagination?.pageSize || 10,
       ...buildFilterParams(),
     }
-    dispatch(fetchAdminListings(params))
+    dispatch(fetchAdminListingsRequest(params))
   }
 
   const handleClearFilters = () => {
@@ -88,58 +94,21 @@ const AdminListingsComponent = () => {
       dateRange: null,
     }
     setFilters(clearedFilters)
-    dispatch(fetchAdminListings({ page: 1, limit: pagination.pageSize || 10 }))
+    dispatch(
+      fetchAdminListingsRequest({ page: 1, limit: pagination.pageSize || 10 })
+    )
   }
 
   const handleApprove = (listingId) => {
-    dispatch(approveListing(listingId))
-      .then(() => {
-        message.success(t('admin.approve_success'))
-        // Refresh the current page
-        const params = {
-          page: pagination.current,
-          limit: pagination.pageSize,
-          ...buildFilterParams(),
-        }
-        dispatch(fetchAdminListings(params))
-      })
-      .catch(() => {
-        message.error(t('admin.approve_error'))
-      })
+    dispatch(approveListingRequest(listingId))
   }
 
-  const handleToggleStatus = (listingId) => {
-    dispatch(toggleAdminListingStatus(listingId))
-      .then(() => {
-        message.success(t('admin.status_toggle_success'))
-        // Refresh the current page
-        const params = {
-          page: pagination.current,
-          limit: pagination.pageSize,
-          ...buildFilterParams(),
-        }
-        dispatch(fetchAdminListings(params))
-      })
-      .catch(() => {
-        message.error(t('admin.status_toggle_error'))
-      })
+  const handleChangeStatus = (listingId, newStatus, reason = null) => {
+    dispatch(changeListingStatusRequest(listingId, newStatus, reason))
   }
 
   const handleDelete = (listingId) => {
-    dispatch(deleteAdminListing(listingId))
-      .then(() => {
-        message.success(t('admin.delete_success'))
-        // Refresh the current page
-        const params = {
-          page: pagination.current,
-          limit: pagination.pageSize,
-          ...buildFilterParams(),
-        }
-        dispatch(fetchAdminListings(params))
-      })
-      .catch(() => {
-        message.error(t('admin.delete_error'))
-      })
+    dispatch(deleteAdminListingRequest(listingId))
   }
 
   return (
@@ -168,11 +137,13 @@ const AdminListingsComponent = () => {
                   <AdminListingCard
                     listing={listing}
                     onApprove={handleApprove}
-                    onToggleStatus={handleToggleStatus}
+                    onChangeStatus={handleChangeStatus}
                     onDelete={handleDelete}
-                    isApproving={approving?.includes(listing._id)}
-                    isToggling={toggling?.includes(listing._id)}
-                    isDeleting={deleting?.includes(listing._id)}
+                    loadingStates={{
+                      approving: isApproving,
+                      changingStatus: isChangingStatus,
+                      deleting: isDeleting,
+                    }}
                   />
                 </Col>
               ))}
@@ -183,7 +154,7 @@ const AdminListingsComponent = () => {
               pagination={pagination}
               loading={loading}
               onApprove={handleApprove}
-              onToggleStatus={handleToggleStatus}
+              onChangeStatus={handleChangeStatus}
               onDelete={handleDelete}
               onTableChange={handleTableChange}
             />

@@ -1,5 +1,5 @@
 // components/admin/AdminListingTable.js
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Table,
   Button,
@@ -9,14 +9,17 @@ import {
   Popconfirm,
   Image,
   Tooltip,
+  Modal,
+  Input,
 } from 'antd'
 import {
   CheckOutlined,
-  PauseCircleOutlined,
   PlayCircleOutlined,
   DeleteOutlined,
   MoreOutlined,
   EyeOutlined,
+  CloseOutlined,
+  LockOutlined,
 } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
@@ -27,12 +30,17 @@ const AdminListingTable = ({
   pagination,
   loading,
   onApprove,
-  onToggleStatus,
+  onChangeStatus,
   onDelete,
   onTableChange,
 }) => {
   const { t } = useTranslation()
   const router = useRouter()
+  const [rejectModalVisible, setRejectModalVisible] = useState(false)
+  const [blockModalVisible, setBlockModalVisible] = useState(false)
+  const [rejectingListingId, setRejectingListingId] = useState(null)
+  const [rejectionReason, setRejectionReason] = useState('')
+  const [blockReason, setBlockReason] = useState('')
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -41,7 +49,11 @@ const AdminListingTable = ({
       case 'underReview':
         return 'orange'
       case 'paused':
+        return 'gold'
+      case 'rejected':
         return 'red'
+      case 'blocked':
+        return 'volcano'
       case 'expired':
         return 'gray'
       default:
@@ -52,52 +64,6 @@ const AdminListingTable = ({
   const getStatusText = (status) => {
     return t(`listingState.${status}`)
   }
-
-  const handleViewListing = (record) => {
-    if (record.location?.province?.name) {
-      router.push(`/${record.location.province.name}/${record._id}`)
-    }
-  }
-
-  const getActionMenuItems = (record) => [
-    {
-      key: 'view',
-      label: t('listingActions.View'),
-      icon: <EyeOutlined />,
-      onClick: () => handleViewListing(record),
-    },
-    ...(record.status === 'underReview'
-      ? [
-          {
-            key: 'approve',
-            label: t('admin.approve'),
-            icon: <CheckOutlined />,
-            onClick: () => onApprove(record._id),
-          },
-        ]
-      : []),
-    {
-      key: 'toggle',
-      label:
-        record.status === 'paused'
-          ? t('listingActions.Reactivate')
-          : t('listingActions.Pause'),
-      icon:
-        record.status === 'paused' ? (
-          <PlayCircleOutlined />
-        ) : (
-          <PauseCircleOutlined />
-        ),
-      onClick: () => onToggleStatus(record._id),
-    },
-    {
-      key: 'delete',
-      label: t('listingActions.Delete'),
-      icon: <DeleteOutlined />,
-      danger: true,
-      onClick: () => onDelete(record._id),
-    },
-  ]
 
   const columns = [
     {
@@ -179,61 +145,217 @@ const AdminListingTable = ({
     {
       title: t('Actions'),
       key: 'actions',
-      width: 150,
-      render: (_, record) => (
-        <Space>
-          {record.status === 'underReview' && (
-            <Button
-              type="primary"
-              size="small"
-              icon={<CheckOutlined />}
-              onClick={() => onApprove(record._id)}
-            >
-              {t('admin.approve')}
-            </Button>
-          )}
-          <Button
-            size="small"
-            icon={
-              record.status === 'paused' ? (
-                <PlayCircleOutlined />
-              ) : (
-                <PauseCircleOutlined />
+      width: 250,
+      render: (_, record) => {
+        const getActionButtons = () => {
+          const buttons = []
+
+          // Ver detalles - siempre disponible
+          buttons.push(
+            <Tooltip title={t('admin.tooltip_view')} key="view">
+              <Button
+                size="small"
+                icon={<EyeOutlined />}
+                onClick={() =>
+                  router.push(
+                    `/${record.location?.province?.slug}/${record._id}`
+                  )
+                }
+              />
+            </Tooltip>
+          )
+
+          // Botones contextuales según el estado
+          switch (record.status) {
+            case 'underReview':
+              // Aprobar anuncio en revisión
+              buttons.push(
+                <Tooltip title={t('admin.tooltip_approve')} key="approve">
+                  <Button
+                    type="primary"
+                    size="small"
+                    icon={<CheckOutlined />}
+                    onClick={() => onApprove(record._id)}
+                  />
+                </Tooltip>
               )
-            }
-            onClick={() => onToggleStatus(record._id)}
-          >
-            {record.status === 'paused'
-              ? t('listingActions.Reactivate')
-              : t('listingActions.Pause')}
-          </Button>
-          <Dropdown
-            menu={{ items: getActionMenuItems(record) }}
-            trigger={['click']}
-          >
-            <Button size="small" icon={<MoreOutlined />} />
-          </Dropdown>
-        </Space>
-      ),
+              // Rechazar anuncio en revisión
+              buttons.push(
+                <Tooltip title={t('admin.tooltip_reject')} key="reject">
+                  <Button
+                    danger
+                    size="small"
+                    icon={<CloseOutlined />}
+                    onClick={() => {
+                      setRejectingListingId(record._id)
+                      setRejectModalVisible(true)
+                    }}
+                  />
+                </Tooltip>
+              )
+              break
+
+            case 'published':
+              // Bloquear anuncio publicado
+              buttons.push(
+                <Tooltip title={t('admin.tooltip_block')} key="block">
+                  <Button
+                    danger
+                    size="small"
+                    icon={<LockOutlined />}
+                    onClick={() => {
+                      setRejectingListingId(record._id)
+                      setBlockModalVisible(true)
+                    }}
+                  />
+                </Tooltip>
+              )
+              break
+
+            case 'paused':
+              // Reactivar anuncio pausado
+              buttons.push(
+                <Tooltip title={t('admin.tooltip_reactivate')} key="reactivate">
+                  <Button
+                    type="primary"
+                    size="small"
+                    icon={<PlayCircleOutlined />}
+                    onClick={() => onChangeStatus(record._id, 'published')}
+                  />
+                </Tooltip>
+              )
+              break
+
+            case 'rejected':
+            case 'blocked':
+              // Aprobar anuncio rechazado o bloqueado
+              buttons.push(
+                <Tooltip title={t('admin.tooltip_approve')} key="approve">
+                  <Button
+                    type="primary"
+                    size="small"
+                    icon={<CheckOutlined />}
+                    onClick={() => onApprove(record._id)}
+                  />
+                </Tooltip>
+              )
+              break
+          }
+
+          return buttons
+        }
+
+        return (
+          <Space size="small">
+            {getActionButtons()}
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: 'delete',
+                    icon: <DeleteOutlined />,
+                    label: t('admin.tooltip_delete'),
+                    danger: true,
+                    onClick: () => onDelete(record._id),
+                  },
+                ],
+              }}
+              trigger={['click']}
+            >
+              <Tooltip title="Más acciones">
+                <Button size="small" icon={<MoreOutlined />} />
+              </Tooltip>
+            </Dropdown>
+          </Space>
+        )
+      },
     },
   ]
 
+  const handleRejectConfirm = () => {
+    if (rejectingListingId) {
+      onChangeStatus(rejectingListingId, 'rejected', rejectionReason)
+      setRejectModalVisible(false)
+      setRejectingListingId(null)
+      setRejectionReason('')
+    }
+  }
+
+  const handleRejectCancel = () => {
+    setRejectModalVisible(false)
+    setRejectingListingId(null)
+    setRejectionReason('')
+  }
+
+  const handleBlockConfirm = () => {
+    if (rejectingListingId) {
+      onChangeStatus(rejectingListingId, 'blocked', blockReason)
+      setBlockModalVisible(false)
+      setRejectingListingId(null)
+      setBlockReason('')
+    }
+  }
+
+  const handleBlockCancel = () => {
+    setBlockModalVisible(false)
+    setRejectingListingId(null)
+    setBlockReason('')
+  }
+
   return (
-    <Table
-      columns={columns}
-      dataSource={listings}
-      rowKey="_id"
-      loading={loading}
-      pagination={{
-        ...pagination,
-        showSizeChanger: true,
-        showQuickJumper: true,
-        showTotal: (total, range) =>
-          `${range[0]}-${range[1]} ${t('of')} ${total} ${t('items')}`,
-      }}
-      onChange={onTableChange}
-      scroll={{ x: 1200 }}
-    />
+    <>
+      <Table
+        columns={columns}
+        dataSource={listings}
+        rowKey="_id"
+        loading={loading}
+        pagination={{
+          ...pagination,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, range) =>
+            `${range[0]}-${range[1]} ${t('of')} ${total} ${t('items')}`,
+        }}
+        onChange={onTableChange}
+        scroll={{ x: 1200 }}
+      />
+
+      <Modal
+        title={t('admin.reject_listing')}
+        open={rejectModalVisible}
+        onOk={handleRejectConfirm}
+        onCancel={handleRejectCancel}
+        okText={t('admin.reject')}
+        cancelText={t('common.cancel')}
+        okButtonProps={{ danger: true }}
+      >
+        <p>{t('admin.reject_listing_description')}</p>
+        <Input.TextArea
+          rows={4}
+          value={rejectionReason}
+          onChange={(e) => setRejectionReason(e.target.value)}
+          placeholder={t('admin.rejection_reason_placeholder')}
+        />
+      </Modal>
+
+      <Modal
+        title={t('admin.block_listing')}
+        open={blockModalVisible}
+        onOk={handleBlockConfirm}
+        onCancel={handleBlockCancel}
+        okText={t('admin.block')}
+        cancelText={t('common.cancel')}
+        okButtonProps={{ danger: true }}
+      >
+        <p>{t('admin.block_listing_description')}</p>
+        <Input.TextArea
+          rows={4}
+          value={blockReason}
+          onChange={(e) => setBlockReason(e.target.value)}
+          placeholder={t('admin.block_reason_placeholder')}
+        />
+      </Modal>
+    </>
   )
 }
 
